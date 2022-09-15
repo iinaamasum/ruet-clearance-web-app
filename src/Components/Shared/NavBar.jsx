@@ -7,7 +7,7 @@ import {
 } from '@material-tailwind/react';
 import { useEffect, useState } from 'react';
 
-export default function Example() {
+export default function NavBar() {
   const [openNav, setOpenNav] = useState(false);
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export default function Example() {
           variant="small"
           className="mr-4 cursor-pointer py-1.5 font-normal"
         >
-          <span>Material Tailwind</span>
+          <span>RUET Clearance System</span>
         </Typography>
         <div className="hidden lg:block">{navList}</div>
         <Button variant="gradient" size="sm" className="hidden lg:inline-block">

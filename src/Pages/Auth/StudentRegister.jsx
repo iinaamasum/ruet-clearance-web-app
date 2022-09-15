@@ -8,9 +8,9 @@ import {
 } from '@material-tailwind/react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import AlternativeNavbar from '../../Components/Shared/AlternativeNavbar';
+import NavBar from '../../Components/Shared/NavBar';
 
-export default function Login() {
+export default function StudentRegister() {
   const {
     register,
     handleSubmit,
@@ -22,8 +22,8 @@ export default function Login() {
   };
   return (
     <>
-      <AlternativeNavbar />
-      <section className="flex justify-center pt-[80px] px-2">
+      <NavBar />
+      <section className="flex justify-center pt-[96px] px-2">
         <Card className="w-full md:w-[800px] md:px-[32px]">
           <CardHeader
             variant="gradient"
