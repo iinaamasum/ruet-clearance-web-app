@@ -2,7 +2,6 @@ import {
   Button,
   IconButton,
   MobileNav,
-  Navbar,
   Typography,
 } from '@material-tailwind/react';
 import { useEffect, useState } from 'react';
@@ -63,16 +62,23 @@ export default function NavBar() {
   );
 
   return (
-    <Navbar className="mx-auto py-2 px-4 lg:px-8 lg:py-4 rounded-none">
-      <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
-        <Typography
-          as="a"
-          href="#"
-          variant="small"
-          className="mr-4 cursor-pointer py-1.5 font-normal"
+    <section
+      style={{
+        boxShadow: 'rgb(228 232 247 / 40%) 0px 0px 80px',
+      }}
+      className="w-full py-1 px-2 lg:px-8  bg-[rgba(255,255,255,0.86)]"
+    >
+      <div className="flex items-center justify-between text-blue-gray-900 max-w-[1024px] mx-auto">
+        <Link
+          to="/"
+          className="mr-4 cursor-pointer font-normal flex justify-center items-center"
         >
-          <span>RUET Clearance System</span>
-        </Typography>
+          <img
+            src={logo}
+            alt="ruet-logo"
+            className="h-12 w-14 md:h-16 md:w-20 mr-2"
+          />
+        </Link>
         <div className="hidden lg:block">{navList}</div>
         <Button variant="gradient" size="sm" className="hidden lg:inline-block">
           <span>Buy Now</span>
@@ -121,6 +127,6 @@ export default function NavBar() {
           <span>Buy Now</span>
         </Button>
       </MobileNav>
-    </Navbar>
+    </section>
   );
 }

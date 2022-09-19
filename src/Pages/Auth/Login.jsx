@@ -31,7 +31,7 @@ export default function Login() {
             className="mb-4 flex items-center justify-center h-28 text-center"
           >
             <Typography variant="h3" color="white" className="">
-              Welcome to RUET Clearance System
+              Welcome back to RUET Clearance System
             </Typography>
           </CardHeader>
 
@@ -114,9 +114,9 @@ export default function Login() {
               form="login-form"
               type="submit"
               variant="gradient"
-              className="mt-3"
+              className="mt-3 text-base md:text-lg py-2 capitalize tracking-wide"
             >
-              Sign In
+              Log In
             </Button>
             <div className="">
               <Typography variant="small" className="flex justify-center">
@@ -131,7 +131,7 @@ export default function Login() {
               <Typography variant="small" className="flex justify-center">
                 Don't have an account?
                 <Link
-                  to="/register"
+                  to="/register-student"
                   className="ml-1 font-bold text-blue-600 hover:underline"
                 >
                   Register Now

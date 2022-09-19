@@ -24,7 +24,7 @@ export default function AlternativeNavbar() {
         <Typography variant="small" className="flex justify-center">
           Don't have an account?
           <Link
-            to="/register"
+            to="/register-student"
             className="ml-1 font-bold text-blue-600 hover:underline"
           >
             Register Now
