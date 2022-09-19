@@ -6,9 +6,17 @@ import {
   Input,
   Typography,
 } from '@material-tailwind/react';
+import { useEffect } from 'react';
+import {
+  useAuthState,
+  useSignInWithEmailAndPassword,
+} from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import AlternativeNavbar from '../../Components/Shared/AlternativeNavbar';
+import LoadingComponent from '../../Components/Shared/LoadingComponent';
+import auth from '../../firebase.config.js';
 
 export default function Login() {
   const {
@@ -16,10 +24,27 @@ export default function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [signInWithEmailAndPassword, formUser, formLoading, formError] =
+    useSignInWithEmailAndPassword(auth);
+  const [user] = useAuthState(auth);
 
-  const onSubmit = (data) => {
-    alert('hi');
+  const onSubmit = async (data) => {
+    await signInWithEmailAndPassword(data.email, data.password);
+    toast.success('got u');
   };
+  useEffect(() => {
+    const currentUser = user || formUser;
+    if (currentUser) {
+      toast(JSON.stringify(currentUser));
+    }
+  }, [user, formUser]);
+
+  if (formLoading) {
+    return <LoadingComponent />;
+  }
+  if (formError) {
+    toast.error(formError.message);
+  }
   return (
     <>
       <AlternativeNavbar />

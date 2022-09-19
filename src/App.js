@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast';
 import { Route, Routes } from 'react-router-dom';
 import Login from './Pages/Auth/Login.jsx';
 import { ResetPassword } from './Pages/Auth/ResetPassword.jsx';
@@ -14,6 +15,7 @@ function App() {
         <Route path="/register-teacher" element={<TeacherRegister />} />
         <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
+      <Toaster position="top-right" reverseOrder={true} />
     </div>
   );
 }
