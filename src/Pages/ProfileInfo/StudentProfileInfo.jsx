@@ -7,11 +7,8 @@ import {
   Select,
   Typography,
 } from '@material-tailwind/react';
-import { useEffect, useState } from 'react';
-import {
-  useAuthState,
-  useCreateUserWithEmailAndPassword,
-} from 'react-firebase-hooks/auth';
+import { useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import AlternativeNavbar from '../../Components/Shared/AlternativeNavbar';
 import auth from '../../firebase.config';
@@ -21,7 +18,6 @@ const StudentProfileInfo = () => {
     register,
     handleSubmit,
     formState: { errors },
-    getValues,
   } = useForm();
   const [faculty, setFaculty] = useState('');
   const [dept, setDept] = useState('');
@@ -30,34 +26,22 @@ const StudentProfileInfo = () => {
     CE: ['CE', 'Arch', 'URP', 'BECM'],
     ME: ['ME', 'IPE', 'GCE', 'MTE', 'MSE', 'CFPE'],
   };
-
-  const [createUserWithEmailAndPassword, formUser, formLoading, formError] =
-    useCreateUserWithEmailAndPassword(auth);
   const [user] = useAuthState(auth);
 
-  const onSubmit = async (data) => {
-    await createUserWithEmailAndPassword(data.email, data.password);
+  const onSubmit = (data) => {
+    const userInfo = {
+      ...data,
+      faculty,
+      dept,
+      email: user.email,
+    };
+    alert(JSON.stringify(userInfo));
   };
-
-  useEffect(() => {
-    const currentUser = user || formUser;
-    if (currentUser) {
-      console.log(currentUser);
-    }
-  }, [user, formUser]);
-
-  if (formError) {
-    console.log(formError.message);
-  }
-
-  if (formLoading) {
-    return <p>loading</p>;
-  }
 
   return (
     <section className="overflow-hidden">
       <AlternativeNavbar>updateProfilePage</AlternativeNavbar>
-      <section className="flex justify-center py-[100px] md:pt-[115px] px-2">
+      <section className="flex justify-center pb-[20px] pt-[100px] md:pt-[115px] px-2">
         <Card className="w-full md:w-[800px] md:px-[32px]">
           <CardBody className="flex flex-col gap-4 w-full md:w-[80%] mx-auto">
             <Typography
@@ -148,10 +132,20 @@ const StudentProfileInfo = () => {
                       value: true,
                       message: '⚠ Series is required',
                     },
+                    pattern: {
+                      value: /^[0-9]{2}$/i,
+                      message:
+                        '⚠ Invalid series. Series example "19", "20", "18"',
+                    },
                   })}
                 />
                 <label className="text-xs flex absolute top-[44px] left-[3px]">
                   {errors.series?.type === 'required' && (
+                    <span className="label-text-alt text-red-600">
+                      {errors.series.message}
+                    </span>
+                  )}
+                  {errors.series?.type === 'pattern' && (
                     <span className="label-text-alt text-red-600">
                       {errors.series.message}
                     </span>
