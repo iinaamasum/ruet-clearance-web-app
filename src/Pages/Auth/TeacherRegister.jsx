@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import AlternativeNavbar from '../../Components/Shared/AlternativeNavbar';
 
-export default function StudentRegister() {
+export default function TeacherRegister() {
   const {
     register,
     handleSubmit,
@@ -22,16 +22,16 @@ export default function StudentRegister() {
   };
   return (
     <>
-      <AlternativeNavbar>studentRegPage</AlternativeNavbar>
+      <AlternativeNavbar>teacherRegPage</AlternativeNavbar>
       <section className="flex justify-center pt-[80px] px-2">
         <Card className="w-full md:w-[800px] md:px-[32px]">
           <CardHeader
             variant="gradient"
-            color="blue"
+            color="green"
             className="mb-4 flex items-center justify-center h-28 text-center"
           >
             <Typography variant="h3" color="white" className="">
-              Register as a Student
+              Register as a Teacher
             </Typography>
           </CardHeader>
 
@@ -145,6 +145,7 @@ export default function StudentRegister() {
             <Button
               form="login-form"
               type="submit"
+              color="green"
               variant="gradient"
               className="mt-3 text-base md:text-lg py-2 capitalize tracking-wide"
             >

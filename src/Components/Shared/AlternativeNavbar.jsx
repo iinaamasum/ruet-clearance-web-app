@@ -2,7 +2,8 @@ import { Typography } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo/logo.png';
 
-export default function AlternativeNavbar() {
+export default function AlternativeNavbar({ children }) {
+  console.log(children);
   return (
     <section
       style={{
@@ -21,15 +22,46 @@ export default function AlternativeNavbar() {
             className="h-12 w-14 md:h-16 md:w-20 mr-2"
           />
         </Link>
-        <Typography variant="small" className="flex justify-center">
-          Don't have an account?
-          <Link
-            to="/register-student"
-            className="ml-1 font-bold text-blue-600 hover:underline"
-          >
-            Register Now
-          </Link>
-        </Typography>
+
+        {children === 'studentRegPage' ? (
+          <>
+            <Typography variant="small" className="flex justify-center">
+              Want to join as Teacher?
+              <Link
+                to="/register-teacher"
+                className="ml-1 font-bold text-blue-600 hover:underline"
+              >
+                Teacher Registration
+              </Link>
+            </Typography>
+          </>
+        ) : children === 'teacherRegPage' ? (
+          <>
+            <Typography variant="small" className="flex justify-center">
+              Want to join as Student?
+              <Link
+                to="/register-student"
+                className="ml-1 font-bold text-blue-600 hover:underline"
+              >
+                Student Registration
+              </Link>
+            </Typography>
+          </>
+        ) : (
+          <>
+            <>
+              <Typography variant="small" className="flex justify-center">
+                Don't have an account?
+                <Link
+                  to="/register-student"
+                  className="ml-1 font-bold text-blue-600 hover:underline"
+                >
+                  Register Now
+                </Link>
+              </Typography>
+            </>
+          </>
+        )}
       </div>
     </section>
   );
