@@ -6,11 +6,12 @@ import {
   Input,
   Typography,
 } from '@material-tailwind/react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import AlternativeNavbar from '../../Components/Shared/AlternativeNavbar';
 
-export default function StudentRegister() {
+export const ResetPassword = () => {
   const {
     register,
     handleSubmit,
@@ -21,17 +22,17 @@ export default function StudentRegister() {
     alert('hi');
   };
   return (
-    <>
-      <AlternativeNavbar>studentRegPage</AlternativeNavbar>
+    <section>
+      <AlternativeNavbar />
       <section className="flex justify-center pt-[80px] px-2">
         <Card className="w-full md:w-[800px] md:px-[32px]">
           <CardHeader
             variant="gradient"
-            color="blue"
+            color="red"
             className="mb-4 flex items-center justify-center h-28 text-center"
           >
             <Typography variant="h3" color="white" className="">
-              Register as a Student
+              Reset Password
             </Typography>
           </CardHeader>
 
@@ -41,7 +42,7 @@ export default function StudentRegister() {
               color="initial"
               className="text-center my-2 md:my-4"
             >
-              Registration
+              Reset Form
             </Typography>
             <form
               id="login-form"
@@ -53,6 +54,7 @@ export default function StudentRegister() {
                 <Input
                   label="Email"
                   size="lg"
+                  color="red"
                   autoComplete="off"
                   className="bg-secondaryWhite"
                   {...register('email', {
@@ -79,87 +81,17 @@ export default function StudentRegister() {
                   )}
                 </label>
               </div>
-              {/* password section  */}
-              <div className="mt-[24px] relative">
-                <Input
-                  label="Password"
-                  size="lg"
-                  autoComplete="off"
-                  className="bg-secondaryWhite"
-                  {...register('password', {
-                    required: {
-                      value: true,
-                      message: 'Password is required.',
-                    },
-                    pattern: {
-                      value: /(?=.*[!#$%&?^*@~() "])(?=.{8,})/,
-                      message: 'Invalid Email Provided !!!',
-                    },
-                  })}
-                />
-                <label className="text-xs flex absolute top-[44px] left-[3px]">
-                  {errors.password?.type === 'required' && (
-                    <span className="label-text-alt text-red-500">
-                      {errors.password.message}
-                    </span>
-                  )}
-                  {errors.password?.type === 'pattern' && (
-                    <span className="label-text-alt text-red-500">
-                      {errors.password.message}
-                    </span>
-                  )}
-                </label>
-              </div>
-              {/* confirm password section  */}
-              <div className="mt-[24px] relative">
-                <Input
-                  label="Confirm Password"
-                  size="lg"
-                  autoComplete="off"
-                  className="bg-secondaryWhite"
-                  {...register('c_password', {
-                    required: {
-                      value: true,
-                      message: 'Password is required.',
-                    },
-                    pattern: {
-                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i,
-                      message: 'Invalid Email Provided !!!',
-                    },
-                  })}
-                />
-                <label className="text-xs flex absolute top-[44px] left-[3px]">
-                  {errors.c_password?.type === 'required' && (
-                    <span className="label-text-alt text-red-500">
-                      {errors.c_password.message}
-                    </span>
-                  )}
-                  {errors.c_password?.type === 'pattern' && (
-                    <span className="label-text-alt text-red-500">
-                      {errors.c_password.message}
-                    </span>
-                  )}
-                </label>
-              </div>
             </form>
             <Button
               form="login-form"
               type="submit"
               variant="gradient"
+              color="red"
               className="mt-3 text-base md:text-lg py-2 capitalize tracking-wide"
             >
-              Register
+              Reset Password
             </Button>
             <div className="">
-              <Typography variant="small" className="flex justify-center">
-                Forgot password?
-                <Link
-                  to="/reset-password"
-                  className="ml-1 font-bold text-blue-600 hover:underline"
-                >
-                  Reset Password
-                </Link>
-              </Typography>
               <Typography variant="small" className="flex justify-center">
                 Already have an account?
                 <Link
@@ -169,10 +101,19 @@ export default function StudentRegister() {
                   LogIn Now
                 </Link>
               </Typography>
+              <Typography variant="small" className="flex justify-center">
+                Don't have an account?
+                <Link
+                  to="/register-student"
+                  className="ml-1 font-bold text-blue-600 hover:underline"
+                >
+                  Register Now
+                </Link>
+              </Typography>
             </div>
           </CardBody>
         </Card>
       </section>
-    </>
+    </section>
   );
-}
+};

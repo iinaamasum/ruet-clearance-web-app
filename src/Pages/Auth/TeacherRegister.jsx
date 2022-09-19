@@ -162,12 +162,12 @@ export default function TeacherRegister() {
                 </Link>
               </Typography>
               <Typography variant="small" className="flex justify-center">
-                Don't have an account?
+                Already have an account?
                 <Link
                   to="/"
                   className="ml-1 font-bold text-blue-600 hover:underline"
                 >
-                  Log In Now
+                  LogIn Now
                 </Link>
               </Typography>
             </div>
