@@ -70,12 +70,12 @@ export const ResetPassword = () => {
                 />
                 <label className="text-xs flex absolute top-[44px] left-[3px]">
                   {errors.email?.type === 'required' && (
-                    <span className="label-text-alt text-red-500">
+                    <span className="label-text-alt text-red-600">
                       {errors.email.message}
                     </span>
                   )}
                   {errors.email?.type === 'pattern' && (
-                    <span className="label-text-alt text-red-500">
+                    <span className="label-text-alt text-red-600">
                       {errors.email.message}
                     </span>
                   )}

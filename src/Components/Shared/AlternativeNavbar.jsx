@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import logo from '../../assets/logo/logo.png';
 
 export default function AlternativeNavbar({ children }) {
-  console.log(children);
   return (
     <section
       style={{
@@ -25,7 +24,10 @@ export default function AlternativeNavbar({ children }) {
 
         {children === 'studentRegPage' ? (
           <>
-            <Typography variant="small" className="flex justify-center">
+            <Typography
+              variant="small"
+              className="flex justify-center text-[12px] xsm:text-base"
+            >
               Want to join as Teacher?
               <Link
                 to="/register-teacher"
@@ -37,7 +39,10 @@ export default function AlternativeNavbar({ children }) {
           </>
         ) : children === 'teacherRegPage' ? (
           <>
-            <Typography variant="small" className="flex justify-center">
+            <Typography
+              variant="small"
+              className="flex justify-center text-[12px] xsm:text-base"
+            >
               Want to join as Student?
               <Link
                 to="/register-student"
@@ -50,7 +55,10 @@ export default function AlternativeNavbar({ children }) {
         ) : (
           <>
             <>
-              <Typography variant="small" className="flex justify-center">
+              <Typography
+                variant="small"
+                className="flex justify-center text-[12px] xsm:text-base"
+              >
                 Don't have an account?
                 <Link
                   to="/register-student"

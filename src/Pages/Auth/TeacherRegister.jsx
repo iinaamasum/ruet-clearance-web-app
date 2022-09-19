@@ -15,10 +15,11 @@ export default function TeacherRegister() {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm();
 
   const onSubmit = (data) => {
-    alert('hi');
+    console.log(data);
   };
   return (
     <>
@@ -44,7 +45,7 @@ export default function TeacherRegister() {
               Registration
             </Typography>
             <form
-              id="login-form"
+              id="register-teacher"
               onSubmit={handleSubmit(onSubmit)}
               className=""
             >
@@ -58,22 +59,22 @@ export default function TeacherRegister() {
                   {...register('email', {
                     required: {
                       value: true,
-                      message: 'Please enter a valid email address.',
+                      message: '⚠ Please enter a valid email address.',
                     },
                     pattern: {
                       value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i,
-                      message: 'Invalid Email Provided !!!',
+                      message: '⚠ Invalid Email Provided',
                     },
                   })}
                 />
                 <label className="text-xs flex absolute top-[44px] left-[3px]">
                   {errors.email?.type === 'required' && (
-                    <span className="label-text-alt text-red-500">
+                    <span className="label-text-alt text-red-600">
                       {errors.email.message}
                     </span>
                   )}
                   {errors.email?.type === 'pattern' && (
-                    <span className="label-text-alt text-red-500">
+                    <span className="label-text-alt text-red-600">
                       {errors.email.message}
                     </span>
                   )}
@@ -89,22 +90,23 @@ export default function TeacherRegister() {
                   {...register('password', {
                     required: {
                       value: true,
-                      message: 'Password is required.',
+                      message: '⚠ Password is required.',
                     },
                     pattern: {
                       value: /(?=.*[!#$%&?^*@~() "])(?=.{8,})/,
-                      message: 'Invalid Email Provided !!!',
+                      message:
+                        '⚠ Password length should be 8 including a special char',
                     },
                   })}
                 />
                 <label className="text-xs flex absolute top-[44px] left-[3px]">
                   {errors.password?.type === 'required' && (
-                    <span className="label-text-alt text-red-500">
+                    <span className="label-text-alt text-red-600">
                       {errors.password.message}
                     </span>
                   )}
                   {errors.password?.type === 'pattern' && (
-                    <span className="label-text-alt text-red-500">
+                    <span className="label-text-alt text-red-600">
                       {errors.password.message}
                     </span>
                   )}
@@ -120,22 +122,24 @@ export default function TeacherRegister() {
                   {...register('c_password', {
                     required: {
                       value: true,
-                      message: 'Password is required.',
+                      message: '⚠ Confirm Password is required',
                     },
-                    pattern: {
-                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i,
-                      message: 'Invalid Email Provided !!!',
+                    validate: (val) => {
+                      const { password } = getValues();
+                      if (password !== val) {
+                        return '⚠ Your passwords do no match';
+                      }
                     },
                   })}
                 />
                 <label className="text-xs flex absolute top-[44px] left-[3px]">
                   {errors.c_password?.type === 'required' && (
-                    <span className="label-text-alt text-red-500">
+                    <span className="label-text-alt text-red-600">
                       {errors.c_password.message}
                     </span>
                   )}
-                  {errors.c_password?.type === 'pattern' && (
-                    <span className="label-text-alt text-red-500">
+                  {errors.c_password?.type === 'validate' && (
+                    <span className="label-text-alt text-red-600">
                       {errors.c_password.message}
                     </span>
                   )}
@@ -143,7 +147,7 @@ export default function TeacherRegister() {
               </div>
             </form>
             <Button
-              form="login-form"
+              form="register-teacher"
               type="submit"
               color="green"
               variant="gradient"

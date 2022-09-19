@@ -58,29 +58,29 @@ export default function Login() {
                   {...register('email', {
                     required: {
                       value: true,
-                      message: 'Please enter a valid email address.',
+                      message: '⚠ Please enter a valid email address.',
                     },
                     pattern: {
                       value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i,
-                      message: 'Invalid Email Provided !!!',
+                      message: '⚠ Invalid Email Provided',
                     },
                   })}
                 />
-                <label className="text-xs flex absolute top-[43px] left-[3px]">
+                <label className="text-xs flex absolute top-[44px] left-[3px]">
                   {errors.email?.type === 'required' && (
-                    <span className="label-text-alt text-red-500">
+                    <span className="label-text-alt text-red-600">
                       {errors.email.message}
                     </span>
                   )}
                   {errors.email?.type === 'pattern' && (
-                    <span className="label-text-alt text-red-500">
+                    <span className="label-text-alt text-red-600">
                       {errors.email.message}
                     </span>
                   )}
                 </label>
               </div>
               {/* password section  */}
-              <div className="mt-[22px] relative">
+              <div className="mt-[24px] relative">
                 <Input
                   label="Password"
                   size="lg"
@@ -88,22 +88,23 @@ export default function Login() {
                   {...register('password', {
                     required: {
                       value: true,
-                      message: 'Password is required.',
+                      message: '⚠ Password is required.',
                     },
                     pattern: {
-                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i,
-                      message: 'Invalid Email Provided !!!',
+                      value: /(?=.*[!#$%&?^*@~() "])(?=.{8,})/,
+                      message:
+                        '⚠ Password length should be 8 including a special char',
                     },
                   })}
                 />
-                <label className="text-xs flex absolute top-[43px] left-[3px]">
+                <label className="text-xs flex absolute top-[44px] left-[3px]">
                   {errors.password?.type === 'required' && (
-                    <span className="label-text-alt text-red-500">
+                    <span className="label-text-alt text-red-600">
                       {errors.password.message}
                     </span>
                   )}
                   {errors.password?.type === 'pattern' && (
-                    <span className="label-text-alt text-red-500">
+                    <span className="label-text-alt text-red-600">
                       {errors.password.message}
                     </span>
                   )}
