@@ -13,7 +13,7 @@ import {
 } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AlternativeNavbar from '../../Components/Shared/AlternativeNavbar';
 import LoadingComponent from '../../Components/Shared/LoadingComponent';
 import auth from '../../firebase.config.js';
@@ -27,6 +27,7 @@ export default function Login() {
   const [signInWithEmailAndPassword, formUser, formLoading, formError] =
     useSignInWithEmailAndPassword(auth);
   const [user] = useAuthState(auth);
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     await signInWithEmailAndPassword(data.email, data.password);
@@ -35,9 +36,9 @@ export default function Login() {
   useEffect(() => {
     const currentUser = user || formUser;
     if (currentUser) {
-      toast(JSON.stringify(currentUser));
+      navigate('/student-profile-update');
     }
-  }, [user, formUser]);
+  }, [user, formUser, navigate]);
 
   if (formLoading) {
     return <LoadingComponent />;
