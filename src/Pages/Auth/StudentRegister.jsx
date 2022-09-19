@@ -6,9 +6,15 @@ import {
   Input,
   Typography,
 } from '@material-tailwind/react';
+import { useEffect } from 'react';
+import {
+  useAuthState,
+  useCreateUserWithEmailAndPassword,
+} from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import AlternativeNavbar from '../../Components/Shared/AlternativeNavbar';
+import auth from '../../firebase.config';
 
 export default function StudentRegister() {
   const {
@@ -18,9 +24,28 @@ export default function StudentRegister() {
     getValues,
   } = useForm();
 
-  const onSubmit = (data) => {
-    alert(JSON.stringify(data));
+  const [createUserWithEmailAndPassword, formUser, formLoading, formError] =
+    useCreateUserWithEmailAndPassword(auth);
+  const [user] = useAuthState(auth);
+
+  const onSubmit = async (data) => {
+    await createUserWithEmailAndPassword(data.email, data.password);
   };
+
+  useEffect(() => {
+    const currentUser = user || formUser;
+    if (currentUser) {
+      console.log(currentUser);
+    }
+  }, [user, formUser]);
+
+  if (formError) {
+    console.log(formError.message);
+  }
+
+  if (formLoading) {
+    return <p>loading</p>;
+  }
   return (
     <>
       <AlternativeNavbar>studentRegPage</AlternativeNavbar>
