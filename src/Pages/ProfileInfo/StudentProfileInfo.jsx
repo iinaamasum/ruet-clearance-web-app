@@ -13,7 +13,6 @@ import {
   useCreateUserWithEmailAndPassword,
 } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 import AlternativeNavbar from '../../Components/Shared/AlternativeNavbar';
 import auth from '../../firebase.config';
 
@@ -54,10 +53,11 @@ const StudentProfileInfo = () => {
   if (formLoading) {
     return <p>loading</p>;
   }
+
   return (
     <section className="overflow-hidden">
-      <AlternativeNavbar>studentRegPage</AlternativeNavbar>
-      <section className="flex justify-center pt-[80px] px-2">
+      <AlternativeNavbar>updateProfilePage</AlternativeNavbar>
+      <section className="flex justify-center py-[100px] md:pt-[115px] px-2">
         <Card className="w-full md:w-[800px] md:px-[32px]">
           <CardBody className="flex flex-col gap-4 w-full md:w-[80%] mx-auto">
             <Typography
@@ -135,35 +135,89 @@ const StudentProfileInfo = () => {
                   )}
                 </Select>
               </div>
-              {/* confirm password section  */}
+              {/* series input section  */}
               <div className="mt-[24px] relative">
                 <Input
-                  label="Confirm Password"
+                  label="Series (Example 19)"
                   size="lg"
                   autoComplete="off"
+                  type="number"
                   className="bg-secondaryWhite"
-                  {...register('c_password', {
+                  {...register('series', {
                     required: {
                       value: true,
-                      message: '⚠ Confirm Password is required',
-                    },
-                    validate: (val) => {
-                      const { password } = getValues();
-                      if (password !== val) {
-                        return '⚠ Your passwords do no match';
-                      }
+                      message: '⚠ Series is required',
                     },
                   })}
                 />
                 <label className="text-xs flex absolute top-[44px] left-[3px]">
-                  {errors.c_password?.type === 'required' && (
+                  {errors.series?.type === 'required' && (
                     <span className="label-text-alt text-red-600">
-                      {errors.c_password.message}
+                      {errors.series.message}
                     </span>
                   )}
-                  {errors.c_password?.type === 'validate' && (
+                </label>
+              </div>
+              {/* Roll input section  */}
+              <div className="mt-[24px] relative">
+                <Input
+                  label="Student Roll"
+                  size="lg"
+                  autoComplete="off"
+                  type="number"
+                  className="bg-secondaryWhite"
+                  {...register('roll', {
+                    required: {
+                      value: true,
+                      message: '⚠ Roll number is required',
+                    },
+                    pattern: {
+                      value: /^[0-9]{6,7}$/i,
+                      message: '⚠ Invalid Roll Number Provided',
+                    },
+                  })}
+                />
+                <label className="text-xs flex absolute top-[44px] left-[3px]">
+                  {errors.roll?.type === 'required' && (
                     <span className="label-text-alt text-red-600">
-                      {errors.c_password.message}
+                      {errors.roll.message}
+                    </span>
+                  )}
+                  {errors.roll?.type === 'pattern' && (
+                    <span className="label-text-alt text-red-600">
+                      {errors.roll.message}
+                    </span>
+                  )}
+                </label>
+              </div>
+              {/* Contact number input section  */}
+              <div className="mt-[24px] relative">
+                <Input
+                  label="Contact Number"
+                  size="lg"
+                  autoComplete="off"
+                  type="number"
+                  className="bg-secondaryWhite"
+                  {...register('contact_number', {
+                    required: {
+                      value: true,
+                      message: '⚠ Contact number is required',
+                    },
+                    pattern: {
+                      value: /^[0-9]{11}$/i,
+                      message: '⚠ Provide 11 digits cell number',
+                    },
+                  })}
+                />
+                <label className="text-xs flex absolute top-[44px] left-[3px]">
+                  {errors.contact_number?.type === 'required' && (
+                    <span className="label-text-alt text-red-600">
+                      {errors.contact_number.message}
+                    </span>
+                  )}
+                  {errors.contact_number?.type === 'pattern' && (
+                    <span className="label-text-alt text-red-600">
+                      {errors.contact_number.message}
                     </span>
                   )}
                 </label>
@@ -176,30 +230,10 @@ const StudentProfileInfo = () => {
               style={{
                 background: '#263238e8',
               }}
-              className="mt-3 text-base md:text-lg py-2 capitalize tracking-wide"
+              className="mt-3 text-base md:text-lg py-2 capitalize tracking-wide mb-4"
             >
-              Register
+              Update Info
             </Button>
-            <div className="">
-              <Typography variant="small" className="flex justify-center">
-                Forgot password?
-                <Link
-                  to="/reset-password"
-                  className="ml-1 font-bold text-blue-600 hover:underline"
-                >
-                  Reset Password
-                </Link>
-              </Typography>
-              <Typography variant="small" className="flex justify-center">
-                Already have an account?
-                <Link
-                  to="/"
-                  className="ml-1 font-bold text-blue-600 hover:underline"
-                >
-                  LogIn Now
-                </Link>
-              </Typography>
-            </div>
           </CardBody>
         </Card>
       </section>

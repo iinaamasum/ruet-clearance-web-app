@@ -66,7 +66,7 @@ export default function NavBar() {
       style={{
         boxShadow: 'rgb(228 232 247 / 40%) 0px 0px 80px',
       }}
-      className="w-full py-1 px-2 lg:px-8  bg-[rgba(255,255,255,0.86)]"
+      className="w-full py-1 px-2 lg:px-8  bg-[rgba(255,255,255,0.86)] fixed top-0 z-50"
     >
       <div className="flex items-center justify-between text-blue-gray-900 max-w-[1024px] mx-auto">
         <Link

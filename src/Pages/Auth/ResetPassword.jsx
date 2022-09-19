@@ -24,7 +24,7 @@ export const ResetPassword = () => {
   return (
     <section>
       <AlternativeNavbar />
-      <section className="flex justify-center pt-[80px] px-2">
+      <section className="flex justify-center pt-[100px] md:pt-[135px] px-2">
         <Card className="w-full md:w-[800px] md:px-[32px]">
           <CardHeader
             variant="gradient"

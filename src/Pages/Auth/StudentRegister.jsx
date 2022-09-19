@@ -49,11 +49,10 @@ export default function StudentRegister() {
   return (
     <>
       <AlternativeNavbar>studentRegPage</AlternativeNavbar>
-      <section className="flex justify-center pt-[80px] px-2">
+      <section className="flex justify-center pt-[100px] md:pt-[135px] px-2">
         <Card className="w-full md:w-[800px] md:px-[32px]">
           <CardHeader
             variant="gradient"
-            // color="blue"
             className="mb-4 flex items-center justify-center h-28 text-center bg-[#263238e8]"
           >
             <Typography variant="h3" color="white" className="">
