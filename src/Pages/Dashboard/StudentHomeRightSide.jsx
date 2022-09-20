@@ -6,6 +6,7 @@ import {
   TabsHeader,
   Typography,
 } from '@material-tailwind/react';
+import Home from './Home';
 import './StudentHome.css';
 
 const StudentHomeRightSide = () => {
@@ -13,9 +14,7 @@ const StudentHomeRightSide = () => {
     {
       label: 'Home',
       value: 'home',
-      desc: `It really matters and then like it really doesn't matter.
-        What matters is the people who are sparked by it. And the people 
-        who are like offended by it, it doesn't matter.`,
+      desc: `${Home}`,
     },
     {
       label: 'Applied',
@@ -49,7 +48,7 @@ const StudentHomeRightSide = () => {
   ];
 
   return (
-    <Tabs className="" id="custom-animation" value="home">
+    <Tabs className="px-4" id="custom-animation" value="home">
       <div className="my-5">
         <Typography variant="h2" className="name__text__gradient">
           Welcome to RUET Clearance System
@@ -71,11 +70,9 @@ const StudentHomeRightSide = () => {
           unmount: { y: 250 },
         }}
       >
-        {data.map(({ value, desc }) => (
-          <TabPanel key={value} value={value}>
-            {desc}
-          </TabPanel>
-        ))}
+        <TabPanel value="home">
+          <Home />
+        </TabPanel>
       </TabsBody>
     </Tabs>
   );

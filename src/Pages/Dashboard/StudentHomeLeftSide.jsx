@@ -9,7 +9,7 @@ const StudentHomeLeftSide = () => {
       style={{
         boxShadow: 'rgb(228 232 247 / 60%) 5px 0px 80px',
       }}
-      className="flex-col items-center hidden md:block md:w-[300px] lg:w-[450px] min-h-screen bg-[#dddeee4d]"
+      className="flex-col items-center hidden md:block md:w-[300px] lg:w-[400px] min-h-screen bg-[#dddeee4d]"
     >
       <div className="flex flex-col items-center justify-center mb-10 w-full">
         <img className="w-32 h-32 rounded-full bg-white" src={student} alt="" />
