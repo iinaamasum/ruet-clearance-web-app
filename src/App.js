@@ -1,5 +1,6 @@
 import { Toaster } from 'react-hot-toast';
 import { Route, Routes } from 'react-router-dom';
+import Error404 from './Components/Shared/Error404.jsx';
 import Login from './Pages/Auth/Login.jsx';
 import { ResetPassword } from './Pages/Auth/ResetPassword.jsx';
 import StudentRegister from './Pages/Auth/StudentRegister.jsx';
@@ -26,6 +27,7 @@ function App() {
           element={<TeacherProfileInfo />}
         />
         <Route path="/student-dashboard" element={<StudentHome />} />
+        <Route path="*" element={<Error404 />} />
       </Routes>
       <Toaster
         position="top-right"
