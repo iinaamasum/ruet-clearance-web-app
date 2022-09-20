@@ -39,6 +39,92 @@ const StudentProfileInfo = () => {
       faculty,
       dept,
       email: user.email,
+      deptClearance: [
+        {
+          department: 'CSE',
+          rejection: false,
+          approved: false,
+          applied: false,
+        },
+        {
+          department: 'EEE',
+          rejection: false,
+          approved: false,
+          applied: false,
+        },
+        {
+          department: 'ECE',
+          rejection: false,
+          approved: false,
+          applied: false,
+        },
+        {
+          department: 'ETE',
+          rejection: false,
+          approved: false,
+          applied: false,
+        },
+        {
+          department: 'CE',
+          rejection: false,
+          approved: false,
+          applied: false,
+        },
+        {
+          department: 'Arch',
+          rejection: false,
+          approved: false,
+          applied: false,
+        },
+        {
+          department: 'URP',
+          rejection: false,
+          approved: false,
+          applied: false,
+        },
+        {
+          department: 'BECM',
+          rejection: false,
+          approved: false,
+          applied: false,
+        },
+        {
+          department: 'ME',
+          rejection: false,
+          approved: false,
+          applied: false,
+        },
+        {
+          department: 'IPE',
+          rejection: false,
+          approved: false,
+          applied: false,
+        },
+        {
+          department: 'GCE',
+          rejection: false,
+          approved: false,
+          applied: false,
+        },
+        {
+          department: 'MTE',
+          rejection: false,
+          approved: false,
+          applied: false,
+        },
+        {
+          department: 'MSE',
+          rejection: false,
+          approved: false,
+          applied: false,
+        },
+        {
+          department: 'CFPE',
+          rejection: false,
+          approved: false,
+          applied: false,
+        },
+      ],
     };
     alert(JSON.stringify(userInfo));
   };
