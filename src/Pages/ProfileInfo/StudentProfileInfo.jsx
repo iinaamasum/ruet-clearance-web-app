@@ -124,6 +124,30 @@ const StudentProfileInfo = () => {
           approved: false,
           applied: false,
         },
+        {
+          department: 'Chem',
+          rejection: false,
+          approved: false,
+          applied: false,
+        },
+        {
+          department: 'Math',
+          rejection: false,
+          approved: false,
+          applied: false,
+        },
+        {
+          department: 'Phy',
+          rejection: false,
+          approved: false,
+          applied: false,
+        },
+        {
+          department: 'Hum',
+          rejection: false,
+          approved: false,
+          applied: false,
+        },
       ],
     };
     alert(JSON.stringify(userInfo));

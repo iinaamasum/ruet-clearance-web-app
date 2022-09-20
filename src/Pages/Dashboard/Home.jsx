@@ -86,6 +86,30 @@ const Home = () => {
       approved: false,
       applied: false,
     },
+    {
+      department: 'Chem',
+      rejection: false,
+      approved: false,
+      applied: false,
+    },
+    {
+      department: 'Math',
+      rejection: false,
+      approved: false,
+      applied: false,
+    },
+    {
+      department: 'Phy',
+      rejection: false,
+      approved: false,
+      applied: false,
+    },
+    {
+      department: 'Hum',
+      rejection: false,
+      approved: false,
+      applied: false,
+    },
   ];
 
   const allHall = [
@@ -133,12 +157,38 @@ const Home = () => {
       applied: false,
     },
   ];
+  const adminBuilding = [
+    {
+      branchName: 'Administrative Branch',
+      rejection: false,
+      approved: false,
+      applied: false,
+    },
+    {
+      branchName: 'Accounts Branch',
+      rejection: false,
+      approved: false,
+      applied: false,
+    },
+    {
+      branchName: 'Education Branch',
+      rejection: false,
+      approved: false,
+      applied: false,
+    },
+    {
+      branchName: 'Student Welfare',
+      rejection: false,
+      approved: false,
+      applied: false,
+    },
+  ];
 
   return (
     <>
       <Card className="w-full px-4 py-2">
         <Typography variant="h4" className="my-3">
-          Request for Faculty Clearance
+          Request for Dept. Clearance
         </Typography>
         <div className="flex justify-start flex-wrap gap-x-3 gap-y-2">
           {allDept.map((dept, i) => (
@@ -156,7 +206,7 @@ const Home = () => {
       </Card>
       <Card className="w-full px-4 py-2 my-5">
         <Typography variant="h4" className="my-3">
-          Request for Faculty Clearance
+          Request for Hall Clearance
         </Typography>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2 gap-y-2">
           {allHall.map((hall, i) => (
@@ -168,6 +218,28 @@ const Home = () => {
                 className="px-2"
               >
                 {hall.hallName}
+              </Button>
+            </Tooltip>
+          ))}
+        </div>
+      </Card>
+      <Card className="w-full px-4 py-2 my-5">
+        <Typography variant="h4" className="my-3">
+          Request for Administrative Clearance
+        </Typography>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2 gap-y-2">
+          {adminBuilding.map((branch, i) => (
+            <Tooltip
+              key={i}
+              content={`Click to Apply for ${branch.branchName}`}
+            >
+              <Button
+                color={`${
+                  i % 3 === 0 ? 'blue' : i % 3 === 1 ? 'red' : 'green'
+                }`}
+                className="px-2"
+              >
+                {branch.branchName}
               </Button>
             </Tooltip>
           ))}

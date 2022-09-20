@@ -48,7 +48,7 @@ const StudentHomeRightSide = () => {
   ];
 
   return (
-    <Tabs className="px-4" id="custom-animation" value="home">
+    <Tabs className="px-4 w-full" id="custom-animation" value="home">
       <div className="my-5">
         <Typography variant="h2" className="name__text__gradient">
           Welcome to RUET Clearance System
@@ -57,7 +57,7 @@ const StudentHomeRightSide = () => {
           Hello, <span className="text-orange-600">Md. Masum</span>{' '}
         </Typography>
       </div>
-      <TabsHeader>
+      <TabsHeader className="">
         {data.map(({ label, value }) => (
           <Tab key={value} value={value}>
             {label}
