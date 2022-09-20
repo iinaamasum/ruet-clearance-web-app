@@ -5,6 +5,7 @@ import { ResetPassword } from './Pages/Auth/ResetPassword.jsx';
 import StudentRegister from './Pages/Auth/StudentRegister.jsx';
 import TeacherRegister from './Pages/Auth/TeacherRegister.jsx';
 import StudentProfileInfo from './Pages/ProfileInfo/StudentProfileInfo.jsx';
+import TeacherProfileInfo from './Pages/ProfileInfo/TeacherProfileInfo.jsx';
 
 function App() {
   return (
@@ -19,8 +20,31 @@ function App() {
           path="/student-profile-update"
           element={<StudentProfileInfo />}
         />
+        <Route
+          path="/teacher-profile-update"
+          element={<TeacherProfileInfo />}
+        />
       </Routes>
-      <Toaster position="top-right" reverseOrder={true} />
+      <Toaster
+        position="top-right"
+        reverseOrder={true}
+        toastOptions={{
+          success: {
+            style: {
+              background: 'green',
+              color: 'white',
+              fontWeight: 600,
+            },
+          },
+          error: {
+            style: {
+              background: 'red',
+              color: 'white',
+              fontWeight: 600,
+            },
+          },
+        }}
+      />
     </div>
   );
 }

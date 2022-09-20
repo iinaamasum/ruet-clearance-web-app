@@ -14,7 +14,7 @@ import toast from 'react-hot-toast';
 import AlternativeNavbar from '../../Components/Shared/AlternativeNavbar';
 import auth from '../../firebase.config';
 
-const StudentProfileInfo = () => {
+const TeacherProfileInfo = () => {
   const {
     register,
     handleSubmit,
@@ -124,71 +124,6 @@ const StudentProfileInfo = () => {
                   )}
                 </Select>
               </div>
-              {/* series input section  */}
-              <div className="mt-[24px] relative">
-                <Input
-                  label="Series (Example 19)"
-                  size="lg"
-                  autoComplete="off"
-                  type="number"
-                  className="bg-secondaryWhite"
-                  {...register('series', {
-                    required: {
-                      value: true,
-                      message: '⚠ Series is required',
-                    },
-                    pattern: {
-                      value: /^[0-9]{2}$/i,
-                      message:
-                        '⚠ Invalid series. Series example "19", "20", "18"',
-                    },
-                  })}
-                />
-                <label className="text-xs flex absolute top-[44px] left-[3px]">
-                  {errors.series?.type === 'required' && (
-                    <span className="label-text-alt text-red-600">
-                      {errors.series.message}
-                    </span>
-                  )}
-                  {errors.series?.type === 'pattern' && (
-                    <span className="label-text-alt text-red-600">
-                      {errors.series.message}
-                    </span>
-                  )}
-                </label>
-              </div>
-              {/* Roll input section  */}
-              <div className="mt-[24px] relative">
-                <Input
-                  label="Student Roll"
-                  size="lg"
-                  autoComplete="off"
-                  type="number"
-                  className="bg-secondaryWhite"
-                  {...register('roll', {
-                    required: {
-                      value: true,
-                      message: '⚠ Roll number is required',
-                    },
-                    pattern: {
-                      value: /^[0-9]{6,7}$/i,
-                      message: '⚠ Invalid Roll Number Provided',
-                    },
-                  })}
-                />
-                <label className="text-xs flex absolute top-[44px] left-[3px]">
-                  {errors.roll?.type === 'required' && (
-                    <span className="label-text-alt text-red-600">
-                      {errors.roll.message}
-                    </span>
-                  )}
-                  {errors.roll?.type === 'pattern' && (
-                    <span className="label-text-alt text-red-600">
-                      {errors.roll.message}
-                    </span>
-                  )}
-                </label>
-              </div>
               {/* Contact number input section  */}
               <div className="mt-[24px] relative">
                 <Input
@@ -239,5 +174,4 @@ const StudentProfileInfo = () => {
     </section>
   );
 };
-
-export default StudentProfileInfo;
+export default TeacherProfileInfo;
