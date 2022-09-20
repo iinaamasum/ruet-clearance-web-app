@@ -5,7 +5,7 @@ import {
   Input,
   Option,
   Select,
-  Typography,
+  Typography
 } from '@material-tailwind/react';
 import { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';

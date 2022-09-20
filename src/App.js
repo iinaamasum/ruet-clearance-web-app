@@ -4,6 +4,7 @@ import Login from './Pages/Auth/Login.jsx';
 import { ResetPassword } from './Pages/Auth/ResetPassword.jsx';
 import StudentRegister from './Pages/Auth/StudentRegister.jsx';
 import TeacherRegister from './Pages/Auth/TeacherRegister.jsx';
+import StudentHome from './Pages/Dashboard/StudentHome.jsx';
 import StudentProfileInfo from './Pages/ProfileInfo/StudentProfileInfo.jsx';
 import TeacherProfileInfo from './Pages/ProfileInfo/TeacherProfileInfo.jsx';
 
@@ -24,6 +25,7 @@ function App() {
           path="/teacher-profile-update"
           element={<TeacherProfileInfo />}
         />
+        <Route path="/student-dashboard" element={<StudentHome />} />
       </Routes>
       <Toaster
         position="top-right"

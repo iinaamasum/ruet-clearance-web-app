@@ -4,7 +4,11 @@ import {
   MobileNav,
   Typography,
 } from '@material-tailwind/react';
+import { signOut } from 'firebase/auth';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import logo from '../../assets/logo/logo.png';
+import auth from '../../firebase.config';
 
 export default function NavBar() {
   const [openNav, setOpenNav] = useState(false);
@@ -22,41 +26,52 @@ export default function NavBar() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-normal"
+        className="p-1 font-medium"
       >
-        <a href="#" className="flex items-center">
-          Pages
-        </a>
+        <Link to="/student-dashboard" className="flex items-center">
+          Clearance
+        </Link>
       </Typography>
       <Typography
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-normal"
+        className="p-1 font-medium"
       >
-        <a href="#" className="flex items-center">
-          Account
-        </a>
+        <Link to="/semester-result" className="flex items-center">
+          Result
+        </Link>
       </Typography>
       <Typography
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-normal"
+        className="p-1 font-medium"
       >
-        <a href="#" className="flex items-center">
-          Blocks
-        </a>
+        <Link to="/report-error" className="flex items-center">
+          Report Error
+        </Link>
+      </Typography>
+
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-medium"
+      >
+        <Link to="/payment-help" className="flex items-center">
+          Payment Help
+        </Link>
       </Typography>
       <Typography
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-normal"
+        className="p-1 font-medium"
       >
-        <a href="#" className="flex items-center">
-          Docs
-        </a>
+        <Link to="/about" className="flex items-center">
+          About
+        </Link>
       </Typography>
     </ul>
   );
@@ -68,10 +83,10 @@ export default function NavBar() {
       }}
       className="w-full py-1 px-2 lg:px-8  bg-[rgba(255,255,255,0.86)] fixed top-0 z-50"
     >
-      <div className="flex items-center justify-between text-blue-gray-900 max-w-[1024px] mx-auto">
+      <div className="flex items-center justify-between text-blue-gray-900 max-w-[1200px] mx-auto">
         <Link
           to="/"
-          className="mr-4 cursor-pointer font-normal flex justify-center items-center"
+          className="mr-4 cursor-pointer font-medium flex justify-center items-center"
         >
           <img
             src={logo}
@@ -80,8 +95,13 @@ export default function NavBar() {
           />
         </Link>
         <div className="hidden lg:block">{navList}</div>
-        <Button variant="gradient" size="sm" className="hidden lg:inline-block">
-          <span>Buy Now</span>
+        <Button
+          onClick={() => signOut(auth)}
+          variant="gradient"
+          size="sm"
+          className="hidden lg:inline-block"
+        >
+          <span>Log Out</span>
         </Button>
         <IconButton
           variant="text"
@@ -124,7 +144,7 @@ export default function NavBar() {
       <MobileNav open={openNav} className="">
         {navList}
         <Button variant="gradient" size="sm" fullWidth className="mb-2">
-          <span>Buy Now</span>
+          <span>Log Out</span>
         </Button>
       </MobileNav>
     </section>
