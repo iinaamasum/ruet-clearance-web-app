@@ -7,9 +7,13 @@ import {
   Typography,
 } from '@material-tailwind/react';
 import React from 'react';
+import { useSendPasswordResetEmail } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import AlternativeNavbar from '../../Components/Shared/AlternativeNavbar';
+import LoadingComponent from '../../Components/Shared/LoadingComponent';
+import auth from '../../firebase.config';
 
 export const ResetPassword = () => {
   const {
@@ -17,10 +21,26 @@ export const ResetPassword = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [sendPasswordResetEmail, sending, error] =
+    useSendPasswordResetEmail(auth);
 
-  const onSubmit = (data) => {
-    alert('hi');
+  const onSubmit = async (data) => {
+    try {
+      await sendPasswordResetEmail(data.email);
+      if (!error?.message) toast.success('Reset Link sent to your email');
+    } catch (error) {
+      toast.error(error.message);
+      error.message = '';
+    }
   };
+
+  if (sending) {
+    return <LoadingComponent />;
+  }
+  if (error?.message) {
+    toast.error(error.message);
+    error.message = '';
+  }
   return (
     <section>
       <AlternativeNavbar />
@@ -45,7 +65,7 @@ export const ResetPassword = () => {
               Reset Form
             </Typography>
             <form
-              id="login-form"
+              id="reset-form"
               onSubmit={handleSubmit(onSubmit)}
               className=""
             >
@@ -83,7 +103,7 @@ export const ResetPassword = () => {
               </div>
             </form>
             <Button
-              form="login-form"
+              form="reset-form"
               type="submit"
               variant="gradient"
               color="red"

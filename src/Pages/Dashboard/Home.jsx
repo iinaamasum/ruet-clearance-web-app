@@ -195,7 +195,13 @@ const Home = () => {
             <Tooltip key={i} content={`Click to Apply for ${dept.department}`}>
               <Button
                 color={`${
-                  i % 3 === 0 ? 'blue' : i % 3 === 1 ? 'red' : 'green'
+                  i % 4 === 0
+                    ? 'blue'
+                    : i % 4 === 1
+                    ? 'red'
+                    : i % 4 === 2
+                    ? 'green'
+                    : 'purple'
                 }`}
               >
                 {dept.department}
@@ -213,7 +219,13 @@ const Home = () => {
             <Tooltip key={i} content={`Click to Apply for ${hall.hallName}`}>
               <Button
                 color={`${
-                  i % 3 === 0 ? 'blue' : i % 3 === 1 ? 'red' : 'green'
+                  i % 4 === 0
+                    ? 'blue'
+                    : i % 4 === 1
+                    ? 'red'
+                    : i % 4 === 2
+                    ? 'green'
+                    : 'purple'
                 }`}
                 className="px-2"
               >
@@ -235,7 +247,13 @@ const Home = () => {
             >
               <Button
                 color={`${
-                  i % 3 === 0 ? 'blue' : i % 3 === 1 ? 'red' : 'green'
+                  i % 4 === 0
+                    ? 'blue'
+                    : i % 4 === 1
+                    ? 'red'
+                    : i % 4 === 2
+                    ? 'green'
+                    : 'purple'
                 }`}
                 className="px-2"
               >

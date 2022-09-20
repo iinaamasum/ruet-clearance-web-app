@@ -53,7 +53,8 @@ export default function StudentRegister() {
         <Card className="w-full md:w-[800px] md:px-[32px]">
           <CardHeader
             variant="gradient"
-            className="mb-4 flex items-center justify-center h-28 text-center bg-[#263238e8]"
+            color="purple"
+            className="mb-4 flex items-center justify-center h-28 text-center"
           >
             <Typography variant="h3" color="white" className="">
               Register as a Student
@@ -174,9 +175,7 @@ export default function StudentRegister() {
               form="register-student"
               type="submit"
               variant="gradient"
-              style={{
-                background: '#263238e8',
-              }}
+              color="purple"
               className="mt-3 text-base md:text-lg py-2 capitalize tracking-wide"
             >
               Register

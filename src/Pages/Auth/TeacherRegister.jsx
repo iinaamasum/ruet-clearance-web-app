@@ -53,7 +53,7 @@ export default function TeacherRegister() {
         <Card className="w-full md:w-[800px] md:px-[32px]">
           <CardHeader
             variant="gradient"
-            color="green"
+            color="indigo"
             className="mb-4 flex items-center justify-center h-28 text-center"
           >
             <Typography variant="h3" color="white" className="">
@@ -174,7 +174,7 @@ export default function TeacherRegister() {
             <Button
               form="register-teacher"
               type="submit"
-              color="green"
+              color="indigo"
               variant="gradient"
               className="mt-3 text-base md:text-lg py-2 capitalize tracking-wide"
             >
