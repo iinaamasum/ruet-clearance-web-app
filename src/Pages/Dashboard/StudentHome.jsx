@@ -55,7 +55,7 @@ const StudentHome = () => {
         value="html"
         className="flex pt-[70px] max-w-[1200px] mx-auto"
       >
-        <TabsHeader className="flex-col w-[200px]">
+        <TabsHeader className="flex-col w-[400px]">
           {data.map(({ label, value }) => (
             <Tab key={value} value={value}>
               {label}

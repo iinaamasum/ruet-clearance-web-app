@@ -6,7 +6,7 @@ import {
 } from '@material-tailwind/react';
 import { signOut } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import logo from '../../assets/logo/logo.png';
 import auth from '../../firebase.config';
 
@@ -20,59 +20,36 @@ export default function NavBar() {
     );
   }, []);
 
+  const NavLinks = [
+    { id: 1, path: '/student-dashboard', name: 'Clearance' },
+    { id: 1, path: '/result', name: 'Result' },
+    { id: 1, path: '/report-error', name: 'Report Error' },
+    { id: 1, path: '/payment-help', name: 'Payment Help' },
+    { id: 1, path: '/about', name: 'About' },
+  ];
+
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-medium"
-      >
-        <Link to="/student-dashboard" className="flex items-center">
-          Clearance
-        </Link>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-medium"
-      >
-        <Link to="/semester-result" className="flex items-center">
-          Result
-        </Link>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-medium"
-      >
-        <Link to="/report-error" className="flex items-center">
-          Report Error
-        </Link>
-      </Typography>
-
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-medium"
-      >
-        <Link to="/payment-help" className="flex items-center">
-          Payment Help
-        </Link>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-medium"
-      >
-        <Link to="/about" className="flex items-center">
-          About
-        </Link>
-      </Typography>
+      {NavLinks.map((link) => (
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className="p-1 font-medium"
+          key={link.id}
+        >
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? 'bg-btnColor py-1 px-2 rounded-lg text-black'
+                : 'hover:text-gray-500 bg-transparent'
+            }
+            to={link.path}
+          >
+            {link.name}
+          </NavLink>
+        </Typography>
+      ))}
     </ul>
   );
 
