@@ -16,6 +16,7 @@ import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import AlternativeNavbar from '../../Components/Shared/AlternativeNavbar';
 import LoadingComponent from '../../Components/Shared/LoadingComponent';
+import MotionDiv from '../../Components/Shared/MotionDiv';
 import auth from '../../firebase.config.js';
 
 export default function Login() {
@@ -47,7 +48,7 @@ export default function Login() {
     toast.error(formError.message);
   }
   return (
-    <>
+    <MotionDiv>
       <AlternativeNavbar />
       <section className="flex justify-center pt-[100px] md:pt-[135px] px-2">
         <Card className="w-full md:w-[800px] md:px-[32px]">
@@ -168,6 +169,6 @@ export default function Login() {
           </CardBody>
         </Card>
       </section>
-    </>
+    </MotionDiv>
   );
 }
