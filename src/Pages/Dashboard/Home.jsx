@@ -190,18 +190,20 @@ const Home = () => {
         <Typography variant="h4" className="my-3">
           Request for Dept. Clearance
         </Typography>
-        <div className="flex justify-start flex-wrap gap-x-3 gap-y-2">
+        <div className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-4 lg:grid-cols-7 gap-x-3 gap-y-2">
           {allDept.map((dept, i) => (
             <Tooltip key={i} content={`Click to Apply for ${dept.department}`}>
               <Button
                 color={`${
-                  i % 4 === 0
+                  i % 5 === 0
                     ? 'blue'
-                    : i % 4 === 1
+                    : i % 5 === 1
                     ? 'red'
-                    : i % 4 === 2
+                    : i % 5 === 2
                     ? 'green'
-                    : 'purple'
+                    : i % 5 === 3
+                    ? 'purple'
+                    : 'teal'
                 }`}
               >
                 {dept.department}
