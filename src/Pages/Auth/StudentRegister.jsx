@@ -12,8 +12,10 @@ import {
   useCreateUserWithEmailAndPassword,
 } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
 import AlternativeNavbar from '../../Components/Shared/AlternativeNavbar';
+import LoadingComponent from '../../Components/Shared/LoadingComponent';
 import auth from '../../firebase.config';
 
 export default function StudentRegister() {
@@ -27,9 +29,17 @@ export default function StudentRegister() {
   const [createUserWithEmailAndPassword, formUser, formLoading, formError] =
     useCreateUserWithEmailAndPassword(auth);
   const [user] = useAuthState(auth);
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    await createUserWithEmailAndPassword(data.email, data.password);
+    try {
+      await createUserWithEmailAndPassword(data.email, data.password);
+      navigate('/student-profile-update');
+      toast.success('Successfully Account Registered.');
+    } catch (error) {
+      toast.error(error.message);
+      error.message = '';
+    }
   };
 
   useEffect(() => {
@@ -40,11 +50,12 @@ export default function StudentRegister() {
   }, [user, formUser]);
 
   if (formError) {
-    console.log(formError.message);
+    toast.error(formError.message);
+    formError.message = '';
   }
 
   if (formLoading) {
-    return <p>loading</p>;
+    return <LoadingComponent />;
   }
   return (
     <>

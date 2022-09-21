@@ -35,14 +35,14 @@ export default function NavBar() {
           as="li"
           variant="small"
           color="blue-gray"
-          className="p-1 font-medium"
+          className="p-1 font-medium transition-all ease-linear duration-200"
           key={link.id}
         >
           <NavLink
             className={({ isActive }) =>
               isActive
-                ? 'bg-btnColor py-1 px-2 rounded-lg text-black'
-                : 'hover:text-gray-500 bg-transparent'
+                ? 'bg-btnColor py-1 px-2 rounded-lg text-black transition-all ease-linear duration-200'
+                : 'hover:text-gray-500 bg-transparent transition-all ease-linear duration-200'
             }
             to={link.path}
           >

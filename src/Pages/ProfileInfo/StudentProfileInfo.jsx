@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import AlternativeNavbar from '../../Components/Shared/AlternativeNavbar';
 import auth from '../../firebase.config';
 
@@ -28,6 +29,7 @@ const StudentProfileInfo = () => {
     ME: ['ME', 'IPE', 'GCE', 'MTE', 'MSE', 'CFPE'],
   };
   const [user] = useAuthState(auth);
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     if (!faculty || !dept) {
@@ -151,6 +153,7 @@ const StudentProfileInfo = () => {
       ],
     };
     alert(JSON.stringify(userInfo));
+    navigate('/student-dashboard');
   };
 
   return (
