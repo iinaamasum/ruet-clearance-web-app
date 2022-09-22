@@ -17,16 +17,16 @@ const StudentHomeLeftSide = () => {
           <Typography variant="h3" className="name__text__gradient">
             Md. Masum Mia
           </Typography>
-          <Typography variant="p" className="text-[15px]">
+          <Typography variant="paragraph" className="text-[15px]">
             19 Series
           </Typography>
-          <Typography variant="p" className="text-[15px]">
+          <Typography variant="paragraph" className="text-[15px]">
             0186439548
           </Typography>
-          <Typography variant="p" className="text-[15px]">
+          <Typography variant="paragraph" className="text-[15px]">
             iinaamasum@gamil.com
           </Typography>
-          <Typography variant="p" className="text-[15px]">
+          <Typography variant="paragraph" className="text-[15px]">
             Computer Science and Engineering
           </Typography>
         </div>
@@ -40,7 +40,7 @@ const StudentHomeLeftSide = () => {
         <Typography variant="h5" className="text-lg leading-5 mt-2">
           Rajshahi University of Engineering & Technology.
         </Typography>
-        <Typography variant="p" color="initial" className="text-sm">
+        <Typography variant="paragraph" color="initial" className="text-sm">
           Want to visit our official site?{' '}
           <a
             href="https://www.ruet.ac.bd/"

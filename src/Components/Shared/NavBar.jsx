@@ -22,10 +22,10 @@ export default function NavBar() {
 
   const NavLinks = [
     { id: 1, path: '/student-dashboard', name: 'Clearance' },
-    { id: 1, path: '/result', name: 'Result' },
-    { id: 1, path: '/report-error', name: 'Report Error' },
-    { id: 1, path: '/payment-help', name: 'Payment Help' },
-    { id: 1, path: '/about', name: 'About' },
+    { id: 2, path: '/result', name: 'Result' },
+    { id: 3, path: '/report-error', name: 'Report Error' },
+    { id: 4, path: '/payment-help', name: 'Payment Help' },
+    { id: 5, path: '/about', name: 'About' },
   ];
 
   const navList = (

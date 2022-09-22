@@ -1,7 +1,14 @@
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import AllRoutes from './AllRoute';
 
 function App() {
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
   return (
     <div className="bg-primaryWhite w-full min-h-screen">
       <AllRoutes />

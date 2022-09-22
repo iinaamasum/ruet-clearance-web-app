@@ -5,13 +5,14 @@ import {
   Input,
   Option,
   Select,
-  Typography
+  Typography,
 } from '@material-tailwind/react';
 import { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import AlternativeNavbar from '../../Components/Shared/AlternativeNavbar';
+import MotionDiv from '../../Components/Shared/MotionDiv';
 import auth from '../../firebase.config';
 
 const TeacherProfileInfo = () => {
@@ -44,134 +45,136 @@ const TeacherProfileInfo = () => {
   };
 
   return (
-    <section className="overflow-hidden">
+    <>
       <AlternativeNavbar>updateProfilePage</AlternativeNavbar>
-      <section className="flex justify-center pb-[20px] pt-[100px] md:pt-[115px] px-2">
-        <Card className="w-full md:w-[800px] md:px-[32px]">
-          <CardBody className="flex flex-col gap-4 w-full md:w-[80%] mx-auto">
-            <Typography
-              variant="h2"
-              color="initial"
-              className="text-center my-2 md:my-4"
-            >
-              Profile Info
-            </Typography>
-            <form
-              id="register-student"
-              onSubmit={handleSubmit(onSubmit)}
-              className=""
-            >
-              {/* Name input section  */}
-              <div className="relative">
-                <Input
-                  label="Full Name"
-                  size="lg"
-                  autoComplete="off"
-                  className="bg-secondaryWhite"
-                  {...register('name', {
-                    required: {
-                      value: true,
-                      message: '⚠ Please provide your name.',
-                    },
-                  })}
-                />
-                <label className="text-xs flex absolute top-[44px] left-[3px]">
-                  {errors.name?.type === 'required' && (
-                    <span className="label-text-alt text-red-600">
-                      {errors.name.message}
-                    </span>
-                  )}
-                </label>
-              </div>
-              {/* dept selection section  */}
-              <div className="mt-[24px] relative">
-                <Select
-                  onChange={(val) => {
-                    setFaculty(val);
-                    console.log(val);
-                  }}
-                  size="lg"
-                  label="Select Faculty"
-                >
-                  <Option value="Electrical & Computer Engineering">
-                    Electrical & Computer Engineering
-                  </Option>
-                  <Option value="Civil Engineering">Civil Engineering</Option>
-                  <Option value="Mechanical Engineering">
-                    Mechanical Engineering
-                  </Option>
-                </Select>
-              </div>
-              <div className="mt-[24px] relative">
-                <Select
-                  onChange={(val) => {
-                    setDept(val);
-                    console.log(val);
-                  }}
-                  size="lg"
-                  label="Select Dept"
-                >
-                  {faculty === 'Electrical & Computer Engineering' ? (
-                    allDept.ECE.map((d) => <Option value={d}>{d}</Option>)
-                  ) : faculty === 'Mechanical Engineering' ? (
-                    allDept.ME.map((d) => <Option value={d}>{d}</Option>)
-                  ) : faculty === 'Civil Engineering' ? (
-                    allDept.CE.map((d) => <Option value={d}>{d}</Option>)
-                  ) : (
-                    <Option value={null}>
-                      Please select the faculty first
+      <MotionDiv>
+        <section className="flex justify-center pb-[20px] pt-[100px] md:pt-[115px] px-2">
+          <Card className="w-full md:w-[800px] md:px-[32px]">
+            <CardBody className="flex flex-col gap-4 w-full md:w-[80%] mx-auto">
+              <Typography
+                variant="h2"
+                color="initial"
+                className="text-center my-2 md:my-4"
+              >
+                Profile Info
+              </Typography>
+              <form
+                id="register-student"
+                onSubmit={handleSubmit(onSubmit)}
+                className=""
+              >
+                {/* Name input section  */}
+                <div className="relative">
+                  <Input
+                    label="Full Name"
+                    size="lg"
+                    autoComplete="off"
+                    className="bg-secondaryWhite"
+                    {...register('name', {
+                      required: {
+                        value: true,
+                        message: '⚠ Please provide your name.',
+                      },
+                    })}
+                  />
+                  <label className="text-xs flex absolute top-[44px] left-[3px]">
+                    {errors.name?.type === 'required' && (
+                      <span className="label-text-alt text-red-600">
+                        {errors.name.message}
+                      </span>
+                    )}
+                  </label>
+                </div>
+                {/* dept selection section  */}
+                <div className="mt-[24px] relative">
+                  <Select
+                    onChange={(val) => {
+                      setFaculty(val);
+                      console.log(val);
+                    }}
+                    size="lg"
+                    label="Select Faculty"
+                  >
+                    <Option value="Electrical & Computer Engineering">
+                      Electrical & Computer Engineering
                     </Option>
-                  )}
-                </Select>
-              </div>
-              {/* Contact number input section  */}
-              <div className="mt-[24px] relative">
-                <Input
-                  label="Contact Number"
-                  size="lg"
-                  autoComplete="off"
-                  type="number"
-                  className="bg-secondaryWhite"
-                  {...register('contact_number', {
-                    required: {
-                      value: true,
-                      message: '⚠ Contact number is required',
-                    },
-                    pattern: {
-                      value: /^[0-9]{11}$/i,
-                      message: '⚠ Provide 11 digits cell number',
-                    },
-                  })}
-                />
-                <label className="text-xs flex absolute top-[44px] left-[3px]">
-                  {errors.contact_number?.type === 'required' && (
-                    <span className="label-text-alt text-red-600">
-                      {errors.contact_number.message}
-                    </span>
-                  )}
-                  {errors.contact_number?.type === 'pattern' && (
-                    <span className="label-text-alt text-red-600">
-                      {errors.contact_number.message}
-                    </span>
-                  )}
-                </label>
-              </div>
-            </form>
-            <Button
-              form="register-student"
-              type="submit"
-              variant="gradient"
-              style={{
-                background: '#263238e8',
-              }}
-              className="mt-3 text-base md:text-lg py-2 capitalize tracking-wide mb-4"
-            >
-              Update Info
-            </Button>
-          </CardBody>
-        </Card>
-      </section>
-    </section>
+                    <Option value="Civil Engineering">Civil Engineering</Option>
+                    <Option value="Mechanical Engineering">
+                      Mechanical Engineering
+                    </Option>
+                  </Select>
+                </div>
+                <div className="mt-[24px] relative">
+                  <Select
+                    onChange={(val) => {
+                      setDept(val);
+                      console.log(val);
+                    }}
+                    size="lg"
+                    label="Select Dept"
+                  >
+                    {faculty === 'Electrical & Computer Engineering' ? (
+                      allDept.ECE.map((d) => <Option value={d}>{d}</Option>)
+                    ) : faculty === 'Mechanical Engineering' ? (
+                      allDept.ME.map((d) => <Option value={d}>{d}</Option>)
+                    ) : faculty === 'Civil Engineering' ? (
+                      allDept.CE.map((d) => <Option value={d}>{d}</Option>)
+                    ) : (
+                      <Option value={null}>
+                        Please select the faculty first
+                      </Option>
+                    )}
+                  </Select>
+                </div>
+                {/* Contact number input section  */}
+                <div className="mt-[24px] relative">
+                  <Input
+                    label="Contact Number"
+                    size="lg"
+                    autoComplete="off"
+                    type="number"
+                    className="bg-secondaryWhite"
+                    {...register('contact_number', {
+                      required: {
+                        value: true,
+                        message: '⚠ Contact number is required',
+                      },
+                      pattern: {
+                        value: /^[0-9]{11}$/i,
+                        message: '⚠ Provide 11 digits cell number',
+                      },
+                    })}
+                  />
+                  <label className="text-xs flex absolute top-[44px] left-[3px]">
+                    {errors.contact_number?.type === 'required' && (
+                      <span className="label-text-alt text-red-600">
+                        {errors.contact_number.message}
+                      </span>
+                    )}
+                    {errors.contact_number?.type === 'pattern' && (
+                      <span className="label-text-alt text-red-600">
+                        {errors.contact_number.message}
+                      </span>
+                    )}
+                  </label>
+                </div>
+              </form>
+              <Button
+                form="register-student"
+                type="submit"
+                variant="gradient"
+                style={{
+                  background: '#263238e8',
+                }}
+                className="mt-3 text-base md:text-lg py-2 capitalize tracking-wide mb-4"
+              >
+                Update Info
+              </Button>
+            </CardBody>
+          </Card>
+        </section>
+      </MotionDiv>
+    </>
   );
 };
 export default TeacherProfileInfo;

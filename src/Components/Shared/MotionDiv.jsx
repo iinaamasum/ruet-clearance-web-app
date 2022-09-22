@@ -1,15 +1,10 @@
-import { motion } from 'framer-motion';
 import React from 'react';
 
 const MotionDiv = ({ children }) => {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
+    <div data-aos="zoom-in-down" data-aos-duration="500">
       {children}
-    </motion.div>
+    </div>
   );
 };
 
