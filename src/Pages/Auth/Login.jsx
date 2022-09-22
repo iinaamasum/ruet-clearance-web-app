@@ -59,7 +59,7 @@ export default function Login() {
               className="mb-4 flex items-center justify-center h-28 text-center"
             >
               <Typography variant="h3" color="white" className="">
-                Welcome back to RUET Clearance System
+                Welcome to RUET Clearance System
               </Typography>
             </CardHeader>
 

@@ -75,7 +75,7 @@ const AdministrativeClearanceApplication = ({ click, setClick }) => {
         <Typography
           color="purple"
           variant="h3"
-          className="mb-5 text-center name__text__gradient"
+          className="my-3 text-center name__text__gradient"
         >
           {click.adminClick} Dept. Clearance
         </Typography>

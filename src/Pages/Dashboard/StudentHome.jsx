@@ -9,7 +9,7 @@ const StudentHome = () => {
     <section className="">
       <NavBar />
       <MotionDiv>
-        <div className="flex justify-center gap-x-5 max-w-[1200px] mx-auto pt-[80px] relative">
+        <div className="flex justify-center gap-x-5 max-w-[1200px] mx-auto pt-[50px] md:pt-[80px] relative">
           <div className="hidden md:block md:w-[300px] lg:w-[400px]">
             <StudentHomeLeftSide />
           </div>

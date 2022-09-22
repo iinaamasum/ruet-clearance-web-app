@@ -36,7 +36,7 @@ const Error404 = () => {
               size="lg"
               className="py-2 my-4"
             >
-              Go Home
+              Go Back
             </Button>
           </div>
         </div>
