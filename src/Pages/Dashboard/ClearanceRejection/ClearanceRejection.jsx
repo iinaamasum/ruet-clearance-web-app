@@ -1,4 +1,6 @@
+import { Button } from '@material-tailwind/react';
 import React from 'react';
+import swal from 'sweetalert';
 
 const ClearanceRejection = () => {
   const data = [
@@ -12,7 +14,7 @@ const ClearanceRejection = () => {
         isApproved: true,
         isRejected: false,
         isPending: false,
-        rejectionReason: 'Nothing to say',
+        rejectionReason: 'Wrong Info',
       },
     },
     {
@@ -25,7 +27,7 @@ const ClearanceRejection = () => {
         isApproved: true,
         isRejected: true,
         isPending: true,
-        rejectionReason: 'Nothing to say',
+        rejectionReason: 'Wrong Info',
       },
     },
     {
@@ -38,7 +40,7 @@ const ClearanceRejection = () => {
         isApproved: true,
         isRejected: true,
         isPending: true,
-        rejectionReason: 'Nothing to say',
+        rejectionReason: 'Wrong Info',
       },
     },
     {
@@ -51,7 +53,7 @@ const ClearanceRejection = () => {
         isApproved: true,
         isRejected: true,
         isPending: true,
-        rejectionReason: 'Nothing to say',
+        rejectionReason: 'Wrong Info',
       },
     },
   ];
@@ -78,9 +80,15 @@ const ClearanceRejection = () => {
                 <p>TrxID: {d.due.transactionID}</p>
               </td>
               <td>
-                <div className="flex items-center justify-center gap-x-1">
-                  {d.status.rejectionReason}
-                </div>
+                <Button
+                  onClick={() => {
+                    swal('Oops', 'Something went wrong!', 'error');
+                  }}
+                  size="sm"
+                  className="text-white bg-black"
+                >
+                  Details
+                </Button>
               </td>
             </tr>
           ))}

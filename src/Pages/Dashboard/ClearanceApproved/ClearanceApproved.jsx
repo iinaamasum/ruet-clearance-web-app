@@ -79,7 +79,7 @@ const ClearanceApproved = () => {
               </td>
               <td>
                 <div className="flex items-center justify-center gap-x-1">
-                  Congratulations 🎉
+                  Congrats 🎉
                 </div>
               </td>
             </tr>
