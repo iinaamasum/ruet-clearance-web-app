@@ -91,7 +91,6 @@ export default function TeacherRegister() {
                   <Input
                     label="Email"
                     size="lg"
-                    autoComplete="off"
                     className="bg-secondaryWhite"
                     {...register('email', {
                       required: {
@@ -122,7 +121,6 @@ export default function TeacherRegister() {
                   <Input
                     label="Password"
                     size="lg"
-                    autoComplete="off"
                     className="bg-secondaryWhite"
                     {...register('password', {
                       required: {
@@ -154,7 +152,6 @@ export default function TeacherRegister() {
                   <Input
                     label="Confirm Password"
                     size="lg"
-                    autoComplete="off"
                     className="bg-secondaryWhite"
                     {...register('c_password', {
                       required: {

@@ -13,7 +13,7 @@ import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import MotionDiv from '../../../Components/Shared/MotionDiv';
 
-const DeptClearanceApplication = ({ click, setClick }) => {
+const AdministrativeClearanceApplication = ({ click, setClick }) => {
   const [remainDue, setRemainDue] = useState('default');
   const [remainEquipment, setRemainEquipment] = useState('default');
   const [isChecked, setIsChecked] = useState(true);
@@ -51,7 +51,7 @@ const DeptClearanceApplication = ({ click, setClick }) => {
     if (!data.equipmentName) data.equipmentName = '';
     if (!data.transactionID) data.transactionID = '';
 
-    const deptApply = {
+    const adminClearanceApply = {
       due: {
         remainDue: remainDue,
         amount: +data.amount,
@@ -62,7 +62,7 @@ const DeptClearanceApplication = ({ click, setClick }) => {
         equipmentName: data.equipmentName,
       },
     };
-    alert(JSON.stringify(deptApply));
+    alert(JSON.stringify(adminClearanceApply));
   };
   return (
     <MotionDiv>
@@ -72,7 +72,7 @@ const DeptClearanceApplication = ({ click, setClick }) => {
           variant="h3"
           className="mb-5 text-center name__text__gradient"
         >
-          {click.deptClick} Dept. Clearance
+          {click.adminClick} Dept. Clearance
         </Typography>
         <form
           id="dept-apply"
@@ -163,7 +163,7 @@ const DeptClearanceApplication = ({ click, setClick }) => {
 
           <div className="flex gap-x-2 my-5">
             <Button
-              onClick={() => setClick({ ...click, deptClick: '' })}
+              onClick={() => setClick({ ...click, adminClick: '' })}
               variant="gradient"
               color="red"
               className="w-full mt-3 text-base md:text-lg py-2 capitalize tracking-wide"
@@ -192,7 +192,7 @@ const DeptClearanceApplication = ({ click, setClick }) => {
         </form>
         <div className="mb-2">
           <Typography variant="paragraph" className="flex justify-center">
-            Want to pay due of {click.deptClick} Dept?
+            Want to pay due of {click.adminClick} Dept?
             <Link
               to="/"
               className="ml-1 font-bold text-blue-600 hover:underline"
@@ -205,5 +205,4 @@ const DeptClearanceApplication = ({ click, setClick }) => {
     </MotionDiv>
   );
 };
-
-export default DeptClearanceApplication;
+export default AdministrativeClearanceApplication;

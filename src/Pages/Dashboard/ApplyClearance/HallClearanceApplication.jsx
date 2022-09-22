@@ -20,12 +20,11 @@ const HallClearanceApplication = ({ click, setClick }) => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    if (remainDue === 'default' || remainEquipment === 'default') {
-      toast.error(
-        'Due or Equipment selection failed. Please select to continue.'
-      );
+    if (remainDue === 'default') {
+      toast.error('Due field not selected.');
       return;
     }
+
     if (remainDue === 'yes' && data.amount <= 0) {
       toast.error(
         'You have selected remain due but do not enter amount or entered negative amount.'
@@ -38,17 +37,25 @@ const HallClearanceApplication = ({ click, setClick }) => {
       );
       return;
     }
-    if (remainEquipment === 'yes' && data.equipmentName <= 0) {
+    if (remainEquipment === 'default') {
+      toast.error('Equipment field not selected.');
+      return;
+    }
+    if (remainEquipment === 'yes' && !data.equipmentName) {
       toast.error(
         'You have selected remain equipment but do not enter the equipment name.'
       );
       return;
     }
+    if (!data.amount) data.amount = 0;
+    if (!data.equipmentName) data.equipmentName = '';
+    if (!data.transactionID) data.transactionID = '';
+
     const hallApply = {
       due: {
         remainDue: remainDue,
-        amount: data.amount,
-        transactionID: data.transactionID.toUpperCase(),
+        amount: +data.amount,
+        transactionID: data.transactionID?.toUpperCase(),
       },
       equipment: {
         remainEquipment: remainEquipment,
@@ -68,7 +75,7 @@ const HallClearanceApplication = ({ click, setClick }) => {
           {click.hallClick} Clearance
         </Typography>
         <form
-          id="dept-apply"
+          id="hall-apply"
           onSubmit={handleSubmit(onSubmit)}
           className="w-full xsm:w-[80%] sm:w-[60%] md:w-[90%] lg:w-[80%] mx-auto"
         >
@@ -94,8 +101,7 @@ const HallClearanceApplication = ({ click, setClick }) => {
                     label="Due"
                     size="lg"
                     color="blue"
-                    autoComplete="off"
-                    type="number"
+                    type="text"
                     className="bg-secondaryWhite"
                     {...register('amount')}
                   />
@@ -105,7 +111,6 @@ const HallClearanceApplication = ({ click, setClick }) => {
                     label="Transaction ID or Pay slip No.(Rupali Bank)"
                     size="lg"
                     color="blue"
-                    autoComplete="off"
                     type="text"
                     className="bg-secondaryWhite uppercase"
                     {...register('transactionID')}
@@ -167,7 +172,7 @@ const HallClearanceApplication = ({ click, setClick }) => {
             </Button>
             {isChecked ? (
               <Button
-                form="dept-apply"
+                form="hall-apply"
                 type="submit"
                 variant="gradient"
                 color="indigo"

@@ -77,7 +77,6 @@ export const ResetPassword = () => {
                     label="Email"
                     size="lg"
                     color="red"
-                    autoComplete="off"
                     className="bg-secondaryWhite"
                     {...register('email', {
                       required: {

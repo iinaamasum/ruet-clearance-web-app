@@ -68,7 +68,6 @@ const TeacherProfileInfo = () => {
                   <Input
                     label="Full Name"
                     size="lg"
-                    autoComplete="off"
                     className="bg-secondaryWhite"
                     {...register('name', {
                       required: {
@@ -131,7 +130,6 @@ const TeacherProfileInfo = () => {
                   <Input
                     label="Contact Number"
                     size="lg"
-                    autoComplete="off"
                     type="number"
                     className="bg-secondaryWhite"
                     {...register('contact_number', {

@@ -181,7 +181,6 @@ const StudentProfileInfo = () => {
                   <Input
                     label="Full Name"
                     size="lg"
-                    autoComplete="off"
                     className="bg-secondaryWhite"
                     {...register('name', {
                       required: {
@@ -242,7 +241,6 @@ const StudentProfileInfo = () => {
                   <Input
                     label="Series (Example 19)"
                     size="lg"
-                    autoComplete="off"
                     type="number"
                     className="bg-secondaryWhite"
                     {...register('series', {
@@ -275,7 +273,6 @@ const StudentProfileInfo = () => {
                   <Input
                     label="Student Roll"
                     size="lg"
-                    autoComplete="off"
                     type="number"
                     className="bg-secondaryWhite"
                     {...register('roll', {
@@ -307,7 +304,6 @@ const StudentProfileInfo = () => {
                   <Input
                     label="Contact Number"
                     size="lg"
-                    autoComplete="off"
                     type="number"
                     className="bg-secondaryWhite"
                     {...register('contact_number', {

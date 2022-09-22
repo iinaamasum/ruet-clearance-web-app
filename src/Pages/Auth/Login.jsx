@@ -82,7 +82,6 @@ export default function Login() {
                     label="Email"
                     size="lg"
                     className=""
-                    autoComplete="off"
                     {...register('email', {
                       required: {
                         value: true,
@@ -112,7 +111,6 @@ export default function Login() {
                   <Input
                     label="Password"
                     size="lg"
-                    autoComplete="off"
                     {...register('password', {
                       required: {
                         value: true,

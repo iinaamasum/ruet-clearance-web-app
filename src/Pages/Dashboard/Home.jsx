@@ -1,5 +1,6 @@
 import { Button, Card, Tooltip, Typography } from '@material-tailwind/react';
 import { useState } from 'react';
+import AdministrativeClearanceApplication from './ApplyClearance/AdministrativeClearanceApplication';
 import DeptClearanceApplication from './ApplyClearance/DeptClearanceApplication';
 import HallClearanceApplication from './ApplyClearance/HallClearanceApplication';
 
@@ -202,6 +203,13 @@ const Home = () => {
       ) : click.hallClick !== '' ? (
         <>
           <HallClearanceApplication click={click} setClick={setClick} />
+        </>
+      ) : click.adminClick !== '' ? (
+        <>
+          <AdministrativeClearanceApplication
+            click={click}
+            setClick={setClick}
+          />
         </>
       ) : (
         <>
