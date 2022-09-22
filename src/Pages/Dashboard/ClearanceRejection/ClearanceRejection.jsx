@@ -14,7 +14,11 @@ const ClearanceRejection = () => {
         isApproved: true,
         isRejected: false,
         isPending: false,
-        rejectionReason: 'Wrong Info',
+        rejectionReason: {
+          title: 'Wrong Info Provided',
+          description:
+            'You are guilty for not returning varsity materials. Return it then apply again.',
+        },
       },
     },
     {
@@ -27,7 +31,11 @@ const ClearanceRejection = () => {
         isApproved: true,
         isRejected: true,
         isPending: true,
-        rejectionReason: 'Wrong Info',
+        rejectionReason: {
+          title: 'Wrong Info Provided',
+          description:
+            'You are guilty for not returning varsity materials. Return it then apply again.',
+        },
       },
     },
     {
@@ -40,7 +48,11 @@ const ClearanceRejection = () => {
         isApproved: true,
         isRejected: true,
         isPending: true,
-        rejectionReason: 'Wrong Info',
+        rejectionReason: {
+          title: 'Wrong Info Provided',
+          description:
+            'You are guilty for not returning varsity materials. Return it then apply again.',
+        },
       },
     },
     {
@@ -53,7 +65,11 @@ const ClearanceRejection = () => {
         isApproved: true,
         isRejected: true,
         isPending: true,
-        rejectionReason: 'Wrong Info',
+        rejectionReason: {
+          title: 'Wrong Info Provided',
+          description:
+            'You are guilty for not returning varsity materials. Return it then apply again.',
+        },
       },
     },
   ];
@@ -82,10 +98,18 @@ const ClearanceRejection = () => {
               <td>
                 <Button
                   onClick={() => {
-                    swal('Oops', 'Something went wrong!', 'error');
+                    console.log();
+                    swal({
+                      title: `${d.status?.rejectionReason?.title}`,
+                      text: `${d.status?.rejectionReason?.description}`,
+                      icon: 'error',
+                      button: true,
+                      dangerMode: true,
+                    });
                   }}
                   size="sm"
-                  className="text-white bg-black"
+                  color="red"
+                  className=""
                 >
                   Details
                 </Button>
