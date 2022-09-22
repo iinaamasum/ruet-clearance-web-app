@@ -203,7 +203,6 @@ const StudentProfileInfo = () => {
                   <Select
                     onChange={(val) => {
                       setFaculty(val);
-                      console.log(val);
                     }}
                     size="lg"
                     label="Select Faculty"
@@ -221,7 +220,6 @@ const StudentProfileInfo = () => {
                   <Select
                     onChange={(val) => {
                       setDept(val);
-                      console.log(val);
                     }}
                     size="lg"
                     label="Select Dept"
