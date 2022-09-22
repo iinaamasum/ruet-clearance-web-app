@@ -68,6 +68,7 @@ const HallClearanceApplication = ({ click, setClick }) => {
       },
     };
     alert(JSON.stringify(hallApply));
+    setClick({ ...click, hallClick: '' });
   };
   return (
     <MotionDiv>

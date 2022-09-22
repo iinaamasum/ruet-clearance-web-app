@@ -68,6 +68,7 @@ const DeptClearanceApplication = ({ click, setClick }) => {
       },
     };
     alert(JSON.stringify(deptApply));
+    setClick({ ...click, deptClick: '' });
   };
   return (
     <MotionDiv>

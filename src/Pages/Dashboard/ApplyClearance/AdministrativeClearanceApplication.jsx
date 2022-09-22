@@ -68,6 +68,7 @@ const AdministrativeClearanceApplication = ({ click, setClick }) => {
       },
     };
     alert(JSON.stringify(adminClearanceApply));
+    setClick({ ...click, adminClick: '' });
   };
   return (
     <MotionDiv>
