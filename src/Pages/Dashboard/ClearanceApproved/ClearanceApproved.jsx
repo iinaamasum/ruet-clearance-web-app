@@ -1,8 +1,6 @@
 import React from 'react';
-import { GoTrashcan } from 'react-icons/go';
-import { MdOutlinePublishedWithChanges } from 'react-icons/md';
 
-const AppliedForClearance = () => {
+const ClearanceApproved = () => {
   const data = [
     {
       appliedFor: 'ECE Dept',
@@ -11,9 +9,9 @@ const AppliedForClearance = () => {
         transactionID: 'AJ5454SAKJ',
       },
       status: {
-        isApproved: false,
+        isApproved: true,
         isRejected: false,
-        isPending: true,
+        isPending: false,
         rejectionReason: '',
       },
     },
@@ -24,9 +22,9 @@ const AppliedForClearance = () => {
         transactionID: 'AJ544SAKJ',
       },
       status: {
-        isApproved: false,
+        isApproved: true,
         isRejected: false,
-        isPending: true,
+        isPending: false,
         rejectionReason: '',
       },
     },
@@ -37,9 +35,9 @@ const AppliedForClearance = () => {
         transactionID: 'AJ5454SAKJ',
       },
       status: {
-        isApproved: false,
+        isApproved: true,
         isRejected: false,
-        isPending: true,
+        isPending: false,
         rejectionReason: '',
       },
     },
@@ -50,9 +48,9 @@ const AppliedForClearance = () => {
         transactionID: 'A5454SAKJ',
       },
       status: {
-        isApproved: false,
+        isApproved: true,
         isRejected: false,
-        isPending: true,
+        isPending: false,
         rejectionReason: '',
       },
     },
@@ -66,7 +64,7 @@ const AppliedForClearance = () => {
             <th className="text-semibold text-indigo-500">Serial</th>
             <th className="text-semibold text-indigo-500">Applied For</th>
             <th className="text-semibold text-indigo-500">Transaction</th>
-            <th className="text-semibold text-indigo-500">Action</th>
+            <th className="text-semibold text-indigo-500">Status</th>
           </tr>
         </thead>
         <tbody className="">
@@ -81,16 +79,7 @@ const AppliedForClearance = () => {
               </td>
               <td>
                 <div className="flex items-center justify-center gap-x-1">
-                  <MdOutlinePublishedWithChanges
-                    size={33}
-                    color="green"
-                    className="text-bold cursor-pointer hover:bg-[#dddeee] p-1 rounded-full"
-                  />
-                  <GoTrashcan
-                    size={33}
-                    color="red"
-                    className="text-bold cursor-pointer hover:bg-[#dddeee] p-1 rounded-full"
-                  />
+                  Congratulations 🎉
                 </div>
               </td>
             </tr>
@@ -100,5 +89,4 @@ const AppliedForClearance = () => {
     </div>
   );
 };
-
-export default AppliedForClearance;
+export default ClearanceApproved;

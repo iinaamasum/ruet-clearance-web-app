@@ -57,6 +57,7 @@ const AdministrativeClearanceApplication = ({ click, setClick }) => {
     if (!data.transactionID) data.transactionID = 'Not Applicable';
 
     const adminClearanceApply = {
+      appliedFor: click.adminClick,
       due: {
         remainDue: remainDue,
         amount: +data.amount,
@@ -65,6 +66,12 @@ const AdministrativeClearanceApplication = ({ click, setClick }) => {
       equipment: {
         remainEquipment: remainEquipment,
         equipmentName: data.equipmentName,
+      },
+      status: {
+        isApproved: false,
+        isRejected: false,
+        isPending: true,
+        rejectionReason: '',
       },
     };
     alert(JSON.stringify(adminClearanceApply));

@@ -57,6 +57,7 @@ const HallClearanceApplication = ({ click, setClick }) => {
     if (!data.transactionID) data.transactionID = 'Not Applicable';
 
     const hallApply = {
+      appliedFor: click.hallClick,
       due: {
         remainDue: remainDue,
         amount: +data.amount,
@@ -65,6 +66,12 @@ const HallClearanceApplication = ({ click, setClick }) => {
       equipment: {
         remainEquipment: remainEquipment,
         equipmentName: data.equipmentName,
+      },
+      status: {
+        isApproved: false,
+        isRejected: false,
+        isPending: true,
+        rejectionReason: '',
       },
     };
     alert(JSON.stringify(hallApply));

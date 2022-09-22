@@ -8,6 +8,8 @@ import {
 } from '@material-tailwind/react';
 import student from '../../assets/images/student.png';
 import AppliedForClearance from './AppliedForClearance/AppliedForClearance';
+import ClearanceApproved from './ClearanceApproved/ClearanceApproved';
+import ClearanceRejection from './ClearanceRejection/ClearanceRejection';
 import Home from './Home';
 import './StudentHome.css';
 
@@ -16,36 +18,22 @@ const StudentHomeRightSide = () => {
     {
       label: 'Home',
       value: 'home',
-      desc: `${Home}`,
     },
     {
       label: 'Applied',
       value: 'applied',
-      desc: `Because it's about motivating the doers. Because I'm here
-        to follow my dreams and inspire other people to follow their dreams, too.`,
     },
-
     {
       label: 'Approved',
-      value: 'vue',
-      desc: `We're not always in the position that we want to be at.
-        We're constantly growing. We're constantly making mistakes. We're 
-        constantly trying to express ourselves and actualize our dreams.`,
+      value: 'approved',
     },
-
     {
       label: 'Rejected',
-      value: 'angular',
-      desc: `Because it's about motivating the doers. Because I'm here
-        to follow my dreams and inspire other people to follow their dreams, too.`,
+      value: 'rejected',
     },
-
     {
       label: 'Payment',
-      value: 'svelte',
-      desc: `We're not always in the position that we want to be at.
-        We're constantly growing. We're constantly making mistakes. We're 
-        constantly trying to express ourselves and actualize our dreams.`,
+      value: 'payment',
     },
   ];
 
@@ -103,6 +91,12 @@ const StudentHomeRightSide = () => {
         </TabPanel>
         <TabPanel className="px-0 py-5" value="applied">
           <AppliedForClearance />
+        </TabPanel>
+        <TabPanel className="px-0 py-5" value="approved">
+          <ClearanceApproved />
+        </TabPanel>
+        <TabPanel className="px-0 py-5" value="rejected">
+          <ClearanceRejection />
         </TabPanel>
       </TabsBody>
     </Tabs>
