@@ -58,7 +58,7 @@ const StudentHomeRightSide = () => {
           Hello, <span className="text-orange-600">Md. Masum</span>{' '}
         </Typography>
       </div>
-      <div className="mb-3 p-2 flex justify-between items-center md:hidden bg-secondaryWhite rounded-xl">
+      <div className="mb-3 p-3 flex justify-between items-center md:hidden bg-secondaryWhite rounded-xl">
         <div className="">
           <Typography variant="h4" className="leading-8">
             Hello, <span className="text-orange-600">Md. Masum</span>{' '}
@@ -82,11 +82,7 @@ const StudentHomeRightSide = () => {
             iinaamasum@gmail.com
           </Typography>
         </div>
-        <img
-          className="w-24 h-24 rounded-full bg-white mt-5"
-          src={student}
-          alt=""
-        />
+        <img className="w-24 h-24 rounded-full bg-white" src={student} alt="" />
       </div>
       <TabsHeader className="">
         {data.map(({ label, value }) => (
