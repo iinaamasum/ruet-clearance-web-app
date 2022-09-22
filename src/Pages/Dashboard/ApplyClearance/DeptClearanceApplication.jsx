@@ -31,6 +31,11 @@ const DeptClearanceApplication = ({ click, setClick }) => {
       );
       return;
     }
+    const isNumberCheck = +data.amount;
+    if (remainDue === 'yes' && !isNumberCheck) {
+      toast.error('You have entered wrong amount.');
+      return;
+    }
     if (remainDue === 'yes' && !data.transactionID) {
       toast.error(
         'You have selected remain due but do not paid yet. If paid, enter the transaction ID.'
