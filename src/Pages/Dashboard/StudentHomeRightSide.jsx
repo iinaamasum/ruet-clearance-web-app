@@ -7,6 +7,7 @@ import {
   Typography,
 } from '@material-tailwind/react';
 import student from '../../assets/images/student.png';
+import AppliedForClearance from './AppliedForClearance/AppliedForClearance';
 import Home from './Home';
 import './StudentHome.css';
 
@@ -19,7 +20,7 @@ const StudentHomeRightSide = () => {
     },
     {
       label: 'Applied',
-      value: 'react',
+      value: 'applied',
       desc: `Because it's about motivating the doers. Because I'm here
         to follow my dreams and inspire other people to follow their dreams, too.`,
     },
@@ -99,6 +100,9 @@ const StudentHomeRightSide = () => {
       >
         <TabPanel className="px-0 py-5" value="home">
           <Home />
+        </TabPanel>
+        <TabPanel className="px-0 py-5" value="applied">
+          <AppliedForClearance />
         </TabPanel>
       </TabsBody>
     </Tabs>

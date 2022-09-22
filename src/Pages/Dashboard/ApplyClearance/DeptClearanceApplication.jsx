@@ -53,8 +53,8 @@ const DeptClearanceApplication = ({ click, setClick }) => {
       return;
     }
     if (!data.amount) data.amount = 0;
-    if (!data.equipmentName) data.equipmentName = '';
-    if (!data.transactionID) data.transactionID = '';
+    if (!data.equipmentName) data.equipmentName = 'Not Applicable';
+    if (!data.transactionID) data.transactionID = 'Not Applicable';
 
     const deptApply = {
       due: {
