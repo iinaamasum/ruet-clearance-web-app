@@ -12,7 +12,11 @@ const StudentHomeLeftSide = () => {
       className="flex-col items-center hidden md:block md:w-[300px] lg:w-[400px] min-h-screen bg-[#dddeee4d]"
     >
       <div className="flex flex-col items-center justify-center mb-10 w-full">
-        <img className="w-32 h-32 rounded-full bg-white" src={student} alt="" />
+        <img
+          className="w-32 h-32 rounded-full bg-white mt-5"
+          src={student}
+          alt=""
+        />
         <div className="text-center w-full rounded-lg my-3 py-2">
           <Typography variant="h3" className="name__text__gradient">
             Md. Masum Mia

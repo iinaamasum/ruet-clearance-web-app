@@ -1,4 +1,6 @@
 import { Button, Card, Tooltip, Typography } from '@material-tailwind/react';
+import { useState } from 'react';
+import DeptClearanceApplication from './ApplyClearance/DeptClearanceApplication';
 
 const Home = () => {
   const allDept = [
@@ -184,87 +186,116 @@ const Home = () => {
     },
   ];
 
+  const [click, setClick] = useState({
+    deptClick: '',
+    hallClick: '',
+    adminClick: '',
+  });
+
   return (
     <>
-      <Card className="w-full px-4 py-2">
-        <Typography variant="h4" className="my-3">
-          Request for Dept. Clearance
-        </Typography>
-        <div className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-4 lg:grid-cols-7 gap-x-3 gap-y-2">
-          {allDept.map((dept, i) => (
-            <Tooltip key={i} content={`Click to Apply for ${dept.department}`}>
-              <Button
-                color={`${
-                  i % 5 === 0
-                    ? 'blue'
-                    : i % 5 === 1
-                    ? 'red'
-                    : i % 5 === 2
-                    ? 'green'
-                    : i % 5 === 3
-                    ? 'purple'
-                    : 'teal'
-                }`}
-              >
-                {dept.department}
-              </Button>
-            </Tooltip>
-          ))}
-        </div>
-      </Card>
-      <Card className="w-full px-4 py-2 my-5">
-        <Typography variant="h4" className="my-3">
-          Request for Hall Clearance
-        </Typography>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2 gap-y-2">
-          {allHall.map((hall, i) => (
-            <Tooltip key={i} content={`Click to Apply for ${hall.hallName}`}>
-              <Button
-                color={`${
-                  i % 4 === 0
-                    ? 'blue'
-                    : i % 4 === 1
-                    ? 'red'
-                    : i % 4 === 2
-                    ? 'green'
-                    : 'purple'
-                }`}
-                className="px-2"
-              >
-                {hall.hallName}
-              </Button>
-            </Tooltip>
-          ))}
-        </div>
-      </Card>
-      <Card className="w-full px-4 py-2 my-5">
-        <Typography variant="h4" className="my-3">
-          Request for Administrative Clearance
-        </Typography>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2 gap-y-2">
-          {adminBuilding.map((branch, i) => (
-            <Tooltip
-              key={i}
-              content={`Click to Apply for ${branch.branchName}`}
-            >
-              <Button
-                color={`${
-                  i % 4 === 0
-                    ? 'blue'
-                    : i % 4 === 1
-                    ? 'red'
-                    : i % 4 === 2
-                    ? 'green'
-                    : 'purple'
-                }`}
-                className="px-2"
-              >
-                {branch.branchName}
-              </Button>
-            </Tooltip>
-          ))}
-        </div>
-      </Card>
+      {click.deptClick !== '' ? (
+        <>
+          <DeptClearanceApplication click={click} setClick={setClick} />
+        </>
+      ) : (
+        <>
+          <Card className="w-full px-4 py-2">
+            <Typography variant="h4" className="my-3">
+              Request for Dept. Clearance
+            </Typography>
+            <div className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-4 lg:grid-cols-7 gap-x-3 gap-y-2">
+              {allDept.map((dept, i) => (
+                <Tooltip
+                  key={i}
+                  content={`Click to Apply for ${dept.department}`}
+                >
+                  <Button
+                    color={`${
+                      i % 5 === 0
+                        ? 'blue'
+                        : i % 5 === 1
+                        ? 'red'
+                        : i % 5 === 2
+                        ? 'green'
+                        : i % 5 === 3
+                        ? 'purple'
+                        : 'teal'
+                    }`}
+                    onClick={() =>
+                      setClick({ ...click, deptClick: dept.department })
+                    }
+                  >
+                    {dept.department}
+                  </Button>
+                </Tooltip>
+              ))}
+            </div>
+          </Card>
+          <Card className="w-full px-4 py-2 my-5">
+            <Typography variant="h4" className="my-3">
+              Request for Hall Clearance
+            </Typography>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2 gap-y-2">
+              {allHall.map((hall, i) => (
+                <Tooltip
+                  key={i}
+                  content={`Click to Apply for ${hall.hallName}`}
+                >
+                  <Button
+                    color={`${
+                      i % 4 === 0
+                        ? 'blue'
+                        : i % 4 === 1
+                        ? 'red'
+                        : i % 4 === 2
+                        ? 'green'
+                        : 'purple'
+                    }`}
+                    className="px-2"
+                    onClick={() =>
+                      setClick({ ...click, hallClick: hall.department })
+                    }
+                  >
+                    {hall.hallName}
+                  </Button>
+                </Tooltip>
+              ))}
+            </div>
+          </Card>
+          <Card className="w-full px-4 py-2 my-5">
+            <Typography variant="h4" className="my-3">
+              Request for Administrative Clearance
+            </Typography>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2 gap-y-2">
+              {adminBuilding.map((branch, i) => (
+                <Tooltip
+                  key={i}
+                  content={`Click to Apply for ${branch.branchName}`}
+                >
+                  <Button
+                    color={`${
+                      i % 4 === 0
+                        ? 'blue'
+                        : i % 4 === 1
+                        ? 'red'
+                        : i % 4 === 2
+                        ? 'green'
+                        : 'purple'
+                    }`}
+                    className="px-2"
+                    onClick={() =>
+                      setClick({ ...click, adminClick: branch.department })
+                    }
+                  >
+                    {branch.branchName}
+                  </Button>
+                </Tooltip>
+              ))}
+            </div>
+          </Card>
+        </>
+      )}
     </>
   );
 };
