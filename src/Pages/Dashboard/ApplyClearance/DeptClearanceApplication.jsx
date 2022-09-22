@@ -157,7 +157,7 @@ const DeptClearanceApplication = ({ click, setClick }) => {
             <Checkbox
               defaultChecked
               onChange={() => setIsChecked(!isChecked)}
-              label="I agree that all of the provided info is correct"
+              label="I agree that provided info are correct"
             />
           </div>
 

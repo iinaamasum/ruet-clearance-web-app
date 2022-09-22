@@ -153,11 +153,11 @@ const AdministrativeClearanceApplication = ({ click, setClick }) => {
               ''
             )}
           </>
-          <div className="-ml-2.5 h-4">
+          <div className="-ml-2.5 h-4 text-sm md:text-base">
             <Checkbox
               defaultChecked
               onChange={() => setIsChecked(!isChecked)}
-              label="I agree that all of the provided info is correct"
+              label="I agree that provided info are correct"
             />
           </div>
 
