@@ -9,16 +9,34 @@ import {
 } from '@material-tailwind/react';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import MotionDiv from '../../../Components/Shared/MotionDiv';
 
 const DeptClearanceApplication = ({ click, setClick }) => {
-  const [remainDue, setRemainDue] = useState('no');
-  const [remainEquipment, setRemainEquipment] = useState('no');
+  const [remainDue, setRemainDue] = useState('default');
+  const [remainEquipment, setRemainEquipment] = useState('default');
   const [isChecked, setIsChecked] = useState(true);
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data) => {};
+  const onSubmit = (data) => {
+    if (remainDue === 'default' || remainEquipment === 'default') {
+      toast.error(
+        'Due or Equipment selection failed. Please select to continue.'
+      );
+      return;
+    }
+    const deptApply = {
+      due: {
+        remainDue: remainDue,
+        amount: data.amount,
+      },
+      equipment: {
+        remainEquipment: remainEquipment,
+        equipmentName: data.equipmentName,
+      },
+    };
+  };
   return (
     <MotionDiv>
       <Card className="w-full px-4 py-5">
@@ -49,7 +67,7 @@ const DeptClearanceApplication = ({ click, setClick }) => {
               </Select>
             </div>
             {/* due section  */}
-            {remainDue === 'yes' ? (
+            {remainDue === 'yes' && remainDue !== 'default' ? (
               <div className="mt-[24px]">
                 <Input
                   label="Due"
@@ -57,7 +75,7 @@ const DeptClearanceApplication = ({ click, setClick }) => {
                   color="blue"
                   autoComplete="off"
                   className="bg-secondaryWhite"
-                  {...register('due')}
+                  {...register('amount')}
                 />
               </div>
             ) : (
@@ -81,7 +99,7 @@ const DeptClearanceApplication = ({ click, setClick }) => {
               </Select>
             </div>
             {/* equipment section  */}
-            {remainEquipment === 'yes' ? (
+            {remainEquipment === 'yes' && remainEquipment !== 'default' ? (
               <div className="mt-[24px]">
                 <Input
                   label="Equipment Name"
