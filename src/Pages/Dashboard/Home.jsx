@@ -1,6 +1,7 @@
 import { Button, Card, Tooltip, Typography } from '@material-tailwind/react';
 import { useState } from 'react';
 import DeptClearanceApplication from './ApplyClearance/DeptClearanceApplication';
+import HallClearanceApplication from './ApplyClearance/HallClearanceApplication';
 
 const Home = () => {
   const allDept = [
@@ -198,6 +199,10 @@ const Home = () => {
         <>
           <DeptClearanceApplication click={click} setClick={setClick} />
         </>
+      ) : click.hallClick !== '' ? (
+        <>
+          <HallClearanceApplication click={click} setClick={setClick} />
+        </>
       ) : (
         <>
           <Card className="w-full px-4 py-2">
@@ -254,7 +259,7 @@ const Home = () => {
                     }`}
                     className="px-2"
                     onClick={() =>
-                      setClick({ ...click, hallClick: hall.department })
+                      setClick({ ...click, hallClick: hall.hallName })
                     }
                   >
                     {hall.hallName}
