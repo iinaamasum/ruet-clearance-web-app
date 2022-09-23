@@ -24,6 +24,10 @@ const AdministrativeClearanceApplication = ({ click, setClick }) => {
       toast.error('Due field not selected.');
       return;
     }
+    if (remainDue === 'yes' && !data.dueReason) {
+      toast.error('Due Reason field not filled yet.');
+      return;
+    }
 
     if (remainDue === 'yes' && data.amount <= 0) {
       toast.error(
@@ -58,6 +62,7 @@ const AdministrativeClearanceApplication = ({ click, setClick }) => {
 
     const adminClearanceApply = {
       appliedFor: click.adminClick,
+      dueReason: data.dueReason,
       due: {
         remainDue: remainDue,
         amount: +data.amount,
@@ -109,6 +114,16 @@ const AdministrativeClearanceApplication = ({ click, setClick }) => {
             {/* due section  */}
             {remainDue === 'yes' && remainDue !== 'default' ? (
               <>
+                <div className="mt-[24px]">
+                  <Input
+                    label="Due Reason"
+                    size="lg"
+                    color="blue"
+                    type="text"
+                    className="bg-secondaryWhite"
+                    {...register('dueReason')}
+                  />
+                </div>
                 <div className="mt-[24px]">
                   <Input
                     label="Due"

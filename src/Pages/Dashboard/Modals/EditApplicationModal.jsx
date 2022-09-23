@@ -10,7 +10,6 @@ import {
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
 
 const EditApplicationModal = ({ editModal, setEditModal }) => {
   const [remainDue, setRemainDue] = useState('default');
@@ -21,6 +20,10 @@ const EditApplicationModal = ({ editModal, setEditModal }) => {
   const onSubmit = (data) => {
     if (remainDue === 'default') {
       toast.error('Due field not selected.');
+      return;
+    }
+    if (remainDue === 'yes' && !data.dueReason) {
+      toast.error('Due Reason field not filled yet.');
       return;
     }
 
@@ -57,6 +60,7 @@ const EditApplicationModal = ({ editModal, setEditModal }) => {
 
     const deptApply = {
       appliedFor: 'click.deptClick',
+      dueReason: data.dueReason,
       due: {
         remainDue: remainDue,
         amount: +data.amount,
@@ -74,7 +78,7 @@ const EditApplicationModal = ({ editModal, setEditModal }) => {
       },
     };
     alert(JSON.stringify(deptApply));
-    // setClick({ ...click, deptClick: '' });
+    setEditModal(!editModal);
   };
 
   return (
@@ -89,14 +93,11 @@ const EditApplicationModal = ({ editModal, setEditModal }) => {
           <label
             onClick={() => setEditModal(!editModal)}
             htmlFor="edit-application-modal"
-            className="btn btn-sm btn-circle absolute right-2 top-2"
+            className="btn btn-sm btn-circle absolute right-2 top-2 z-40"
           >
             ✕
           </label>
-          <h3 className="font-bold text-lg">
-            Congratulations random Internet user!
-          </h3>
-          <Card className="w-full px-4 py-5">
+          <Card className="w-full px-4 py-5 shadow-none">
             <Typography
               color="purple"
               variant="h3"
@@ -105,7 +106,7 @@ const EditApplicationModal = ({ editModal, setEditModal }) => {
               {'click.deptClick'} Dept. Clearance
             </Typography>
             <form
-              id="dept-apply"
+              id="edit-application"
               onSubmit={handleSubmit(onSubmit)}
               className="w-full xsm:w-[80%] sm:w-[60%] md:w-[90%] lg:w-[80%] mx-auto"
             >
@@ -126,6 +127,16 @@ const EditApplicationModal = ({ editModal, setEditModal }) => {
                 {/* due section  */}
                 {remainDue === 'yes' && remainDue !== 'default' ? (
                   <>
+                    <div className="mt-[24px]">
+                      <Input
+                        label="Due Reason"
+                        size="lg"
+                        color="blue"
+                        type="text"
+                        className="bg-secondaryWhite"
+                        {...register('dueReason')}
+                      />
+                    </div>
                     <div className="mt-[24px]">
                       <Input
                         label="Due"
@@ -193,7 +204,7 @@ const EditApplicationModal = ({ editModal, setEditModal }) => {
 
               <div className="flex gap-x-2 my-5">
                 <Button
-                  // onClick={() => setClick({ ...click, deptClick: '' })}
+                  onClick={() => setEditModal(!editModal)}
                   variant="gradient"
                   color="red"
                   className="w-full mt-3 text-base md:text-lg py-2 capitalize tracking-wide"
@@ -202,7 +213,7 @@ const EditApplicationModal = ({ editModal, setEditModal }) => {
                 </Button>
                 {isChecked ? (
                   <Button
-                    form="dept-apply"
+                    form="edit-application"
                     type="submit"
                     variant="gradient"
                     color="indigo"
@@ -220,26 +231,7 @@ const EditApplicationModal = ({ editModal, setEditModal }) => {
                 )}
               </div>
             </form>
-            <div className="mb-2">
-              <Typography variant="paragraph" className="flex justify-center">
-                Want to pay due of {'click.deptClick'} Dept?
-                <Link
-                  to="/"
-                  className="ml-1 font-bold text-blue-600 hover:underline"
-                >
-                  Pay Now
-                </Link>
-              </Typography>
-            </div>
           </Card>
-          <div
-            className="modal-action"
-            onClick={() => setEditModal(!editModal)}
-          >
-            <Button htmlFor="edit-application-modal" className="">
-              Yay!
-            </Button>
-          </div>
         </div>
       </div>
     </div>
