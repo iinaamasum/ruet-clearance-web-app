@@ -115,7 +115,6 @@ const Home = () => {
       applied: false,
     },
   ];
-
   const allHall = [
     {
       hallName: 'Deshratna Sheikh Hasina Hall',
