@@ -82,7 +82,7 @@ const EditApplicationModal = ({ editModal, setEditModal }) => {
   };
 
   return (
-    <div className="">
+    <div className="z-40">
       <input
         type="checkbox"
         id="edit-application-modal"
