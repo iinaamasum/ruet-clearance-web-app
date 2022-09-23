@@ -82,7 +82,7 @@ const EditApplicationModal = ({ editModal, setEditModal }) => {
   };
 
   return (
-    <div className="z-40">
+    <div className="z-40 mt-10 xsm:mt-0">
       <input
         type="checkbox"
         id="edit-application-modal"
@@ -93,7 +93,7 @@ const EditApplicationModal = ({ editModal, setEditModal }) => {
           <label
             onClick={() => setEditModal(!editModal)}
             htmlFor="edit-application-modal"
-            className="btn btn-sm btn-circle absolute right-2 top-2 z-40"
+            className="btn btn-sm btn-circle absolute right-2 top-2 z-50"
           >
             ✕
           </label>
