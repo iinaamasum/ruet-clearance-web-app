@@ -40,7 +40,10 @@ const StudentHomeRightSide = () => {
   return (
     <Tabs className="px-4 w-full" id="custom-animation" value="home">
       <div className="mt-5 mb-2 md:my-5">
-        <Typography variant="h2" className="name__text__gradient">
+        <Typography
+          variant="h2"
+          className="text-center leading-9 mb-5 md:text-left"
+        >
           Welcome to RUET Clearance System
         </Typography>
         <Typography variant="h4" className="hidden md:block">
