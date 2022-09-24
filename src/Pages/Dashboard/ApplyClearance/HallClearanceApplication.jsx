@@ -56,8 +56,15 @@ const HallClearanceApplication = ({ click, setClick }) => {
       );
       return;
     }
+    if (remainEquipment === 'yes' && !data.equipmentReturnedTo) {
+      toast.error(
+        'Please enter the Teacher or Staff name to whom you returned the equipment.'
+      );
+      return;
+    }
     if (!data.amount) data.amount = 0;
     if (!data.equipmentName) data.equipmentName = 'Not Applicable';
+    if (!data.equipmentReturnedTo) data.equipmentReturnedTo = 'Not Applicable';
     if (!data.transactionID) data.transactionID = 'Not Applicable';
 
     const hallApply = {
@@ -71,6 +78,7 @@ const HallClearanceApplication = ({ click, setClick }) => {
       equipment: {
         remainEquipment: remainEquipment,
         equipmentName: data.equipmentName,
+        equipmentReturnedTo: data.equipmentReturnedTo,
       },
       status: {
         isApproved: false,
@@ -162,7 +170,9 @@ const HallClearanceApplication = ({ click, setClick }) => {
                 size="lg"
                 label="University Equipment"
               >
-                <Option value="yes">I have returnable equipment</Option>
+                <Option value="yes">
+                  I had returnable equipment and already returned.
+                </Option>
                 <Option value="no">
                   I don't have any returnable equipment.
                 </Option>
@@ -170,16 +180,28 @@ const HallClearanceApplication = ({ click, setClick }) => {
             </div>
             {/* equipment section  */}
             {remainEquipment === 'yes' && remainEquipment !== 'default' ? (
-              <div className="mt-[24px]">
-                <Input
-                  label="Equipment Name"
-                  size="lg"
-                  color="blue"
-                  type="text"
-                  className="bg-secondaryWhite"
-                  {...register('equipmentName')}
-                />
-              </div>
+              <>
+                <div className="mt-[24px]">
+                  <Input
+                    label="Equipment Name"
+                    size="lg"
+                    color="blue"
+                    type="text"
+                    className="bg-secondaryWhite"
+                    {...register('equipmentName')}
+                  />
+                </div>
+                <div className="mt-[24px]">
+                  <Input
+                    label="Returned To (Teacher/Staff Name)"
+                    size="lg"
+                    color="blue"
+                    type="text"
+                    className="bg-secondaryWhite"
+                    {...register('equipmentReturnedTo')}
+                  />
+                </div>
+              </>
             ) : (
               ''
             )}

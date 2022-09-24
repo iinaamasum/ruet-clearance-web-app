@@ -6,12 +6,12 @@ import {
   TabsHeader,
   Typography,
 } from '@material-tailwind/react';
-import student from '../../assets/images/student.png';
-import AppliedForClearance from './AppliedForClearance/AppliedForClearance';
-import ClearanceApproved from './ClearanceApproved/ClearanceApproved';
-import ClearanceRejection from './ClearanceRejection/ClearanceRejection';
-import Home from './Home';
-import './StudentHome.css';
+import student from '../../../assets/images/student.png';
+import Home from '../ApplicationSelection/Home';
+import AppliedForClearance from '../AppliedForClearance/AppliedForClearance';
+import ClearanceApproved from '../ClearanceApproved/ClearanceApproved';
+import ClearanceRejection from '../ClearanceRejection/ClearanceRejection';
+import '../StudentHome.css';
 
 const StudentHomeRightSide = () => {
   const data = [

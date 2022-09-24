@@ -1,8 +1,8 @@
 import MotionDiv from '../../Components/Shared/MotionDiv';
 import NavBar from '../../Components/Shared/NavBar';
 import './StudentHome.css';
-import StudentHomeLeftSide from './StudentHomeLeftSide';
-import StudentHomeRightSide from './StudentHomeRightSide';
+import StudentHomeLeftSide from './StudentHomePart/StudentHomeLeftSide';
+import StudentHomeRightSide from './StudentHomePart/StudentHomeRightSide';
 
 const StudentHome = () => {
   return (

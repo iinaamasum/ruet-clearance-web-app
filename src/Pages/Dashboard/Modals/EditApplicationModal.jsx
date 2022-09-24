@@ -54,8 +54,15 @@ const EditApplicationModal = ({ editModal, setEditModal }) => {
       );
       return;
     }
+    if (remainEquipment === 'yes' && !data.equipmentReturnedTo) {
+      toast.error(
+        'Please enter the Teacher or Staff name to whom you returned the equipment.'
+      );
+      return;
+    }
     if (!data.amount) data.amount = 0;
     if (!data.equipmentName) data.equipmentName = 'Not Applicable';
+    if (!data.equipmentReturnedTo) data.equipmentReturnedTo = 'Not Applicable';
     if (!data.transactionID) data.transactionID = 'Not Applicable';
 
     const deptApply = {
@@ -69,6 +76,7 @@ const EditApplicationModal = ({ editModal, setEditModal }) => {
       equipment: {
         remainEquipment: remainEquipment,
         equipmentName: data.equipmentName,
+        equipmentReturnedTo: data.equipmentReturnedTo,
       },
       status: {
         isApproved: false,
@@ -82,7 +90,7 @@ const EditApplicationModal = ({ editModal, setEditModal }) => {
   };
 
   return (
-    <div className="z-40 mt-10 xsm:mt-0">
+    <div className="z-40 mt-24 xsm:mt-0">
       <input
         type="checkbox"
         id="edit-application-modal"
@@ -177,7 +185,9 @@ const EditApplicationModal = ({ editModal, setEditModal }) => {
                     size="lg"
                     label="University Equipment"
                   >
-                    <Option value="yes">I have returnable equipment</Option>
+                    <Option value="yes">
+                      I had returnable equipment and already returned.
+                    </Option>
                     <Option value="no">
                       I don't have any returnable equipment.
                     </Option>
@@ -185,16 +195,28 @@ const EditApplicationModal = ({ editModal, setEditModal }) => {
                 </div>
                 {/* equipment section  */}
                 {remainEquipment === 'yes' && remainEquipment !== 'default' ? (
-                  <div className="mt-[24px]">
-                    <Input
-                      label="Equipment Name"
-                      size="lg"
-                      color="blue"
-                      type="text"
-                      className="bg-secondaryWhite"
-                      {...register('equipmentName')}
-                    />
-                  </div>
+                  <>
+                    <div className="mt-[24px]">
+                      <Input
+                        label="Equipment Name"
+                        size="lg"
+                        color="blue"
+                        type="text"
+                        className="bg-secondaryWhite"
+                        {...register('equipmentName')}
+                      />
+                    </div>
+                    <div className="mt-[24px]">
+                      <Input
+                        label="Returned To (Teacher/Staff Name)"
+                        size="lg"
+                        color="blue"
+                        type="text"
+                        className="bg-secondaryWhite"
+                        {...register('equipmentReturnedTo')}
+                      />
+                    </div>
+                  </>
                 ) : (
                   ''
                 )}

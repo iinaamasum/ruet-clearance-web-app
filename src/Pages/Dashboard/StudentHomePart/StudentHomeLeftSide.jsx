@@ -1,7 +1,7 @@
 import { Typography } from '@material-tailwind/react';
-import ruetGate from '../../assets/images/ruet-main-gate.jpg';
-import student from '../../assets/images/student.png';
-import './StudentHome.css';
+import ruetGate from '../../../assets/images/ruet-main-gate.jpg';
+import student from '../../../assets/images/student.png';
+import '../StudentHome.css';
 
 const StudentHomeLeftSide = () => {
   return (

@@ -1,8 +1,8 @@
 import { Button, Card, Tooltip, Typography } from '@material-tailwind/react';
 import { useState } from 'react';
-import AdministrativeClearanceApplication from './ApplyClearance/AdministrativeClearanceApplication';
-import DeptClearanceApplication from './ApplyClearance/DeptClearanceApplication';
-import HallClearanceApplication from './ApplyClearance/HallClearanceApplication';
+import AdministrativeClearanceApplication from '../ApplyClearance/AdministrativeClearanceApplication';
+import DeptClearanceApplication from '../ApplyClearance/DeptClearanceApplication';
+import HallClearanceApplication from '../ApplyClearance/HallClearanceApplication';
 
 const Home = () => {
   const allDept = [
@@ -216,7 +216,7 @@ const Home = () => {
             <Typography variant="h4" className="my-3">
               Request for Dept. Clearance
             </Typography>
-            <div className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-4 lg:grid-cols-7 gap-x-3 gap-y-2">
+            <div className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-4 lg:grid-cols-6 gap-x-3 gap-y-2">
               {allDept.map((dept, i) => (
                 <Tooltip
                   key={i}
