@@ -107,7 +107,10 @@ const DeptClearanceApplication = ({ click, setClick }) => {
                 size="lg"
                 label="Select Due Option"
               >
-                <Option value="yes">I have due</Option>
+                <Option value="yes">
+                  I had due and paid by online trasaction
+                </Option>
+                <Option value="yes">I had due and paid by Rupali Bank</Option>
                 <Option value="no">I don't have any due.</Option>
               </Select>
             </div>
