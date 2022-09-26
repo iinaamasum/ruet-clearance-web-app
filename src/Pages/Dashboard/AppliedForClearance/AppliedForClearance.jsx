@@ -1,4 +1,3 @@
-import { Button } from '@material-tailwind/react';
 import React, { useState } from 'react';
 import EditApplicationModal from '../Modals/EditApplicationModal';
 
@@ -91,14 +90,18 @@ const AppliedForClearance = () => {
                   <label
                     htmlFor="edit-application-modal"
                     onClick={() => setEditModal(!editModal)}
+                    style={{ height: '25px', minHeight: '20px' }}
+                    className="btn px-3 text-[12px]"
                   >
-                    <Button size="sm" color="blue" className="px-2 py-1">
-                      Edit
-                    </Button>
+                    Edit
                   </label>
-                  <Button color="red" className="px-2 py-1" size="sm">
-                    delete
-                  </Button>
+                  <label
+                    htmlFor="confirm-delete-modal"
+                    style={{ height: '25px', minHeight: '20px' }}
+                    className="btn px-3 text-[12px] bg-red-800 border-0  hover:bg-red-400"
+                  >
+                    Delete
+                  </label>
                 </div>
               </td>
             </tr>
@@ -111,6 +114,43 @@ const AppliedForClearance = () => {
           setEditModal={setEditModal}
         />
       )}
+      <div className="">
+        <input
+          type="checkbox"
+          id="confirm-delete-modal"
+          className="modal-toggle"
+        />
+        <div className="modal modal-bottom sm:modal-middle">
+          <div className="modal-box">
+            <label
+              htmlFor="confirm-delete-modal"
+              className="btn btn-sm btn-circle absolute right-2 top-3 lowercase"
+            >
+              x
+            </label>
+            <h3 className="font-bold text-lg text-red-500 mt-5">
+              Confirm Deletion
+            </h3>
+            <p className="py-4">Are you sure to delete the application?</p>
+            <div className="modal-action mt-2">
+              <label
+                htmlFor="confirm-delete-modal"
+                style={{ height: '35px', minHeight: '35px' }}
+                className="btn px-5 text-[12px]"
+              >
+                No
+              </label>
+              <label
+                htmlFor="confirm-delete-modal"
+                style={{ height: '35px', minHeight: '35px' }}
+                className="btn px-5 text-[12px] bg-red-800 border-0  hover:bg-red-400"
+              >
+                Yes
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

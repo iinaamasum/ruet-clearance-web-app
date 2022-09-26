@@ -1,6 +1,4 @@
-import { Button } from '@material-tailwind/react';
 import React from 'react';
-import swal from 'sweetalert';
 
 const ClearanceRejection = () => {
   const data = [
@@ -96,28 +94,58 @@ const ClearanceRejection = () => {
                 <p>TrxID: {d.due.transactionID}</p>
               </td>
               <td>
-                <Button
-                  onClick={() => {
-                    console.log();
-                    swal({
-                      title: `${d.status?.rejectionReason?.title}`,
-                      text: `${d.status?.rejectionReason?.description}`,
-                      icon: 'error',
-                      button: true,
-                      dangerMode: true,
-                    });
-                  }}
-                  size="sm"
-                  color="red"
-                  className=""
+                <label
+                  htmlFor="rejection-details-modal"
+                  style={{ height: '25px', minHeight: '20px' }}
+                  className="btn px-3 text-[12px] bg-red-800 border-0  hover:bg-red-400"
                 >
                   Details
-                </Button>
+                </label>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <div className="">
+        <input
+          type="checkbox"
+          id="rejection-details-modal"
+          className="modal-toggle"
+        />
+        <div className="modal modal-bottom sm:modal-middle">
+          <div className="modal-box">
+            <label
+              htmlFor="rejection-details-modal"
+              className="btn btn-sm btn-circle absolute right-2 top-3 lowercase"
+            >
+              x
+            </label>
+            <h3 className="font-bold text-lg mt-5">
+              Congratulations random Internet user!
+            </h3>
+            <p className="py-4">
+              You've been selected for a chance to get one year of subscription
+              to use Wikipedia for free!
+            </p>
+            <div className="modal-action mt-2">
+              <label
+                htmlFor="rejection-details-modal"
+                style={{ height: '35px', minHeight: '35px' }}
+                className="btn px-5 text-[12px]"
+              >
+                Close
+              </label>
+              {/* <label
+                htmlFor="rejection-details-modal"
+                style={{ height: '35px', minHeight: '35px' }}
+                className="btn px-5 text-[12px] bg-red-800 border-0  hover:bg-red-400"
+              >
+                Yes
+              </label> */}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
