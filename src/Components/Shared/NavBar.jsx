@@ -63,7 +63,7 @@ export default function NavBar() {
       <div className="flex items-center justify-between text-blue-gray-900 max-w-[1200px] mx-auto">
         <Link
           to="/"
-          className="mr-4 cursor-pointer font-medium flex justify-center items-center"
+          className="mr-4 cursor-pointer flex justify-center items-center"
         >
           <img
             src={logo}

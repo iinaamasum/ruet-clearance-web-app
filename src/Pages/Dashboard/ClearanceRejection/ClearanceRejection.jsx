@@ -74,10 +74,10 @@ const ClearanceRejection = () => {
     },
   ];
   return (
-    <div className="overflow-x-auto bg-secondaryWhite rounded-xl text-center py-2">
+    <div className="overflow-x-auto rounded-xl text-center py-2">
       <table className="table w-full">
         {/* <!-- head --> */}
-        <thead className="border-b-2">
+        <thead className="border-b-2 text-center">
           <tr className="">
             <th className="text-semibold text-indigo-500">Serial</th>
             <th className="text-semibold text-indigo-500">Applied For</th>
@@ -85,7 +85,7 @@ const ClearanceRejection = () => {
             <th className="text-semibold text-indigo-500">Reason</th>
           </tr>
         </thead>
-        <tbody className="">
+        <tbody className="text-center">
           {/* <!-- row 1 --> */}
           {data.map((d, i) => (
             <tr key={i} className="border-t-[1px]">

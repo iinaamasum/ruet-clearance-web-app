@@ -1,5 +1,4 @@
 import { Typography } from '@material-tailwind/react';
-import ruetGate from '../../../assets/images/ruet-main-gate.jpg';
 import student from '../../../assets/images/student.png';
 import '../StudentHome.css';
 
@@ -9,7 +8,7 @@ const StudentHomeLeftSide = () => {
       style={{
         boxShadow: 'rgb(228 232 247 / 60%) 5px 0px 80px',
       }}
-      className="flex-col items-center hidden md:block md:w-[300px] lg:w-[400px] min-h-screen bg-[#dddeee4d]"
+      className="flex-col items-center hidden md:block md:w-[300px] lg:w-[400px] min-h-[90vh] bg-[#dddeee4d]"
     >
       <div className="flex flex-col items-center justify-center mb-10 w-full">
         <img
@@ -35,7 +34,7 @@ const StudentHomeLeftSide = () => {
           </Typography>
         </div>
       </div>
-      <div className="w-full text-center mb-10">
+      {/* <div className="w-full text-center mb-10">
         <img
           className="w-[90%] mx-auto rounded-lg"
           src={ruetGate}
@@ -55,7 +54,7 @@ const StudentHomeLeftSide = () => {
             Click here
           </a>
         </Typography>
-      </div>
+      </div> */}
     </div>
   );
 };
