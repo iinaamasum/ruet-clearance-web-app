@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import adminImg from '../../../assets/images/admin_img.jpeg';
 import deptImg from '../../../assets/images/dept_img.jpeg';
 
-import equipmentImg from '../../../assets/images/equipment_img.png';
 import hallImg from '../../../assets/images/hall_img.webp';
 import MotionDiv from '../../../Components/Shared/MotionDiv';
 import DueClearanceCard from './DueClearanceCard';
+import EquipmentClearanceCard from './EquipmentClearanceCard';
 
 const ApplyForClearance = () => {
   const allDept = [
@@ -223,25 +223,10 @@ const ApplyForClearance = () => {
             dueApplyPageOpen={dueApplyPageOpen}
             setDueApplyPageOpen={setDueApplyPageOpen}
           />
-
-          <Card
-            onClick={() => setEquipmentApplyPageOpen(!equipmentApplyPageOpen)}
-            style={{
-              boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 6px 0px',
-            }}
-            className="w-full flex flex-row items-center gap-4 p-4 cursor-pointer hover:bg-gray-50 transition-all duration-150 mt-5"
-          >
-            <Avatar
-              src={equipmentImg}
-              alt="avatar"
-              variant="circular"
-              className="border-[1px] border-gray-300"
-            />
-            <Typography variant="paragraph">
-              Click to add details of already returned equipment to the
-              university.
-            </Typography>
-          </Card>
+          <EquipmentClearanceCard
+            equipmentApplyPageOpen={equipmentApplyPageOpen}
+            setEquipmentApplyPageOpen={setEquipmentApplyPageOpen}
+          />
         </MotionDiv>
       ) : (
         <MotionDiv>
