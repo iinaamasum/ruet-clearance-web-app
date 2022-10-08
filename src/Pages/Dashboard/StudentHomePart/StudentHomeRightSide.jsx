@@ -7,8 +7,8 @@ import {
   Typography,
 } from '@material-tailwind/react';
 import student from '../../../assets/images/student.png';
-import Home from '../ApplicationSelection/Home';
 import AppliedForClearance from '../AppliedForClearance/AppliedForClearance';
+import ApplyForClearance from '../ApplyForClearance/ApplyForClearance';
 import ClearanceApproved from '../ClearanceApproved/ClearanceApproved';
 import ClearanceRejection from '../ClearanceRejection/ClearanceRejection';
 import '../StudentHome.css';
@@ -16,8 +16,8 @@ import '../StudentHome.css';
 const StudentHomeRightSide = () => {
   const data = [
     {
-      label: 'Home',
-      value: 'home',
+      label: 'Apply',
+      value: 'apply',
     },
     {
       label: 'Applied',
@@ -31,23 +31,20 @@ const StudentHomeRightSide = () => {
       label: 'Rejected',
       value: 'rejected',
     },
-    {
-      label: 'Payment',
-      value: 'payment',
-    },
   ];
 
   return (
-    <Tabs className="px-4 w-full" id="custom-animation" value="home">
-      <div className="mt-5 mb-2 md:my-5">
+    <Tabs
+      className="px-4 w-full pt-[60px] md:pt-[100px]"
+      id="custom-animation"
+      value="apply"
+    >
+      <div className="mt-3 mb-2 md:my-3">
         <Typography
           variant="h2"
-          className="text-center leading-9 mb-5 md:text-left"
+          className="text-center leading-9 mb-5 md:mb-10"
         >
           Welcome to RUET Clearance System
-        </Typography>
-        <Typography variant="h4" className="hidden md:block">
-          Hello, <span className="text-orange-600">Md. Masum</span>{' '}
         </Typography>
       </div>
       <div className="mb-3 p-3 flex justify-between items-center md:hidden bg-secondaryWhite rounded-xl">
@@ -89,8 +86,8 @@ const StudentHomeRightSide = () => {
           unmount: { y: 250 },
         }}
       >
-        <TabPanel className="px-0 py-5" value="home">
-          <Home />
+        <TabPanel className="px-0 py-5" value="apply">
+          <ApplyForClearance />
         </TabPanel>
         <TabPanel className="px-0 py-5" value="applied">
           <AppliedForClearance />
