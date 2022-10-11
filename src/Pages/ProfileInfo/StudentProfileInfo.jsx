@@ -7,14 +7,18 @@ import {
   Select,
   Typography,
 } from '@material-tailwind/react';
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import AlternativeNavbar from '../../Components/Shared/AlternativeNavbar';
+import LoadingComponent from '../../Components/Shared/LoadingComponent';
 import MotionDiv from '../../Components/Shared/MotionDiv';
 import auth from '../../firebase.config';
+
+const userEmail = async () => {};
 
 const StudentProfileInfo = () => {
   const {
@@ -29,10 +33,34 @@ const StudentProfileInfo = () => {
     CE: ['CE', 'Arch', 'URP', 'BECM'],
     ME: ['ME', 'IPE', 'GCE', 'MTE', 'MSE', 'CFPE'],
   };
-  const [user] = useAuthState(auth);
+  const [user, userLoading] = useAuthState(auth);
+  const [userExists, setUserExists] = useState({});
+
   const navigate = useNavigate();
 
-  const onSubmit = (data) => {
+  useEffect(() => {
+    if (user) {
+      async function userFetch() {
+        const userFound = await axios
+          .get(
+            `http://localhost:5001/api/v1/student/profile-info?email=${user.email}`
+          )
+          .then((res) => res.data);
+
+        if (userFound.status === 'success') {
+          navigate('/student-dashboard');
+        }
+      }
+
+      userFetch();
+    }
+  }, [user, navigate]);
+
+  if (userLoading) {
+    return <LoadingComponent />;
+  }
+
+  const onSubmit = async (data) => {
     if (!faculty || !dept) {
       toast.error('Please select faculty and dept');
       return;
@@ -42,119 +70,11 @@ const StudentProfileInfo = () => {
       faculty,
       dept,
       email: user.email,
-      deptClearance: [
-        {
-          department: 'CSE',
-          rejection: false,
-          approved: false,
-          applied: false,
-        },
-        {
-          department: 'EEE',
-          rejection: false,
-          approved: false,
-          applied: false,
-        },
-        {
-          department: 'ECE',
-          rejection: false,
-          approved: false,
-          applied: false,
-        },
-        {
-          department: 'ETE',
-          rejection: false,
-          approved: false,
-          applied: false,
-        },
-        {
-          department: 'CE',
-          rejection: false,
-          approved: false,
-          applied: false,
-        },
-        {
-          department: 'Arch',
-          rejection: false,
-          approved: false,
-          applied: false,
-        },
-        {
-          department: 'URP',
-          rejection: false,
-          approved: false,
-          applied: false,
-        },
-        {
-          department: 'BECM',
-          rejection: false,
-          approved: false,
-          applied: false,
-        },
-        {
-          department: 'ME',
-          rejection: false,
-          approved: false,
-          applied: false,
-        },
-        {
-          department: 'IPE',
-          rejection: false,
-          approved: false,
-          applied: false,
-        },
-        {
-          department: 'GCE',
-          rejection: false,
-          approved: false,
-          applied: false,
-        },
-        {
-          department: 'MTE',
-          rejection: false,
-          approved: false,
-          applied: false,
-        },
-        {
-          department: 'MSE',
-          rejection: false,
-          approved: false,
-          applied: false,
-        },
-        {
-          department: 'CFPE',
-          rejection: false,
-          approved: false,
-          applied: false,
-        },
-        {
-          department: 'Chem',
-          rejection: false,
-          approved: false,
-          applied: false,
-        },
-        {
-          department: 'Math',
-          rejection: false,
-          approved: false,
-          applied: false,
-        },
-        {
-          department: 'Phy',
-          rejection: false,
-          approved: false,
-          applied: false,
-        },
-        {
-          department: 'Hum',
-          rejection: false,
-          approved: false,
-          applied: false,
-        },
-      ],
     };
-    alert(JSON.stringify(userInfo));
-    navigate('/student-dashboard');
+    const postStudentInfo = await axios
+      .post('http://localhost:5001/api/v1/student/profile-info', userInfo)
+      .then((res) => res.data);
+    console.log(postStudentInfo);
   };
 
   return (

@@ -37,11 +37,17 @@ const EquipmentClearance = ({
       );
       return;
     }
+    if (remainEquipment === 'yes' && !data.returnedCode) {
+      toast.error(
+        'Please enter the code that is given by the teacher or staff for returning the equipments.'
+      );
+      return;
+    }
 
     if (!data.equipmentName) data.equipmentName = 'Not Applicable';
     if (!data.equipmentReturnedTo) data.equipmentReturnedTo = 'Not Applicable';
 
-    const deptApply = {
+    const equipmentClearanceApplication = {
       equipment: {
         remainEquipment: remainEquipment,
         equipmentName: data.equipmentName,
@@ -54,17 +60,13 @@ const EquipmentClearance = ({
         rejectionReason: '',
       },
     };
-    alert(JSON.stringify(deptApply));
+    alert(JSON.stringify(equipmentClearanceApplication));
     setEquipmentApplyPageOpen(!equipmentApplyPageOpen);
   };
   return (
     <MotionDiv>
       <Card className="w-full px-4 py-3 mt-5">
-        <Typography
-          color="purple"
-          variant="h3"
-          className="my-1 text-center name__text__gradient"
-        >
+        <Typography color="black" variant="h3" className="my-1 text-center">
           Equipment Clearance Form
         </Typography>
         <form
@@ -74,7 +76,7 @@ const EquipmentClearance = ({
         >
           <>
             {/* Equipment-> remain or not  */}
-            <div className="mt-[24px] relative">
+            <div className="mt-[18px] relative">
               <Select
                 onChange={(val) => {
                   setRemainEquipment(val);
@@ -111,6 +113,16 @@ const EquipmentClearance = ({
                     type="text"
                     className="bg-secondaryWhite"
                     {...register('equipmentReturnedTo')}
+                  />
+                </div>
+                <div className="mt-[24px]">
+                  <Input
+                    label="Returned Slip Code(If many, use comma)"
+                    size="lg"
+                    color="blue"
+                    type="text"
+                    className="bg-secondaryWhite"
+                    {...register('returnedCode')}
                   />
                 </div>
               </>

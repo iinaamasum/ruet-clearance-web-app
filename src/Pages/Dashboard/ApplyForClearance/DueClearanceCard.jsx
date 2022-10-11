@@ -10,7 +10,7 @@ const DueClearanceCard = ({ dueApplyPageOpen, setDueApplyPageOpen }) => {
       {dueApplyPageOpen ? (
         <MotionDiv>
           <Card
-            onClick={() => setDueApplyPageOpen(!dueApplyPageOpen)}
+            onClick={() => setDueApplyPageOpen(false)}
             style={{
               boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 6px 0px',
             }}
@@ -23,7 +23,7 @@ const DueClearanceCard = ({ dueApplyPageOpen, setDueApplyPageOpen }) => {
               className="border-[1px] border-gray-300"
             />
             <Typography variant="paragraph">
-              Click to add details of your paid dues via Rupali Bank.
+              Click to apply for due clearance.
             </Typography>
           </Card>
         </MotionDiv>

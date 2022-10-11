@@ -3,6 +3,7 @@ import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Error404 from './Components/Shared/Error404.jsx';
 import Login from './Pages/Auth/Login.jsx';
+import RequireAuthentication from './Pages/Auth/RequireAuthentication';
 import { ResetPassword } from './Pages/Auth/ResetPassword.jsx';
 import StudentRegister from './Pages/Auth/StudentRegister.jsx';
 import TeacherRegister from './Pages/Auth/TeacherRegister.jsx';
@@ -15,7 +16,14 @@ const AllRoutes = () => {
   return (
     <AnimatePresence>
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Login />} />
+        <Route
+          path="/"
+          element={
+            <RequireAuthentication>
+              <StudentHome />
+            </RequireAuthentication>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/register-student" element={<StudentRegister />} />
         <Route path="/register-teacher" element={<TeacherRegister />} />
@@ -28,7 +36,14 @@ const AllRoutes = () => {
           path="/teacher-profile-update"
           element={<TeacherProfileInfo />}
         />
-        <Route path="/student-dashboard" element={<StudentHome />} />
+        <Route
+          path="/student-dashboard"
+          element={
+            <RequireAuthentication>
+              <StudentHome />
+            </RequireAuthentication>
+          }
+        />
         <Route path="*" element={<Error404 />} />
       </Routes>
     </AnimatePresence>

@@ -26,8 +26,7 @@ const EquipmentClearanceCard = ({
               className="border-[1px] border-gray-300"
             />
             <Typography variant="paragraph">
-              Click to add details of already returned equipment to the
-              university.
+              Click to apply for equipments clearance.
             </Typography>
           </Card>
         </MotionDiv>

@@ -14,7 +14,6 @@ import MotionDiv from '../../../Components/Shared/MotionDiv';
 
 const DueClearance = ({ dueApplyPageOpen, setDueApplyPageOpen }) => {
   const [remainDue, setRemainDue] = useState('default');
-  const [remainEquipment, setRemainEquipment] = useState('default');
   const [isChecked, setIsChecked] = useState(true);
   const { register, handleSubmit } = useForm();
 
@@ -49,7 +48,7 @@ const DueClearance = ({ dueApplyPageOpen, setDueApplyPageOpen }) => {
     if (!data.amount) data.amount = 0;
     if (!data.transactionID) data.transactionID = 'Not Applicable';
 
-    const deptApply = {
+    const dueClearanceApplication = {
       dueReason: data.dueReason,
       due: {
         remainDue: remainDue,
@@ -63,17 +62,13 @@ const DueClearance = ({ dueApplyPageOpen, setDueApplyPageOpen }) => {
         rejectionReason: '',
       },
     };
-    alert(JSON.stringify(deptApply));
-    setDueApplyPageOpen(!dueApplyPageOpen);
+    alert(JSON.stringify(dueClearanceApplication));
+    setDueApplyPageOpen(true);
   };
   return (
     <MotionDiv>
       <Card className="w-full px-4 py-3 mt-5">
-        <Typography
-          color="purple"
-          variant="h3"
-          className="my-1 text-center name__text__gradient"
-        >
+        <Typography color="black" variant="h3" className="my-1 text-center">
           Due Clearance Form
         </Typography>
         <form
@@ -83,7 +78,7 @@ const DueClearance = ({ dueApplyPageOpen, setDueApplyPageOpen }) => {
         >
           <>
             {/* due-> remain or not  */}
-            <div className="mt-[24px] relative">
+            <div className="mt-[18px] relative">
               <Select
                 onChange={(val) => {
                   setRemainDue(val);

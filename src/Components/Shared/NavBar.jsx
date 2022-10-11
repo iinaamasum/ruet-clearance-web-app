@@ -120,8 +120,14 @@ export default function NavBar() {
       </div>
       <MobileNav open={openNav} className="">
         {navList}
-        <Button variant="gradient" size="sm" fullWidth className="mb-2">
-          <span>Log Out</span>
+        <Button
+          onClick={() => signOut(auth)}
+          variant="gradient"
+          size="sm"
+          fullWidth
+          className="mb-2"
+        >
+          Log Out
         </Button>
       </MobileNav>
     </section>
