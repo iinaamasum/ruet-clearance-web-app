@@ -54,7 +54,7 @@ const StudentProfileInfo = () => {
 
       userFetch();
     }
-  }, [user, navigate]);
+  }, [user, navigate, userExists]);
 
   if (userLoading) {
     return <LoadingComponent />;
@@ -71,10 +71,17 @@ const StudentProfileInfo = () => {
       dept,
       email: user.email,
     };
-    const postStudentInfo = await axios
-      .post('http://localhost:5001/api/v1/student/profile-info', userInfo)
-      .then((res) => res.data);
-    console.log(postStudentInfo);
+    try {
+      const postStudentInfo = await axios
+        .post('http://localhost:5001/api/v1/student/profile-info', userInfo)
+        .then((res) => res.data);
+      setUserExists(postStudentInfo);
+    } catch (error) {
+      toast.error(
+        JSON.stringify(error.response.data.error.keyValue) +
+          ' is already registered.'
+      );
+    }
   };
 
   return (

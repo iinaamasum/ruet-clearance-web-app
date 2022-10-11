@@ -32,11 +32,11 @@ export default function Login() {
 
   const onSubmit = async (data) => {
     await signInWithEmailAndPassword(data.email, data.password);
-    toast.success('got u');
   };
   useEffect(() => {
     const currentUser = user || formUser;
     if (currentUser) {
+      toast.success('Welcome ' + currentUser.email);
       navigate('/student-profile-update');
     }
   }, [user, formUser, navigate]);

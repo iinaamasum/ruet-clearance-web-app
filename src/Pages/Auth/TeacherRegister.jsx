@@ -34,8 +34,6 @@ export default function TeacherRegister() {
   const onSubmit = async (data) => {
     try {
       await createUserWithEmailAndPassword(data.email, data.password);
-      navigate('/teacher-profile-update');
-      toast.success('Successfully Account Registered.');
     } catch (error) {
       toast.error(error.message);
       error.message = '';
@@ -45,9 +43,10 @@ export default function TeacherRegister() {
   useEffect(() => {
     const currentUser = user || formUser;
     if (currentUser) {
-      console.log(currentUser);
+      toast.success('Successfully Account Registered.');
+      navigate('/student-profile-update');
     }
-  }, [user, formUser]);
+  }, [user, formUser, navigate]);
 
   if (formError) {
     toast.error(formError.message);
