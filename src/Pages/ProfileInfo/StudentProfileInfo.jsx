@@ -99,7 +99,7 @@ const StudentProfileInfo = () => {
                 Profile Info
               </Typography>
               <form
-                id="register-student"
+                id="register-student-info"
                 onSubmit={handleSubmit(onSubmit)}
                 className=""
               >
@@ -259,7 +259,7 @@ const StudentProfileInfo = () => {
                 </div>
               </form>
               <Button
-                form="register-student"
+                form="register-student-info"
                 type="submit"
                 variant="gradient"
                 style={{

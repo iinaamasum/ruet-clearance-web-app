@@ -15,6 +15,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import AlternativeNavbar from '../../Components/Shared/AlternativeNavbar';
+import LoadingComponent from '../../Components/Shared/LoadingComponent';
 import MotionDiv from '../../Components/Shared/MotionDiv';
 import auth from '../../firebase.config';
 
@@ -44,7 +45,7 @@ export default function TeacherRegister() {
     const currentUser = user || formUser;
     if (currentUser) {
       toast.success('Successfully Account Registered.');
-      navigate('/student-profile-update');
+      navigate('/teacher-profile-update');
     }
   }, [user, formUser, navigate]);
 
@@ -54,7 +55,7 @@ export default function TeacherRegister() {
   }
 
   if (formLoading) {
-    return <p>loading</p>;
+    return <LoadingComponent />;
   }
   return (
     <>
