@@ -7,38 +7,69 @@ import {
   Select,
   Typography,
 } from '@material-tailwind/react';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import React, { useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import LoadingComponent from '../../../Components/Shared/LoadingComponent';
 import MotionDiv from '../../../Components/Shared/MotionDiv';
+import auth from '../../../firebase.config';
 
 const DueClearance = ({ dueApplyPageOpen, setDueApplyPageOpen }) => {
   const [remainDue, setRemainDue] = useState('default');
   const [isChecked, setIsChecked] = useState(true);
   const { register, handleSubmit } = useForm();
+  const [user, userLoading] = useAuthState(auth);
 
-  const onSubmit = (data) => {
+  const {
+    data: studentInfo,
+    isLoading,
+    isError,
+  } = useQuery(
+    ['studentInfo', user],
+    async () =>
+      await axios
+        .get(
+          `http://localhost:5001/api/v1/student/profile-info?email=${user.email}`
+        )
+        .then((res) => res.data)
+  );
+
+  if (userLoading || isLoading) {
+    return <LoadingComponent />;
+  }
+
+  if (isError) {
+    toast.error(
+      "Can't get user info. Please check internet connection. " +
+        isError.message
+    );
+  }
+
+  const onSubmit = async (data) => {
     if (remainDue === 'default') {
       toast.error('Due field not selected.');
       return;
     }
-    if (remainDue === 'yes' && !data.dueReason) {
+    if (remainDue === 'Yes' && !data.dueReason) {
       toast.error('Due Reason field not filled yet.');
       return;
     }
 
-    if (remainDue === 'yes' && data.amount <= 0) {
+    if (remainDue === 'Yes' && data.amount <= 0) {
       toast.error(
         'You have selected remain due but do not enter amount or entered negative amount.'
       );
       return;
     }
     const isNumberCheck = +data.amount;
-    if (remainDue === 'yes' && !isNumberCheck) {
+    if (remainDue === 'Yes' && !isNumberCheck) {
       toast.error('You have entered wrong amount.');
       return;
     }
-    if (remainDue === 'yes' && !data.transactionID) {
+    if (remainDue === 'Yes' && !data.transactionID) {
       toast.error(
         'You have selected remain due but do not paid yet. If paid, enter the transaction ID.'
       );
@@ -47,9 +78,17 @@ const DueClearance = ({ dueApplyPageOpen, setDueApplyPageOpen }) => {
 
     if (!data.amount) data.amount = 0;
     if (!data.transactionID) data.transactionID = 'Not Applicable';
+    if (!data.dueReason) data.dueReason = 'Not Applicable';
+
+    const allDueReason = data.dueReason.split(',');
+    for (var i = 0; i < allDueReason.length; i++) {
+      allDueReason[i] = allDueReason[i].trim();
+    }
 
     const dueClearanceApplication = {
-      dueReason: data.dueReason,
+      studentRoll: studentInfo.allStudentInfo[0].roll,
+      studentEmail: studentInfo.allStudentInfo[0].email,
+      dueReason: [...allDueReason],
       due: {
         remainDue: remainDue,
         amount: +data.amount,
@@ -62,7 +101,18 @@ const DueClearance = ({ dueApplyPageOpen, setDueApplyPageOpen }) => {
         rejectionReason: '',
       },
     };
-    alert(JSON.stringify(dueClearanceApplication));
+
+    try {
+      const dueApplyRes = await axios
+        .post(
+          'http://localhost:5001/api/v1/student/due-clearance-apply',
+          dueClearanceApplication
+        )
+        .then((res) => res.data);
+      console.log(dueApplyRes);
+    } catch (error) {
+      console.log(error);
+    }
     setDueApplyPageOpen(true);
   };
   return (
@@ -86,12 +136,12 @@ const DueClearance = ({ dueApplyPageOpen, setDueApplyPageOpen }) => {
                 size="lg"
                 label="Select Due Option"
               >
-                <Option value="yes">I had due and paid by Rupali Bank</Option>
-                <Option value="no">I don't have any due.</Option>
+                <Option value="Yes">I had due and paid by Rupali Bank</Option>
+                <Option value="No">I don't have any due.</Option>
               </Select>
             </div>
             {/* due section  */}
-            {remainDue === 'yes' && remainDue !== 'default' ? (
+            {remainDue === 'Yes' && remainDue !== 'default' ? (
               <>
                 <div className="mt-[24px]">
                   <Input
@@ -115,7 +165,7 @@ const DueClearance = ({ dueApplyPageOpen, setDueApplyPageOpen }) => {
                 </div>
                 <div className="mt-[24px]">
                   <Input
-                    label="Pay slip No.(Rupali Bank)"
+                    label="Pay slip No. (Rupali Bank)"
                     size="lg"
                     color="blue"
                     type="text"

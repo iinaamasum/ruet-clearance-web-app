@@ -18,8 +18,6 @@ import LoadingComponent from '../../Components/Shared/LoadingComponent';
 import MotionDiv from '../../Components/Shared/MotionDiv';
 import auth from '../../firebase.config';
 
-const userEmail = async () => {};
-
 const StudentProfileInfo = () => {
   const {
     register,

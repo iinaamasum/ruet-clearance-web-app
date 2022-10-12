@@ -7,10 +7,15 @@ import {
   Select,
   Typography,
 } from '@material-tailwind/react';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import React, { useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import LoadingComponent from '../../../Components/Shared/LoadingComponent';
 import MotionDiv from '../../../Components/Shared/MotionDiv';
+import auth from '../../../firebase.config';
 
 const EquipmentClearance = ({
   equipmentApplyPageOpen,
@@ -19,8 +24,34 @@ const EquipmentClearance = ({
   const [remainEquipment, setRemainEquipment] = useState('default');
   const [isChecked, setIsChecked] = useState(true);
   const { register, handleSubmit } = useForm();
+  const [user, userLoading] = useAuthState(auth);
 
-  const onSubmit = (data) => {
+  const {
+    data: studentInfo,
+    isLoading,
+    isError,
+  } = useQuery(
+    ['studentInfo', user],
+    async () =>
+      await axios
+        .get(
+          `http://localhost:5001/api/v1/student/profile-info?email=${user.email}`
+        )
+        .then((res) => res.data)
+  );
+
+  if (userLoading || isLoading) {
+    return <LoadingComponent />;
+  }
+
+  if (isError) {
+    toast.error(
+      "Can't get user info. Please check internet connection. " +
+        isError.message
+    );
+  }
+
+  const onSubmit = async (data) => {
     if (remainEquipment === 'default') {
       toast.error('Equipment field not selected.');
       return;
@@ -45,13 +76,32 @@ const EquipmentClearance = ({
     }
 
     if (!data.equipmentName) data.equipmentName = 'Not Applicable';
+    if (!data.returnedCode) data.returnedCode = 'Not Applicable';
     if (!data.equipmentReturnedTo) data.equipmentReturnedTo = 'Not Applicable';
 
+    const remainEquipmentNames = data.equipmentName.split(',');
+    for (let i = 0; i < remainEquipmentNames.length; i++) {
+      remainEquipmentNames[i] = remainEquipmentNames[i].trim();
+    }
+
+    const equipmentReturnToNames = data.equipmentReturnedTo.split(',');
+    for (let i = 0; i < equipmentReturnToNames.length; i++) {
+      equipmentReturnToNames[i] = equipmentReturnToNames[i].trim();
+    }
+
+    const returnCodes = data.returnedCode.split(',');
+    for (let i = 0; i < returnCodes.length; i++) {
+      returnCodes[i] = returnCodes[i].trim();
+    }
+
     const equipmentClearanceApplication = {
+      studentRoll: studentInfo.allStudentInfo[0].roll,
+      studentEmail: studentInfo.allStudentInfo[0].email,
       equipment: {
         remainEquipment: remainEquipment,
-        equipmentName: data.equipmentName,
-        equipmentReturnedTo: data.equipmentReturnedTo,
+        equipmentName: remainEquipmentNames,
+        equipmentReturnedTo: equipmentReturnToNames,
+        returnedCode: returnCodes,
       },
       status: {
         isApproved: false,
@@ -60,7 +110,19 @@ const EquipmentClearance = ({
         rejectionReason: '',
       },
     };
-    alert(JSON.stringify(equipmentClearanceApplication));
+    try {
+      const postEquipmentApplyRes = await axios
+        .post(
+          'http://localhost:5001/api/v1/student/equipment-clearance-apply',
+          equipmentClearanceApplication
+        )
+        .then((res) => res.data);
+      console.log(postEquipmentApplyRes);
+    } catch (error) {
+      toast.error(
+        "Can't post data. Please check connections. " + error.message
+      );
+    }
     setEquipmentApplyPageOpen(!equipmentApplyPageOpen);
   };
   return (
@@ -97,7 +159,7 @@ const EquipmentClearance = ({
               <>
                 <div className="mt-[24px]">
                   <Input
-                    label="Equipment Name"
+                    label="Equipment Name (If many, use comma)"
                     size="lg"
                     color="blue"
                     type="text"
@@ -107,7 +169,7 @@ const EquipmentClearance = ({
                 </div>
                 <div className="mt-[24px]">
                   <Input
-                    label="Returned To (Teacher/Staff Name)"
+                    label="Returned To (Teacher/Staff Name Short Form. If many, use comma)"
                     size="lg"
                     color="blue"
                     type="text"
@@ -117,11 +179,11 @@ const EquipmentClearance = ({
                 </div>
                 <div className="mt-[24px]">
                   <Input
-                    label="Returned Slip Code(If many, use comma)"
+                    label="Returned Slip Code (If many, use comma)"
                     size="lg"
                     color="blue"
                     type="text"
-                    className="bg-secondaryWhite"
+                    className="bg-secondaryWhite uppercase"
                     {...register('returnedCode')}
                   />
                 </div>

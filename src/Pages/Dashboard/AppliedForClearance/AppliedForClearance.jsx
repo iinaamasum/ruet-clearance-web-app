@@ -1,8 +1,52 @@
-import React, { useState } from 'react';
-import EditApplicationModal from '../Modals/EditApplicationModal';
+import { Button } from '@material-tailwind/react';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import toast from 'react-hot-toast';
+import LoadingComponent from '../../../Components/Shared/LoadingComponent';
+import auth from '../../../firebase.config';
 
 const AppliedForClearance = () => {
-  const [editModal, setEditModal] = useState(false);
+  const [user, userLoading] = useAuthState(auth);
+
+  const {
+    data: dueApplicationData,
+    isLoading: isLoadingDue,
+    isError: isErrorDue,
+  } = useQuery(['dueApplicationData', user], async () => {
+    return await axios
+      .get(
+        `http://localhost:5001/api/v1/student/due-clearance-apply?email=${user.email}`
+      )
+      .then((res) => res.data.result[0]);
+  });
+
+  const {
+    data: equipmentApplicationData,
+    isLoading: isLoadingEquipment,
+    isError: isErrorEquipment,
+  } = useQuery(['equipmentApplicationData', user], async () => {
+    return await axios
+      .get(
+        `http://localhost:5001/api/v1/student/equipment-clearance-apply?email=${user.email}`
+      )
+      .then((res) => res.data.result[0]);
+  });
+
+  if (isLoadingDue || userLoading || isLoadingEquipment) {
+    return <LoadingComponent />;
+  }
+  if (isErrorDue || isErrorEquipment) {
+    toast.error('Error Occurred. Please check internet. ' + isErrorDue.message);
+  }
+
+  console.log(equipmentApplicationData);
+  const { due, dueReason, status: dueStatus } = dueApplicationData;
+  const { equipmentName, equipmentReturnedTo, returnedCode } =
+    equipmentApplicationData.equipment;
+  const { status: equipmentStatus } = equipmentApplicationData;
+
   const data = [
     {
       appliedFor: 'ECE Dept',
@@ -30,128 +74,185 @@ const AppliedForClearance = () => {
         rejectionReason: '',
       },
     },
-    {
-      appliedFor: 'EEE Dept',
-      due: {
-        amount: 22,
-        transactionID: 'AJ5454SAKJ',
-      },
-      status: {
-        isApproved: false,
-        isRejected: false,
-        isPending: true,
-        rejectionReason: '',
-      },
-    },
-    {
-      appliedFor: 'MSE Dept',
-      due: {
-        amount: 27,
-        transactionID: 'A5454SAKJ',
-      },
-      status: {
-        isApproved: false,
-        isRejected: false,
-        isPending: true,
-        rejectionReason: '',
-      },
-    },
   ];
-
-  const handleDeleteApplication = () => {
-    setTimeout(async () => {
-      await console.log('object');
-    }, 2000);
-  };
   return (
-    <div className="overflow-x-auto rounded-xl text-center py-2">
-      <table className="table w-full">
-        {/* <!-- head --> */}
-        <thead className="border-b-2 text-center">
-          <tr className="">
-            <th className="text-semibold text-indigo-500">Serial</th>
-            <th className="text-semibold text-indigo-500">Applied For</th>
-            <th className="text-semibold text-indigo-500">Transaction</th>
-            <th className="text-semibold text-indigo-500">Action</th>
-          </tr>
-        </thead>
-        <tbody className="text-center">
-          {/* <!-- row 1 --> */}
-          {data.map((d, i) => (
-            <tr key={i} className="border-t-[1px]">
-              <th>{i + 1}</th>
-              <td>{d.appliedFor}</td>
-              <td className="text-sm">
-                <p>Paid: {d.due.amount}</p>
-                <p>TrxID: {d.due.transactionID}</p>
-              </td>
-              <td>
-                <div className="flex items-center justify-center gap-x-1">
-                  <label
-                    htmlFor="edit-application-modal"
-                    onClick={() => setEditModal(!editModal)}
-                    style={{ height: '25px', minHeight: '20px' }}
-                    className="btn px-3 text-[12px]"
-                  >
-                    Edit
-                  </label>
-                  <label
-                    htmlFor="confirm-delete-modal"
-                    style={{ height: '25px', minHeight: '20px' }}
-                    className="btn px-3 text-[12px] bg-red-800 border-0  hover:bg-red-400"
-                  >
-                    Delete
-                  </label>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      {editModal && (
-        <EditApplicationModal
-          editModal={editModal}
-          setEditModal={setEditModal}
-        />
-      )}
-      <div className="">
-        <input
-          type="checkbox"
-          id="confirm-delete-modal"
-          className="modal-toggle"
-        />
-        <div className="modal modal-bottom sm:modal-middle">
-          <div className="modal-box">
-            <label
-              htmlFor="confirm-delete-modal"
-              className="btn btn-sm btn-circle absolute right-2 top-3 lowercase"
-            >
-              x
-            </label>
-            <h3 className="font-bold text-lg text-red-500 mt-5">
-              Confirm Deletion
-            </h3>
-            <p className="py-4">Are you sure to delete the application?</p>
-            <div className="modal-action mt-2">
-              <label
-                htmlFor="confirm-delete-modal"
-                style={{ height: '35px', minHeight: '35px' }}
-                className="btn px-5 text-[12px]"
-              >
-                No
-              </label>
-              <label
-                htmlFor="confirm-delete-modal"
-                style={{ height: '35px', minHeight: '35px' }}
-                className="btn px-5 text-[12px] bg-red-800 border-0  hover:bg-red-400"
-              >
-                Yes
-              </label>
-            </div>
-          </div>
+    <>
+      {/* due clearance */}
+      {dueStatus.isPending && (
+        <div className="overflow-x-auto styled-table">
+          <table className="w-full">
+            <caption className="text-2xl my-2 font-semibold">
+              Due Clearance Application
+            </caption>
+            {/* <!-- head --> */}
+            <thead>
+              <tr>
+                <th className="max-w-[50px]">Serial</th>
+                <th>Due Reason</th>
+                <th>Transaction</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* <!-- row 1 --> */}
+
+              <tr>
+                <th className="max-w-[50px]">1</th>
+                <td>
+                  {dueReason.map((d, i) => (
+                    <p key={i} className="font-medium">
+                      {d}
+                    </p>
+                  ))}
+                </td>
+                <td className="text-sm">
+                  <p>Paid: {due.amount}</p>
+                  <p>TrxID: {due.transactionID}</p>
+                </td>
+                <td className="text-sm">
+                  <p>Pending</p>
+                </td>
+                <td>
+                  <div className="flex items-center justify-center gap-x-1">
+                    <Button
+                      variant="filled"
+                      color="indigo"
+                      size="sm"
+                      className="h-[30px] flex justify-center items-center"
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="filled"
+                      size="sm"
+                      color="red"
+                      className="h-[30px] flex justify-center items-center"
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      )}
+
+      {/* Equipment clearance  */}
+      {equipmentStatus.isPending && (
+        <div className="overflow-x-auto styled-table">
+          <table className="w-full">
+            <caption className="text-2xl my-2 font-semibold">
+              Equipment Clearance Application
+            </caption>
+            {/* <!-- head --> */}
+            <thead>
+              <tr>
+                <th className="max-w-[50px]">Serial</th>
+                <th>Equipments</th>
+                <th>Receiver</th>
+                <th>Codes</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* <!-- row 1 --> */}
+
+              <tr>
+                <th className="max-w-[50px]">{1}</th>
+                <td>
+                  {equipmentName.map((d, i) => (
+                    <p key={i}>{d}</p>
+                  ))}
+                </td>
+                <td>
+                  {equipmentReturnedTo.map((d, i) => (
+                    <p key={i}>{d}</p>
+                  ))}
+                </td>
+                <td>
+                  {returnedCode.map((d, i) => (
+                    <p key={i}>{d}</p>
+                  ))}
+                </td>
+                <td>Pending</td>
+                <td>
+                  <div className="flex items-center justify-center gap-x-1">
+                    <Button
+                      variant="filled"
+                      color="indigo"
+                      size="sm"
+                      className="h-[30px] flex justify-center items-center"
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="filled"
+                      size="sm"
+                      color="red"
+                      className="h-[30px] flex justify-center items-center"
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
+      <div className="overflow-x-auto styled-table">
+        <table className="w-full">
+          <caption className="text-2xl my-2 font-semibold">
+            Dept/Hall/Administrative Clearance Application
+          </caption>
+          {/* <!-- head --> */}
+          <thead>
+            <tr>
+              <th className="max-w-[50px]">Serial</th>
+              <th>Applied For</th>
+              <th>Transaction</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* <!-- row 1 --> */}
+            {data.map((d, i) => (
+              <tr key={i}>
+                <th className="max-w-[50px]">{i + 1}</th>
+                <td>{d.appliedFor}</td>
+                <td className="text-sm">
+                  <p>Paid: {d.due.amount}</p>
+                  <p>TrxID: {d.due.transactionID}</p>
+                </td>
+                <td>
+                  <div className="flex items-center justify-center gap-x-1">
+                    <Button
+                      variant="filled"
+                      color="indigo"
+                      size="sm"
+                      className="h-[30px] flex justify-center items-center"
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="filled"
+                      size="sm"
+                      color="red"
+                      className="h-[30px] flex justify-center items-center"
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-    </div>
+    </>
   );
 };
 
