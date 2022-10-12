@@ -45,7 +45,7 @@ const TeacherProfileInfo = () => {
           .then((res) => res.data);
 
         if (userFound.status === 'success') {
-          navigate('/student-dashboard');
+          navigate('/teacher-dashboard');
         }
       }
 

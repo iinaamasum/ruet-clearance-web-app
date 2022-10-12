@@ -1,10 +1,10 @@
 import React from 'react';
-import loader from '../../assets/logo/loader.gif';
+import './LoadingComponent.css';
 
 export default function LoadingComponent() {
   return (
-    <div className="flex h-screen items-center justify-center">
-      <img className="h-32" src={loader} alt="loading-gif" />
+    <div className="flex items-center justify-center h-screen">
+      <span className="loader"></span>
     </div>
   );
 }
