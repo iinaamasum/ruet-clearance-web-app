@@ -10,7 +10,7 @@ const StudentHome = () => {
       <NavBar />
       <MotionDiv>
         <div className="flex justify-center gap-x-5 max-w-[1200px] mx-auto relative">
-          <div className="hidden md:block md:w-[300px] lg:w-[400px]">
+          <div className="hidden lg:block lg:w-[400px]">
             <StudentHomeLeftSide />
           </div>
           <div className="w-full">

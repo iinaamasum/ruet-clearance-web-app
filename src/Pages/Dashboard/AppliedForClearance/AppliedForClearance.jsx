@@ -92,20 +92,20 @@ const AppliedForClearance = ({
   return (
     <>
       {/* due clearance */}
-
       {dueApplicationData.result?.[0] &&
         dueApplicationData.result[0].status.isPending && (
           <div className="overflow-x-auto styled-table">
             <table className="w-full">
-              <caption className="text-2xl my-2 font-semibold">
+              <caption className="text-2xl text-[#546e7a] my-2 font-semibold">
                 Due Clearance Application
               </caption>
               {/* <!-- head --> */}
               <thead>
-                <tr>
+                <tr className="bg-[#546e7a] text-center text-white">
                   <th className="max-w-[50px]">Serial</th>
-                  <th>Due Reason</th>
-                  <th>Transaction</th>
+                  <th>Reason</th>
+                  <th>Amount</th>
+                  <th>TransactionID</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
@@ -113,7 +113,7 @@ const AppliedForClearance = ({
               <tbody>
                 {/* <!-- row 1 --> */}
 
-                <tr>
+                <tr className="last:border-b-[2px] last:border-[#546e7a]">
                   <th className="max-w-[50px]">1</th>
                   <td>
                     {dueApplicationData.result[0].dueReason.map((d, i) => (
@@ -123,10 +123,10 @@ const AppliedForClearance = ({
                     ))}
                   </td>
                   <td className="text-sm">
-                    <p>Paid: {dueApplicationData.result[0].due.amount} TK</p>
-                    <p>
-                      TrxID: {dueApplicationData.result[0].due.transactionID}
-                    </p>
+                    {dueApplicationData.result[0].due.amount} TK
+                  </td>
+                  <td className="text-sm">
+                    {dueApplicationData.result[0].due.transactionID}
                   </td>
                   <td className="text-sm">
                     <p>Pending</p>
@@ -169,12 +169,12 @@ const AppliedForClearance = ({
         equipmentApplicationData.result[0].status.isPending && (
           <div className="overflow-x-auto styled-table">
             <table className="w-full">
-              <caption className="text-2xl my-2 font-semibold">
+              <caption className="text-2xl text-[#546e7a] my-2 font-semibold">
                 Equipment Clearance Application
               </caption>
               {/* <!-- head --> */}
               <thead>
-                <tr>
+                <tr className="bg-[#546e7a] text-center text-white">
                   <th className="max-w-[50px]">Serial</th>
                   <th>Equipments</th>
                   <th>Receiver</th>
@@ -183,10 +183,10 @@ const AppliedForClearance = ({
                   <th>Action</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="text-sm">
                 {/* <!-- row 1 --> */}
 
-                <tr>
+                <tr className="last:border-b-[2px] last:border-[#546e7a]">
                   <th className="max-w-[50px]">{1}</th>
                   <td>
                     {equipmentApplicationData.result[0].equipment.equipmentName.map(
@@ -202,7 +202,7 @@ const AppliedForClearance = ({
                       )
                     )}
                   </td>
-                  <td>
+                  <td className="uppercase">
                     {equipmentApplicationData.result[0].equipment.returnedCode.map(
                       (d, i) => (
                         <p key={i}>{d}</p>
@@ -243,14 +243,14 @@ const AppliedForClearance = ({
         )}
       <div className="overflow-x-auto styled-table">
         <table className="w-full">
-          <caption className="text-2xl my-2 font-semibold">
+          <caption className="text-2xl text-[#546e7a] my-2 font-semibold">
             Dept/Hall/Administrative Clearance Application
           </caption>
           {/* <!-- head --> */}
           <thead>
-            <tr>
+            <tr className="bg-[#546e7a] text-center text-white">
               <th className="max-w-[50px]">Serial</th>
-              <th>Applied For</th>
+              <th>Applied</th>
               <th>Transaction</th>
               <th>Action</th>
             </tr>
@@ -258,7 +258,7 @@ const AppliedForClearance = ({
           <tbody>
             {/* <!-- row 1 --> */}
             {data.map((d, i) => (
-              <tr key={i}>
+              <tr key={i} className="last:border-b-[2px] last:border-[#546e7a]">
                 <th className="max-w-[50px]">{i + 1}</th>
                 <td>{d.appliedFor}</td>
                 <td className="text-sm">

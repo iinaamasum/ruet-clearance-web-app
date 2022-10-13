@@ -88,7 +88,7 @@ const StudentHomeRightSide = () => {
 
   return (
     <Tabs
-      className="px-4 w-full pt-[60px] md:pt-[100px]"
+      className="px-1 xsm:px-4 pt-[60px] md:pt-[100px]"
       id="custom-animation"
       value="apply"
     >
@@ -97,7 +97,7 @@ const StudentHomeRightSide = () => {
           Welcome to RUET Clearance System
         </Typography>
       </div>
-      <div className="mb-3 p-3 flex justify-between items-center md:hidden bg-secondaryWhite rounded-xl">
+      <div className="mb-3 p-3 flex justify-between items-center lg:hidden bg-secondaryWhite rounded-xl">
         <div className="">
           <Typography variant="h4" className="leading-8">
             Hello, <span className="text-orange-600">Md. Masum</span>{' '}
@@ -151,10 +151,20 @@ const StudentHomeRightSide = () => {
           />
         </TabPanel>
         <TabPanel className="px-0 py-2" value="approved">
-          <ClearanceApproved />
+          <ClearanceApproved
+            dueApplicationData={dueApplicationData}
+            dueApplicationRefetch={dueApplicationRefetch}
+            equipmentApplicationData={equipmentApplicationData}
+            equipmentApplicationRefetch={equipmentApplicationRefetch}
+          />
         </TabPanel>
         <TabPanel className="px-0 py-2" value="rejected">
-          <ClearanceRejection />
+          <ClearanceRejection
+            dueApplicationData={dueApplicationData}
+            dueApplicationRefetch={dueApplicationRefetch}
+            equipmentApplicationData={equipmentApplicationData}
+            equipmentApplicationRefetch={equipmentApplicationRefetch}
+          />
         </TabPanel>
       </TabsBody>
     </Tabs>

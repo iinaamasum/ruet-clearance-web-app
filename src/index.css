@@ -47,11 +47,11 @@ input[type='number']::-webkit-outer-spin-button {
   border-radius: 5px;
 }
 
-.styled-table thead tr {
+/* .styled-table thead tr {
   background-color: #009879;
   color: #ffffff;
   text-align: center;
-}
+} */
 
 .styled-table th,
 .styled-table td {
@@ -67,9 +67,9 @@ input[type='number']::-webkit-outer-spin-button {
   background-color: #f3f3f3;
 }
 
-.styled-table tbody tr:last-of-type {
+/* .styled-table tbody tr:last-of-type {
   border-bottom: 2px solid #009879;
-}
+} */
 
 /* sweet alert theming  */
 .swal-title {

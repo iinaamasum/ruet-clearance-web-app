@@ -36,7 +36,7 @@ const StudentHomeLeftSide = () => {
       style={{
         boxShadow: 'rgb(228 232 247 / 60%) 5px 0px 80px',
       }}
-      className="flex-col items-center hidden md:block md:w-[300px] lg:w-[400px] min-h-[100vh] h-full bg-[#dddeee4d] pt-[60px] md:pt-[100px]"
+      className="flex-col items-center hidden lg:block lg:w-[400px] min-h-[100vh] h-full bg-[#dddeee4d] pt-[60px] md:pt-[100px]"
     >
       <div className="flex flex-col items-center justify-center mb-10 w-full">
         <img
