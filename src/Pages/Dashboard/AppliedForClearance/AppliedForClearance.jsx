@@ -1,14 +1,19 @@
 import { Button } from '@material-tailwind/react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import toast from 'react-hot-toast';
+import swal from 'sweetalert';
 import LoadingComponent from '../../../Components/Shared/LoadingComponent';
 import auth from '../../../firebase.config';
+import EditApplicationModal from './EditApplicationModal';
 
 const AppliedForClearance = () => {
+  const [openEditModal, setOpenEditModal] = useState(false);
   const [user, userLoading] = useAuthState(auth);
+  const [deleteModalId, setDeleteModalId] = useState('');
+  const [editModalId, setEditModalId] = useState('');
 
   const {
     data: dueApplicationData,
@@ -41,11 +46,38 @@ const AppliedForClearance = () => {
     toast.error('Error Occurred. Please check internet. ' + isErrorDue.message);
   }
 
-  console.log(equipmentApplicationData);
-  const { due, dueReason, status: dueStatus } = dueApplicationData;
+  const {
+    due,
+    dueReason,
+    status: dueStatus,
+    _id: dueDataId,
+  } = dueApplicationData;
   const { equipmentName, equipmentReturnedTo, returnedCode } =
     equipmentApplicationData.equipment;
   const { status: equipmentStatus } = equipmentApplicationData;
+
+  const handleOpenEditModal = () => setOpenEditModal(!openEditModal);
+  const handleOpenDeleteModal = (deletionId) => {
+    swal({
+      title: 'Are you sure?',
+      text: 'Once deleted, you will not be able to recover this imaginary file!',
+      icon: 'warning',
+      buttons: ['Cancel', 'Delete'],
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal('Poof! Your imaginary file has been deleted!', {
+          icon: 'success',
+          button: 'Close',
+        });
+      } else {
+        swal('Your imaginary file is safe!', {
+          icon: 'error',
+          button: 'Close',
+        });
+      }
+    });
+  };
 
   const data = [
     {
@@ -124,6 +156,9 @@ const AppliedForClearance = () => {
                       Edit
                     </Button>
                     <Button
+                      onClick={() => {
+                        handleOpenDeleteModal(dueDataId);
+                      }}
                       variant="filled"
                       size="sm"
                       color="red"
@@ -252,6 +287,13 @@ const AppliedForClearance = () => {
           </tbody>
         </table>
       </div>
+
+      {openEditModal && editModalId && (
+        <EditApplicationModal
+          openEditModal={openEditModal}
+          handleOpenEditModal={handleOpenEditModal}
+        />
+      )}
     </>
   );
 };

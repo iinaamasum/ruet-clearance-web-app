@@ -70,3 +70,53 @@ input[type='number']::-webkit-outer-spin-button {
 .styled-table tbody tr:last-of-type {
   border-bottom: 2px solid #009879;
 }
+
+/* sweet alert theming  */
+.swal-title {
+  margin: 0px;
+  font-size: 24px;
+  font-weight: 600;
+  color: red;
+  font-family: Poppins;
+}
+
+.swal-text {
+  padding: 17px;
+  display: block;
+  margin: 10 16px;
+  text-align: center;
+  color: black;
+}
+
+.swal-button--confirm {
+  padding: 6px 24px;
+  border-radius: 4px;
+  background-color: red;
+  font-size: 16px;
+  border: 1px solid red;
+}
+
+.swal-button--confirm:hover {
+  background-color: red !important;
+  color: white;
+}
+
+.swal-button--cancel {
+  padding: 7px 24px;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 16px;
+  box-shadow: none;
+  border: 0;
+}
+
+.swal-button--cancel:hover {
+  background-color: rgba(0, 0, 0) !important;
+  color: white;
+}
+
+.swal-button:focus {
+  outline: none;
+  box-shadow: none;
+}

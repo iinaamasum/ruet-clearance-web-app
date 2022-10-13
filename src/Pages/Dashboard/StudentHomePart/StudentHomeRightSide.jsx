@@ -40,10 +40,7 @@ const StudentHomeRightSide = () => {
       value="apply"
     >
       <div className="mt-3 mb-2 md:my-3">
-        <Typography
-          variant="h2"
-          className="text-center leading-9 mb-5 md:mb-10"
-        >
+        <Typography variant="h2" className="text-center leading-9">
           Welcome to RUET Clearance System
         </Typography>
       </div>
@@ -86,16 +83,16 @@ const StudentHomeRightSide = () => {
           unmount: { y: 250 },
         }}
       >
-        <TabPanel className="px-0 py-5" value="apply">
+        <TabPanel className="px-0 py-2" value="apply">
           <ApplyForClearance />
         </TabPanel>
-        <TabPanel className="px-0 py-5" value="applied">
+        <TabPanel className="px-0 py-2" value="applied">
           <AppliedForClearance />
         </TabPanel>
-        <TabPanel className="px-0 py-5" value="approved">
+        <TabPanel className="px-0 py-2" value="approved">
           <ClearanceApproved />
         </TabPanel>
-        <TabPanel className="px-0 py-5" value="rejected">
+        <TabPanel className="px-0 py-2" value="rejected">
           <ClearanceRejection />
         </TabPanel>
       </TabsBody>
