@@ -81,7 +81,7 @@ const ClearanceRejection = ({
     <>
       {/* due clearance */}
       {dueApplicationData.result?.[0] &&
-        dueApplicationData.result[0].status.isPending && (
+        dueApplicationData.result[0].status.isRejected && (
           <div className="overflow-x-auto styled-table">
             <table className="w-full">
               <caption className="text-2xl text-[#ef5350] my-2 font-semibold">
@@ -154,7 +154,7 @@ const ClearanceRejection = ({
       {/* Equipment clearance  */}
 
       {equipmentApplicationData?.result[0] &&
-        equipmentApplicationData.result[0].status.isPending && (
+        equipmentApplicationData.result[0].status.isRejected && (
           <div className="overflow-x-auto styled-table">
             <table className="w-full">
               <caption className="text-2xl text-[#ef5350] my-2 font-semibold">

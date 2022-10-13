@@ -1,20 +1,39 @@
 import { Avatar, Card, Typography } from '@material-tailwind/react';
 import React from 'react';
+import swal from 'sweetalert';
 import dueImg from '../../../assets/images/dueImg.png';
 import MotionDiv from '../../../Components/Shared/MotionDiv';
 import DueClearance from '../ApplyClearance/DueClearance';
 
 const DueClearanceCard = ({
+  dueApplicationData,
   dueApplyPageOpen,
   setDueApplyPageOpen,
   dueApplicationRefetch,
 }) => {
+  const handleDueApplicationPendingCheck = () => {
+    console.log(dueApplicationData);
+    if (
+      dueApplicationData.result.length > 0 &&
+      !dueApplicationData.result[0].status.isRejected
+    ) {
+      swal({
+        title: 'Already Applied for Due Clearance!',
+        text: "You have already applied for Due Clearance and the application is pending. So, you can't reapply unless get rejection.",
+        icon: 'error',
+        button: 'Close',
+      });
+    } else {
+      setDueApplyPageOpen(false);
+    }
+  };
+
   return (
     <div>
       {dueApplyPageOpen ? (
         <MotionDiv>
           <Card
-            onClick={() => setDueApplyPageOpen(false)}
+            onClick={handleDueApplicationPendingCheck}
             style={{
               boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 6px 0px',
             }}

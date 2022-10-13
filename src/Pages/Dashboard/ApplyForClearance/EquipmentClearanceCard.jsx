@@ -1,20 +1,37 @@
 import { Avatar, Card, Typography } from '@material-tailwind/react';
 import React from 'react';
+import swal from 'sweetalert';
 import equipmentImg from '../../../assets/images/equipment_img.png';
 import MotionDiv from '../../../Components/Shared/MotionDiv';
 import EquipmentClearance from '../ApplyClearance/EquipmentClearance';
 
 const EquipmentClearanceCard = ({
+  equipmentApplicationData,
   equipmentApplyPageOpen,
   setEquipmentApplyPageOpen,
   equipmentApplicationRefetch,
 }) => {
+  const handleEquipmentApplicationPendingCheck = () => {
+    if (
+      equipmentApplicationData.result.length > 0 &&
+      !equipmentApplicationData.result[0].status.isRejected
+    ) {
+      swal({
+        title: 'Already Applied for Equipment Clearance!',
+        text: "You have already applied for Equipment Clearance and the application is pending. So, you can't reapply unless get rejection.",
+        icon: 'error',
+        button: 'Close',
+      });
+    } else {
+      setEquipmentApplyPageOpen(false);
+    }
+  };
   return (
     <div>
       {equipmentApplyPageOpen ? (
         <MotionDiv>
           <Card
-            onClick={() => setEquipmentApplyPageOpen(!equipmentApplyPageOpen)}
+            onClick={handleEquipmentApplicationPendingCheck}
             style={{
               boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 6px 0px',
             }}

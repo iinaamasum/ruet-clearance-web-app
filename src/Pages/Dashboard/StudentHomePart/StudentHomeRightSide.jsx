@@ -140,30 +140,28 @@ const StudentHomeRightSide = () => {
           <ApplyForClearance
             dueApplicationRefetch={dueApplicationRefetch}
             equipmentApplicationRefetch={equipmentApplicationRefetch}
+            dueApplicationData={dueApplicationData}
+            equipmentApplicationData={equipmentApplicationData}
           />
         </TabPanel>
         <TabPanel className="px-0 py-2" value="applied">
           <AppliedForClearance
-            dueApplicationData={dueApplicationData}
             dueApplicationRefetch={dueApplicationRefetch}
-            equipmentApplicationData={equipmentApplicationData}
             equipmentApplicationRefetch={equipmentApplicationRefetch}
+            dueApplicationData={dueApplicationData}
+            equipmentApplicationData={equipmentApplicationData}
           />
         </TabPanel>
         <TabPanel className="px-0 py-2" value="approved">
           <ClearanceApproved
             dueApplicationData={dueApplicationData}
-            dueApplicationRefetch={dueApplicationRefetch}
             equipmentApplicationData={equipmentApplicationData}
-            equipmentApplicationRefetch={equipmentApplicationRefetch}
           />
         </TabPanel>
         <TabPanel className="px-0 py-2" value="rejected">
           <ClearanceRejection
             dueApplicationData={dueApplicationData}
-            dueApplicationRefetch={dueApplicationRefetch}
             equipmentApplicationData={equipmentApplicationData}
-            equipmentApplicationRefetch={equipmentApplicationRefetch}
           />
         </TabPanel>
       </TabsBody>

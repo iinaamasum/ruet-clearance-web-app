@@ -15,7 +15,6 @@ const AppliedForClearance = ({
 
   const handleOpenEditModal = () => setOpenEditModal(!openEditModal);
   const handleOpenDeleteModal = (deletionId, deleteApplication) => {
-    console.log(deletionId, deleteApplication);
     swal({
       title: 'Are you sure?',
       text: `--${deleteApplication}-- will be deleted. Once deleted, you will not be able to recover this application!`,
