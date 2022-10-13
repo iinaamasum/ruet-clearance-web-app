@@ -6,7 +6,10 @@ import MotionDiv from '../../../Components/Shared/MotionDiv';
 import DueClearanceCard from './DueClearanceCard';
 import EquipmentClearanceCard from './EquipmentClearanceCard';
 
-const ApplyForClearance = () => {
+const ApplyForClearance = ({
+  dueApplicationRefetch,
+  equipmentApplicationRefetch,
+}) => {
   const [dueApplyPageOpen, setDueApplyPageOpen] = useState(true);
   const [equipmentApplyPageOpen, setEquipmentApplyPageOpen] = useState(true);
 
@@ -34,10 +37,12 @@ const ApplyForClearance = () => {
         <DueClearanceCard
           dueApplyPageOpen={dueApplyPageOpen}
           setDueApplyPageOpen={setDueApplyPageOpen}
+          dueApplicationRefetch={dueApplicationRefetch}
         />
         <EquipmentClearanceCard
           equipmentApplyPageOpen={equipmentApplyPageOpen}
           setEquipmentApplyPageOpen={setEquipmentApplyPageOpen}
+          equipmentApplicationRefetch={equipmentApplicationRefetch}
         />
       </MotionDiv>
     </section>

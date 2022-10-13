@@ -4,7 +4,11 @@ import dueImg from '../../../assets/images/dueImg.png';
 import MotionDiv from '../../../Components/Shared/MotionDiv';
 import DueClearance from '../ApplyClearance/DueClearance';
 
-const DueClearanceCard = ({ dueApplyPageOpen, setDueApplyPageOpen }) => {
+const DueClearanceCard = ({
+  dueApplyPageOpen,
+  setDueApplyPageOpen,
+  dueApplicationRefetch,
+}) => {
   return (
     <div>
       {dueApplyPageOpen ? (
@@ -31,6 +35,7 @@ const DueClearanceCard = ({ dueApplyPageOpen, setDueApplyPageOpen }) => {
         <DueClearance
           dueApplyPageOpen={dueApplyPageOpen}
           setDueApplyPageOpen={setDueApplyPageOpen}
+          dueApplicationRefetch={dueApplicationRefetch}
         />
       )}
     </div>

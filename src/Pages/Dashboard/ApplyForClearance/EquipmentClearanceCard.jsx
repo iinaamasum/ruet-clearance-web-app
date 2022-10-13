@@ -7,6 +7,7 @@ import EquipmentClearance from '../ApplyClearance/EquipmentClearance';
 const EquipmentClearanceCard = ({
   equipmentApplyPageOpen,
   setEquipmentApplyPageOpen,
+  equipmentApplicationRefetch,
 }) => {
   return (
     <div>
@@ -34,6 +35,7 @@ const EquipmentClearanceCard = ({
         <EquipmentClearance
           equipmentApplyPageOpen={equipmentApplyPageOpen}
           setEquipmentApplyPageOpen={setEquipmentApplyPageOpen}
+          equipmentApplicationRefetch={equipmentApplicationRefetch}
         />
       )}
     </div>

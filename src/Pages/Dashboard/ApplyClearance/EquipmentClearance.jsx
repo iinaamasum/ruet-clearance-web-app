@@ -20,6 +20,7 @@ import auth from '../../../firebase.config';
 const EquipmentClearance = ({
   equipmentApplyPageOpen,
   setEquipmentApplyPageOpen,
+  equipmentApplicationRefetch,
 }) => {
   const [remainEquipment, setRemainEquipment] = useState('default');
   const [isChecked, setIsChecked] = useState(true);
@@ -118,6 +119,14 @@ const EquipmentClearance = ({
         )
         .then((res) => res.data);
       console.log(postEquipmentApplyRes);
+      if (postEquipmentApplyRes.status === 'success') {
+        toast.success('Success! Your application is recorded.');
+      } else {
+        toast.error(
+          "Failed. Can't apply for the clearance. Please check connection."
+        );
+      }
+      equipmentApplicationRefetch();
     } catch (error) {
       toast.error(
         "Can't post data. Please check connections. " + error.message

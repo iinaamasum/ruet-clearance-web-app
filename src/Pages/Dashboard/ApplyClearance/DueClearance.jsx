@@ -17,7 +17,11 @@ import LoadingComponent from '../../../Components/Shared/LoadingComponent';
 import MotionDiv from '../../../Components/Shared/MotionDiv';
 import auth from '../../../firebase.config';
 
-const DueClearance = ({ dueApplyPageOpen, setDueApplyPageOpen }) => {
+const DueClearance = ({
+  dueApplyPageOpen,
+  setDueApplyPageOpen,
+  dueApplicationRefetch,
+}) => {
   const [remainDue, setRemainDue] = useState('default');
   const [isChecked, setIsChecked] = useState(true);
   const { register, handleSubmit } = useForm();
@@ -109,9 +113,17 @@ const DueClearance = ({ dueApplyPageOpen, setDueApplyPageOpen }) => {
           dueClearanceApplication
         )
         .then((res) => res.data);
-      console.log(dueApplyRes);
+      dueApplicationRefetch();
+      if (dueApplyRes.status === 'success') {
+        toast.success('Successfully applied for due clearance.');
+      } else {
+        toast.error("Can't apply for clearance. Please check connections.");
+      }
     } catch (error) {
       console.log(error);
+      toast.error(
+        "Can't apply for clearance. Please check connections. " + error
+      );
     }
     setDueApplyPageOpen(true);
   };

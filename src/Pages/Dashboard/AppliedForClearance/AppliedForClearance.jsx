@@ -1,77 +1,59 @@
 import { Button } from '@material-tailwind/react';
-import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import toast from 'react-hot-toast';
 import swal from 'sweetalert';
-import LoadingComponent from '../../../Components/Shared/LoadingComponent';
-import auth from '../../../firebase.config';
 import EditApplicationModal from './EditApplicationModal';
 
-const AppliedForClearance = () => {
+const AppliedForClearance = ({
+  dueApplicationData,
+  dueApplicationRefetch,
+  equipmentApplicationData,
+  equipmentApplicationRefetch,
+}) => {
   const [openEditModal, setOpenEditModal] = useState(false);
-  const [user, userLoading] = useAuthState(auth);
-  const [deleteModalId, setDeleteModalId] = useState('');
   const [editModalId, setEditModalId] = useState('');
 
-  const {
-    data: dueApplicationData,
-    isLoading: isLoadingDue,
-    isError: isErrorDue,
-  } = useQuery(['dueApplicationData', user], async () => {
-    return await axios
-      .get(
-        `http://localhost:5001/api/v1/student/due-clearance-apply?email=${user.email}`
-      )
-      .then((res) => res.data.result[0]);
-  });
-
-  const {
-    data: equipmentApplicationData,
-    isLoading: isLoadingEquipment,
-    isError: isErrorEquipment,
-  } = useQuery(['equipmentApplicationData', user], async () => {
-    return await axios
-      .get(
-        `http://localhost:5001/api/v1/student/equipment-clearance-apply?email=${user.email}`
-      )
-      .then((res) => res.data.result[0]);
-  });
-
-  if (isLoadingDue || userLoading || isLoadingEquipment) {
-    return <LoadingComponent />;
-  }
-  if (isErrorDue || isErrorEquipment) {
-    toast.error('Error Occurred. Please check internet. ' + isErrorDue.message);
-  }
-
-  const {
-    due,
-    dueReason,
-    status: dueStatus,
-    _id: dueDataId,
-  } = dueApplicationData;
-  const { equipmentName, equipmentReturnedTo, returnedCode } =
-    equipmentApplicationData.equipment;
-  const { status: equipmentStatus } = equipmentApplicationData;
-
   const handleOpenEditModal = () => setOpenEditModal(!openEditModal);
-  const handleOpenDeleteModal = (deletionId) => {
+  const handleOpenDeleteModal = (deletionId, deleteApplication) => {
+    console.log(deletionId, deleteApplication);
     swal({
       title: 'Are you sure?',
-      text: 'Once deleted, you will not be able to recover this imaginary file!',
+      text: `--${deleteApplication}-- will be deleted. Once deleted, you will not be able to recover this application!`,
       icon: 'warning',
       buttons: ['Cancel', 'Delete'],
       dangerMode: true,
-    }).then((willDelete) => {
+    }).then(async (willDelete) => {
       if (willDelete) {
-        swal('Poof! Your imaginary file has been deleted!', {
-          icon: 'success',
-          button: 'Close',
-        });
+        let delApplyFor;
+        if (deleteApplication.toLowerCase().includes('due')) {
+          delApplyFor = 'due-clearance-apply';
+        } else if (deleteApplication.toLowerCase().includes('equipment')) {
+          delApplyFor = 'equipment-clearance-apply';
+        }
+        if (!delApplyFor) return;
+        const deleteResponse = await axios
+          .delete(
+            `http://localhost:5001/api/v1/student/${delApplyFor}/${deletionId}`
+          )
+          .then((res) => res.data);
+        dueApplicationRefetch();
+        equipmentApplicationRefetch();
+        if (deleteResponse.result) {
+          swal(`Success! --${deleteApplication}-- is successfully deleted.`, {
+            icon: 'success',
+            button: 'Close',
+          });
+        } else {
+          swal(
+            `Can't delete the --${deleteApplication}--. Please check connections.`,
+            {
+              icon: 'error',
+              button: 'Close',
+            }
+          );
+        }
       } else {
-        swal('Your imaginary file is safe!', {
+        swal('Oww! Your application is just return from destroying process.', {
           icon: 'error',
           button: 'Close',
         });
@@ -110,134 +92,155 @@ const AppliedForClearance = () => {
   return (
     <>
       {/* due clearance */}
-      {dueStatus.isPending && (
-        <div className="overflow-x-auto styled-table">
-          <table className="w-full">
-            <caption className="text-2xl my-2 font-semibold">
-              Due Clearance Application
-            </caption>
-            {/* <!-- head --> */}
-            <thead>
-              <tr>
-                <th className="max-w-[50px]">Serial</th>
-                <th>Due Reason</th>
-                <th>Transaction</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* <!-- row 1 --> */}
 
-              <tr>
-                <th className="max-w-[50px]">1</th>
-                <td>
-                  {dueReason.map((d, i) => (
-                    <p key={i} className="font-medium">
-                      {d}
+      {dueApplicationData.result?.[0] &&
+        dueApplicationData.result[0].status.isPending && (
+          <div className="overflow-x-auto styled-table">
+            <table className="w-full">
+              <caption className="text-2xl my-2 font-semibold">
+                Due Clearance Application
+              </caption>
+              {/* <!-- head --> */}
+              <thead>
+                <tr>
+                  <th className="max-w-[50px]">Serial</th>
+                  <th>Due Reason</th>
+                  <th>Transaction</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* <!-- row 1 --> */}
+
+                <tr>
+                  <th className="max-w-[50px]">1</th>
+                  <td>
+                    {dueApplicationData.result[0].dueReason.map((d, i) => (
+                      <p key={i} className="font-medium">
+                        {d}
+                      </p>
+                    ))}
+                  </td>
+                  <td className="text-sm">
+                    <p>Paid: {dueApplicationData.result[0].due.amount} TK</p>
+                    <p>
+                      TrxID: {dueApplicationData.result[0].due.transactionID}
                     </p>
-                  ))}
-                </td>
-                <td className="text-sm">
-                  <p>Paid: {due.amount}</p>
-                  <p>TrxID: {due.transactionID}</p>
-                </td>
-                <td className="text-sm">
-                  <p>Pending</p>
-                </td>
-                <td>
-                  <div className="flex items-center justify-center gap-x-1">
-                    <Button
-                      variant="filled"
-                      color="indigo"
-                      size="sm"
-                      className="h-[30px] flex justify-center items-center"
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        handleOpenDeleteModal(dueDataId);
-                      }}
-                      variant="filled"
-                      size="sm"
-                      color="red"
-                      className="h-[30px] flex justify-center items-center"
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      )}
+                  </td>
+                  <td className="text-sm">
+                    <p>Pending</p>
+                  </td>
+                  <td>
+                    <div className="flex items-center justify-center gap-x-1">
+                      <Button
+                        variant="filled"
+                        color="indigo"
+                        size="sm"
+                        className="h-[30px] flex justify-center items-center"
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          handleOpenDeleteModal(
+                            dueApplicationData.result[0]._id,
+                            'Due Application'
+                          );
+                        }}
+                        variant="filled"
+                        size="sm"
+                        color="red"
+                        className="h-[30px] flex justify-center items-center"
+                      >
+                        Delete
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        )}
 
       {/* Equipment clearance  */}
-      {equipmentStatus.isPending && (
-        <div className="overflow-x-auto styled-table">
-          <table className="w-full">
-            <caption className="text-2xl my-2 font-semibold">
-              Equipment Clearance Application
-            </caption>
-            {/* <!-- head --> */}
-            <thead>
-              <tr>
-                <th className="max-w-[50px]">Serial</th>
-                <th>Equipments</th>
-                <th>Receiver</th>
-                <th>Codes</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* <!-- row 1 --> */}
 
-              <tr>
-                <th className="max-w-[50px]">{1}</th>
-                <td>
-                  {equipmentName.map((d, i) => (
-                    <p key={i}>{d}</p>
-                  ))}
-                </td>
-                <td>
-                  {equipmentReturnedTo.map((d, i) => (
-                    <p key={i}>{d}</p>
-                  ))}
-                </td>
-                <td>
-                  {returnedCode.map((d, i) => (
-                    <p key={i}>{d}</p>
-                  ))}
-                </td>
-                <td>Pending</td>
-                <td>
-                  <div className="flex items-center justify-center gap-x-1">
-                    <Button
-                      variant="filled"
-                      color="indigo"
-                      size="sm"
-                      className="h-[30px] flex justify-center items-center"
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      variant="filled"
-                      size="sm"
-                      color="red"
-                      className="h-[30px] flex justify-center items-center"
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      )}
+      {equipmentApplicationData?.result[0] &&
+        equipmentApplicationData.result[0].status.isPending && (
+          <div className="overflow-x-auto styled-table">
+            <table className="w-full">
+              <caption className="text-2xl my-2 font-semibold">
+                Equipment Clearance Application
+              </caption>
+              {/* <!-- head --> */}
+              <thead>
+                <tr>
+                  <th className="max-w-[50px]">Serial</th>
+                  <th>Equipments</th>
+                  <th>Receiver</th>
+                  <th>Codes</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* <!-- row 1 --> */}
+
+                <tr>
+                  <th className="max-w-[50px]">{1}</th>
+                  <td>
+                    {equipmentApplicationData.result[0].equipment.equipmentName.map(
+                      (d, i) => (
+                        <p key={i}>{d}</p>
+                      )
+                    )}
+                  </td>
+                  <td>
+                    {equipmentApplicationData.result[0].equipment.equipmentReturnedTo.map(
+                      (d, i) => (
+                        <p key={i}>{d}</p>
+                      )
+                    )}
+                  </td>
+                  <td>
+                    {equipmentApplicationData.result[0].equipment.returnedCode.map(
+                      (d, i) => (
+                        <p key={i}>{d}</p>
+                      )
+                    )}
+                  </td>
+                  <td>Pending</td>
+                  <td>
+                    <div className="flex items-center justify-center gap-x-1">
+                      <Button
+                        variant="filled"
+                        color="indigo"
+                        size="sm"
+                        className="h-[30px] flex justify-center items-center"
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        onClick={() =>
+                          handleOpenDeleteModal(
+                            equipmentApplicationData.result[0]._id,
+                            'Equipment Application'
+                          )
+                        }
+                        variant="filled"
+                        size="sm"
+                        color="red"
+                        className="h-[30px] flex justify-center items-center"
+                      >
+                        Delete
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        )}
       <div className="overflow-x-auto styled-table">
         <table className="w-full">
           <caption className="text-2xl my-2 font-semibold">

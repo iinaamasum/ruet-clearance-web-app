@@ -6,7 +6,13 @@ import {
   TabsHeader,
   Typography,
 } from '@material-tailwind/react';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import toast from 'react-hot-toast';
 import student from '../../../assets/images/student.png';
+import LoadingComponent from '../../../Components/Shared/LoadingComponent';
+import auth from '../../../firebase.config';
 import AppliedForClearance from '../AppliedForClearance/AppliedForClearance';
 import ApplyForClearance from '../ApplyForClearance/ApplyForClearance';
 import ClearanceApproved from '../ClearanceApproved/ClearanceApproved';
@@ -14,6 +20,53 @@ import ClearanceRejection from '../ClearanceRejection/ClearanceRejection';
 import '../StudentHome.css';
 
 const StudentHomeRightSide = () => {
+  const [user, userLoading] = useAuthState(auth);
+
+  const {
+    data: dueApplicationData,
+    isLoading: isLoadingDue,
+    isError: isErrorDue,
+    refetch: dueApplicationRefetch,
+  } = useQuery(
+    ['dueApplicationData', user],
+    async () => {
+      return await axios
+        .get(
+          `http://localhost:5001/api/v1/student/due-clearance-apply?email=${user.email}`
+        )
+        .then((res) => res.data);
+    },
+    {
+      retry: false,
+    }
+  );
+
+  const {
+    data: equipmentApplicationData,
+    isLoading: isLoadingEquipment,
+    isError: isErrorEquipment,
+    refetch: equipmentApplicationRefetch,
+  } = useQuery(
+    ['equipmentApplicationData', user],
+    async () => {
+      return await axios
+        .get(
+          `http://localhost:5001/api/v1/student/equipment-clearance-apply?email=${user.email}`
+        )
+        .then((res) => res.data);
+    },
+    {
+      retry: false,
+    }
+  );
+
+  if (isLoadingDue || userLoading || isLoadingEquipment) {
+    return <LoadingComponent />;
+  }
+  if (isErrorDue || isErrorEquipment) {
+    toast.error('Error Occurred. Please check internet. ' + isErrorDue.message);
+  }
+
   const data = [
     {
       label: 'Apply',
@@ -84,10 +137,18 @@ const StudentHomeRightSide = () => {
         }}
       >
         <TabPanel className="px-0 py-2" value="apply">
-          <ApplyForClearance />
+          <ApplyForClearance
+            dueApplicationRefetch={dueApplicationRefetch}
+            equipmentApplicationRefetch={equipmentApplicationRefetch}
+          />
         </TabPanel>
         <TabPanel className="px-0 py-2" value="applied">
-          <AppliedForClearance />
+          <AppliedForClearance
+            dueApplicationData={dueApplicationData}
+            dueApplicationRefetch={dueApplicationRefetch}
+            equipmentApplicationData={equipmentApplicationData}
+            equipmentApplicationRefetch={equipmentApplicationRefetch}
+          />
         </TabPanel>
         <TabPanel className="px-0 py-2" value="approved">
           <ClearanceApproved />
