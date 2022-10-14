@@ -74,7 +74,7 @@ const StudentHomeLeftSide = () => {
         <Typography variant="h5" className="text-lg leading-5 mt-2">
           Rajshahi University of Engineering & Technology.
         </Typography>
-        <Typography variant="paragraph" color="" className="text-sm">
+        <Typography variant="paragraph" className="text-sm">
           Want to visit our official site?{' '}
           <a
             href="https://www.ruet.ac.bd/"

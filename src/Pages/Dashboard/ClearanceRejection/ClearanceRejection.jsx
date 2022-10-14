@@ -1,6 +1,6 @@
-import { Button, Tooltip } from '@material-tailwind/react';
+import { Button } from '@material-tailwind/react';
 import React from 'react';
-import { AiOutlineEye } from 'react-icons/ai';
+import toast from 'react-hot-toast';
 
 const ClearanceRejection = ({
   dueApplicationData,
@@ -104,8 +104,7 @@ const ClearanceRejection = ({
                   <th className="max-w-[50px]">Serial</th>
                   <th>Equipments</th>
                   <th>Receiver</th>
-                  <th>Codes</th>
-                  <th>Status</th>
+                  <th>Rejection Reason</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -128,39 +127,20 @@ const ClearanceRejection = ({
                       )
                     )}
                   </td>
-                  <td className="uppercase">
-                    {equipmentApplicationData.result[0].equipment.returnedCode.map(
-                      (d, i) => (
-                        <p key={i}>{d}</p>
-                      )
-                    )}
-                  </td>
-                  <td>Pending</td>
-                  <td>
-                    {/* <div className="flex items-center justify-center gap-x-1">
-                      <Button
-                        variant="filled"
-                        color="indigo"
-                        size="sm"
-                        className="h-[30px] flex justify-center items-center"
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        onClick={() =>
-                          handleOpenDeleteModal(
-                            equipmentApplicationData.result[0]._id,
-                            'Equipment Application'
-                          )
-                        }
-                        variant="filled"
-                        size="sm"
-                        color="red"
-                        className="h-[30px] flex justify-center items-center"
-                      >
-                        Delete
-                      </Button>
-                    </div> */}
+
+                  <td>Left Equipments</td>
+                  <td className="flex items-center justify-center">
+                    <Button
+                      onClick={() => {
+                        toast('Under development');
+                      }}
+                      variant="filled"
+                      size="sm"
+                      color="red"
+                      className="h-[30px] flex justify-center items-center"
+                    >
+                      Details
+                    </Button>
                   </td>
                 </tr>
               </tbody>
@@ -179,8 +159,7 @@ const ClearanceRejection = ({
               <tr className="bg-[#ef5350] text-center text-white">
                 <th className="max-w-[50px]">Serial</th>
                 <th>Applied For</th>
-                <th>Got</th>
-                <th>Pending</th>
+                <th>Rejection Reason</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -194,46 +173,24 @@ const ClearanceRejection = ({
                   <th className="max-w-[50px]">{i + 1}</th>
                   <td>{d.appliedFor}</td>
 
-                  <td className="text-sm flex items-center justify-start">
-                    <p className="inline-flex justify-center items-center gap-x-2">
-                      {d.getClearanceSections.length}{' '}
-                      {d.appliedFor.includes('Hall')
-                        ? ' Halls'
-                        : d.appliedFor.includes('Faculty')
-                        ? ' Depts'
-                        : ' Admin Sectors'}
-                      <Tooltip
-                        content={
-                          d.getClearanceSections.length === 0
-                            ? 'None'
-                            : d.getClearanceSections.map(
-                                (dept, i, arr) =>
-                                  `${dept}${i !== arr.length - 1 ? ', ' : ' '}`
-                              )
-                        }
-                      >
-                        <Button className="bg-transparent p-0 m-0 shadow-none">
-                          <AiOutlineEye
-                            as={Button}
-                            size={22}
-                            color="#109879"
-                            className="font-bold cursor-pointer"
-                          />
-                        </Button>
-                      </Tooltip>
-                    </p>
-                  </td>
                   <td className="text-sm">
-                    <p>
-                      {d.totalSections}{' '}
-                      {d.appliedFor.includes('Hall')
-                        ? ' Halls'
-                        : d.appliedFor.includes('Faculty')
-                        ? ' Depts'
-                        : ' Admin Sectors'}
+                    <p className="inline-flex justify-center items-center gap-x-2">
+                      Wrong Info
                     </p>
                   </td>
-                  <td>Congrats</td>
+                  <td className="flex items-center justify-center">
+                    <Button
+                      onClick={() => {
+                        toast('Under development');
+                      }}
+                      variant="filled"
+                      size="sm"
+                      color="red"
+                      className="h-[30px] flex justify-center items-center"
+                    >
+                      Details
+                    </Button>
+                  </td>
                 </tr>
               ))}
             </tbody>

@@ -76,7 +76,9 @@ const ApplyClearanceModal = ({
         .then((res) => res.data);
 
       if (postRes.status === 'success') {
-        toast.success('Congrats! Your application is successfully submitted.');
+        toast.success(
+          'Congrats 🎉! Your application is successfully submitted.'
+        );
       } else {
         toast.error(
           "Failed! Can't register the application. Check connections."

@@ -33,7 +33,7 @@ const ClearanceApproved = ({
                   <th>Amount</th>
                   <th>TransactionID</th>
                   <th>Status</th>
-                  <th>Action</th>
+                  <th>Remarks</th>
                 </tr>
               </thead>
               <tbody>
@@ -55,11 +55,11 @@ const ClearanceApproved = ({
                     {dueApplicationData.result[0].due.transactionID}
                   </td>
                   <td className="text-sm">
-                    <p>Pending</p>
+                    <p>Approved</p>
                   </td>
                   <td>
                     <div className="flex items-center justify-center gap-x-1">
-                      congrats
+                      Congrats 🎉
                     </div>
                   </td>
                 </tr>
@@ -82,9 +82,8 @@ const ClearanceApproved = ({
                   <th className="max-w-[50px]">Serial</th>
                   <th>Equipments</th>
                   <th>Receiver</th>
-                  <th>Codes</th>
                   <th>Status</th>
-                  <th>Action</th>
+                  <th>Remarks</th>
                 </tr>
               </thead>
               <tbody className="text-sm">
@@ -106,17 +105,10 @@ const ClearanceApproved = ({
                       )
                     )}
                   </td>
-                  <td className="uppercase">
-                    {equipmentApplicationData.result[0].equipment.returnedCode.map(
-                      (d, i) => (
-                        <p key={i}>{d}</p>
-                      )
-                    )}
-                  </td>
-                  <td>Pending</td>
+                  <td>Approved</td>
                   <td>
                     <div className="flex items-center justify-center gap-x-1">
-                      congrats
+                      Congrats 🎉
                     </div>
                   </td>
                 </tr>
@@ -136,9 +128,8 @@ const ClearanceApproved = ({
               <tr className="bg-[#009879] text-center text-white">
                 <th className="max-w-[50px]">Serial</th>
                 <th>Applied For</th>
-                <th>Got</th>
-                <th>Pending</th>
-                <th>Action</th>
+                <th>Approved</th>
+                <th>Remarks</th>
               </tr>
             </thead>
             <tbody>
@@ -151,7 +142,7 @@ const ClearanceApproved = ({
                   <th className="max-w-[50px]">{i + 1}</th>
                   <td>{d.appliedFor}</td>
 
-                  <td className="text-sm flex items-center justify-start">
+                  <td className="text-sm">
                     <p className="inline-flex justify-center items-center gap-x-2">
                       {d.getClearanceSections.length}{' '}
                       {d.appliedFor.includes('Hall')
@@ -180,17 +171,7 @@ const ClearanceApproved = ({
                       </Tooltip>
                     </p>
                   </td>
-                  <td className="text-sm">
-                    <p>
-                      {d.totalSections}{' '}
-                      {d.appliedFor.includes('Hall')
-                        ? ' Halls'
-                        : d.appliedFor.includes('Faculty')
-                        ? ' Depts'
-                        : ' Admin Sectors'}
-                    </p>
-                  </td>
-                  <td>Congrats</td>
+                  <td>Congrats 🎉</td>
                 </tr>
               ))}
             </tbody>
