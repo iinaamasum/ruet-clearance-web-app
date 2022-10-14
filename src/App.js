@@ -18,14 +18,14 @@ function App() {
         toastOptions={{
           success: {
             style: {
-              background: 'green',
+              background: '#009879',
               color: 'white',
               fontWeight: 600,
             },
           },
           error: {
             style: {
-              background: 'red',
+              background: '#ef5350',
               color: 'white',
               fontWeight: 600,
             },

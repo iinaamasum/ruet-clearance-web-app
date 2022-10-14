@@ -32,12 +32,31 @@ const StudentHomeRightSide = () => {
     async () => {
       return await axios
         .get(
-          `http://localhost:5001/api/v1/student/due-clearance-apply?email=${user.email}`
+          `http://localhost:5001/api/v1/student/due-clearance-apply?studentEmail=${user.email}`
         )
         .then((res) => res.data);
     },
     {
-      retry: false,
+      retry: 1,
+    }
+  );
+
+  const {
+    data: othersApplicationData,
+    isLoading: isLoadingOthers,
+    isError: isErrorOthers,
+    refetch: othersApplicationRefetch,
+  } = useQuery(
+    ['othersApplicationData', user],
+    async () => {
+      return await axios
+        .get(
+          `http://localhost:5001/api/v1/student/hall-faculty-admin-clearance-apply?studentEmail=${user.email}`
+        )
+        .then((res) => res.data);
+    },
+    {
+      retry: 1,
     }
   );
 
@@ -51,21 +70,23 @@ const StudentHomeRightSide = () => {
     async () => {
       return await axios
         .get(
-          `http://localhost:5001/api/v1/student/equipment-clearance-apply?email=${user.email}`
+          `http://localhost:5001/api/v1/student/equipment-clearance-apply?studentEmail=${user.email}`
         )
         .then((res) => res.data);
     },
     {
-      retry: false,
+      retry: 1,
     }
   );
 
-  if (isLoadingDue || userLoading || isLoadingEquipment) {
+  if (isLoadingDue || userLoading || isLoadingEquipment || isLoadingOthers) {
     return <LoadingComponent />;
   }
-  if (isErrorDue || isErrorEquipment) {
+  if (isErrorDue || isErrorEquipment || isErrorOthers) {
     toast.error('Error Occurred. Please check internet. ' + isErrorDue.message);
   }
+
+  console.log(othersApplicationData);
 
   const data = [
     {
@@ -142,6 +163,8 @@ const StudentHomeRightSide = () => {
             equipmentApplicationRefetch={equipmentApplicationRefetch}
             dueApplicationData={dueApplicationData}
             equipmentApplicationData={equipmentApplicationData}
+            othersApplicationData={othersApplicationData}
+            othersApplicationRefetch={othersApplicationRefetch}
           />
         </TabPanel>
         <TabPanel className="px-0 py-2" value="applied">
@@ -150,6 +173,8 @@ const StudentHomeRightSide = () => {
             equipmentApplicationRefetch={equipmentApplicationRefetch}
             dueApplicationData={dueApplicationData}
             equipmentApplicationData={equipmentApplicationData}
+            othersApplicationData={othersApplicationData}
+            othersApplicationRefetch={othersApplicationRefetch}
           />
         </TabPanel>
         <TabPanel className="px-0 py-2" value="approved">

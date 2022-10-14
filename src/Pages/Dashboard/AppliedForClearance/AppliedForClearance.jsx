@@ -1,6 +1,7 @@
-import { Button } from '@material-tailwind/react';
+import { Button, Tooltip } from '@material-tailwind/react';
 import axios from 'axios';
 import React, { useState } from 'react';
+import { AiOutlineEye } from 'react-icons/ai';
 import swal from 'sweetalert';
 import EditApplicationModal from './EditApplicationModal';
 
@@ -9,6 +10,8 @@ const AppliedForClearance = ({
   dueApplicationRefetch,
   equipmentApplicationData,
   equipmentApplicationRefetch,
+  othersApplicationData,
+  othersApplicationRefetch,
 }) => {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [editModalId, setEditModalId] = useState('');
@@ -60,34 +63,46 @@ const AppliedForClearance = ({
     });
   };
 
-  const data = [
-    {
-      appliedFor: 'ECE Dept',
-      due: {
-        amount: 272,
-        transactionID: 'AJ5454SAKJ',
-      },
-      status: {
-        isApproved: false,
-        isRejected: false,
-        isPending: true,
-        rejectionReason: '',
-      },
-    },
-    {
-      appliedFor: 'CSE Dept',
-      due: {
-        amount: 72,
-        transactionID: 'AJ544SAKJ',
-      },
-      status: {
-        isApproved: false,
-        isRejected: false,
-        isPending: true,
-        rejectionReason: '',
-      },
-    },
-  ];
+  const handleDeleteOthersApplication = (deletionId, deleteApplication) => {
+    console.log(deletionId, deleteApplication);
+
+    swal({
+      title: 'Are you sure?',
+      text: `--${deleteApplication}-- will be deleted. Once deleted, you will not be able to recover this application!`,
+      icon: 'warning',
+      buttons: ['Cancel', 'Delete'],
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        const deleteResponse = await axios
+          .delete(
+            `http://localhost:5001/api/v1/student/hall-faculty-admin-clearance-apply/${deletionId}`
+          )
+          .then((res) => res.data);
+        othersApplicationRefetch();
+        if (deleteResponse.result) {
+          swal(`Success! --${deleteApplication}-- is successfully deleted.`, {
+            icon: 'success',
+            button: 'Close',
+          });
+        } else {
+          swal(
+            `Can't delete the --${deleteApplication}--. Please check connections.`,
+            {
+              icon: 'error',
+              button: 'Close',
+            }
+          );
+        }
+      } else {
+        swal('Oww! Your application is just return from destroying process.', {
+          icon: 'error',
+          button: 'Close',
+        });
+      }
+    });
+  };
+
   return (
     <>
       {/* due clearance */}
@@ -240,6 +255,8 @@ const AppliedForClearance = ({
             </table>
           </div>
         )}
+
+      {/* hall faculty admin */}
       <div className="overflow-x-auto styled-table">
         <table className="w-full">
           <caption className="text-2xl text-[#546e7a] my-2 font-semibold">
@@ -249,32 +266,64 @@ const AppliedForClearance = ({
           <thead>
             <tr className="bg-[#546e7a] text-center text-white">
               <th className="max-w-[50px]">Serial</th>
-              <th>Applied</th>
-              <th>Transaction</th>
+              <th>Applied For</th>
+              <th>Got</th>
+              <th>Pending</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {/* <!-- row 1 --> */}
-            {data.map((d, i) => (
+            {othersApplicationData?.result.map((d, i) => (
               <tr key={i} className="last:border-b-[2px] last:border-[#546e7a]">
                 <th className="max-w-[50px]">{i + 1}</th>
                 <td>{d.appliedFor}</td>
+
+                <td className="text-sm flex items-center justify-start">
+                  <p className="inline-flex justify-center items-center gap-x-2">
+                    {d.getClearanceSections.length}{' '}
+                    {d.appliedFor.includes('Hall')
+                      ? ' Halls'
+                      : d.appliedFor.includes('Faculty')
+                      ? ' Depts'
+                      : ' Admin Sectors'}
+                    <Tooltip
+                      content={
+                        d.getClearanceSections.length === 0
+                          ? 'None'
+                          : d.getClearanceSections.map(
+                              (dept, i, arr) =>
+                                `${dept}${i !== arr.length - 1 ? ', ' : ' '}`
+                            )
+                      }
+                    >
+                      <Button className="bg-transparent p-0 m-0 shadow-none">
+                        <AiOutlineEye
+                          as={Button}
+                          size={22}
+                          color="#109879"
+                          className="font-bold cursor-pointer"
+                        />
+                      </Button>
+                    </Tooltip>
+                  </p>
+                </td>
                 <td className="text-sm">
-                  <p>Paid: {d.due.amount}</p>
-                  <p>TrxID: {d.due.transactionID}</p>
+                  <p>
+                    {d.totalSections}{' '}
+                    {d.appliedFor.includes('Hall')
+                      ? ' Halls'
+                      : d.appliedFor.includes('Faculty')
+                      ? ' Depts'
+                      : ' Admin Sectors'}
+                  </p>
                 </td>
                 <td>
                   <div className="flex items-center justify-center gap-x-1">
                     <Button
-                      variant="filled"
-                      color="indigo"
-                      size="sm"
-                      className="h-[30px] flex justify-center items-center"
-                    >
-                      Edit
-                    </Button>
-                    <Button
+                      onClick={() =>
+                        handleDeleteOthersApplication(d._id, d.appliedFor)
+                      }
                       variant="filled"
                       size="sm"
                       color="red"

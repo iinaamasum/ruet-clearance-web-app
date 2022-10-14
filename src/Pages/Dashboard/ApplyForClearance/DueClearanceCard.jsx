@@ -12,14 +12,13 @@ const DueClearanceCard = ({
   dueApplicationRefetch,
 }) => {
   const handleDueApplicationPendingCheck = () => {
-    console.log(dueApplicationData);
     if (
       dueApplicationData.result.length > 0 &&
       !dueApplicationData.result[0].status.isRejected
     ) {
       swal({
         title: 'Already Applied for Due Clearance!',
-        text: "You have already applied for Due Clearance and the application is pending. So, you can't reapply unless get rejection.",
+        text: "You have already applied for Due Clearance and the application is pending. So, you can't reapply unless get rejection or delete the previous application.",
         icon: 'error',
         button: 'Close',
       });

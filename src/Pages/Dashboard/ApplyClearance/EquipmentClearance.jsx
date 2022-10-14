@@ -118,7 +118,6 @@ const EquipmentClearance = ({
           equipmentClearanceApplication
         )
         .then((res) => res.data);
-      console.log(postEquipmentApplyRes);
       if (postEquipmentApplyRes.status === 'success') {
         toast.success('Success! Your application is recorded.');
       } else {

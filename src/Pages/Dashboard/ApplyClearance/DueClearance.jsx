@@ -120,7 +120,6 @@ const DueClearance = ({
         toast.error("Can't apply for clearance. Please check connections.");
       }
     } catch (error) {
-      console.log(error);
       toast.error(
         "Can't apply for clearance. Please check connections. " + error
       );
