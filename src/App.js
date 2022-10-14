@@ -10,7 +10,7 @@ function App() {
     AOS.refresh();
   }, []);
   return (
-    <div className="bg-primaryWhite w-full min-h-[101vh]">
+    <div className="bg-primaryWhite w-full min-h-[100.1vh]">
       <AllRoutes />
       <Toaster
         position="top-right"

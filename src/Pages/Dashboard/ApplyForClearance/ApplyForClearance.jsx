@@ -25,14 +25,17 @@ const ApplyForClearance = ({
   const handleApplyModalOpen = (reason, data) => {
     let pendingApplication = [];
     data?.result?.forEach((d) => {
-      if (d.appliedFor === reason && d.status.isPending) {
+      if (
+        d.appliedFor === reason &&
+        (d.status.isPending || d.status.isApproved)
+      ) {
         pendingApplication.push(d);
       }
     });
     if (pendingApplication?.length > 0) {
       swal({
         title: `Already Applied for ${reason}!`,
-        text: `You have already applied for ${reason} and the application is pending. So, you can't reapply unless get rejection or delete the previous application.`,
+        text: `You have already applied for ${reason} and the application is pending or you just got clearance from the sector. So, you can't reapply unless get rejection or delete the previous application.`,
         icon: 'error',
         button: 'Close',
       });

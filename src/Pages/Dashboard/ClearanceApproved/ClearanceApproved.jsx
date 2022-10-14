@@ -1,66 +1,20 @@
-import { Button } from '@material-tailwind/react';
+import { Button, Tooltip } from '@material-tailwind/react';
 import React from 'react';
+import { AiOutlineEye } from 'react-icons/ai';
 
 const ClearanceApproved = ({
   dueApplicationData,
-  dueApplicationRefetch,
+  othersApplicationData,
   equipmentApplicationData,
-  equipmentApplicationRefetch,
 }) => {
-  const data = [
-    {
-      appliedFor: 'ECE Dept',
-      due: {
-        amount: 272,
-        transactionID: 'AJ5454SAKJ',
-      },
-      status: {
-        isApproved: true,
-        isRejected: false,
-        isPending: false,
-        rejectionReason: '',
-      },
-    },
-    {
-      appliedFor: 'CSE Dept',
-      due: {
-        amount: 72,
-        transactionID: 'AJ544SAKJ',
-      },
-      status: {
-        isApproved: true,
-        isRejected: false,
-        isPending: false,
-        rejectionReason: '',
-      },
-    },
-    {
-      appliedFor: 'EEE Dept',
-      due: {
-        amount: 22,
-        transactionID: 'AJ5454SAKJ',
-      },
-      status: {
-        isApproved: true,
-        isRejected: false,
-        isPending: false,
-        rejectionReason: '',
-      },
-    },
-    {
-      appliedFor: 'MSE Dept',
-      due: {
-        amount: 27,
-        transactionID: 'A5454SAKJ',
-      },
-      status: {
-        isApproved: true,
-        isRejected: false,
-        isPending: false,
-        rejectionReason: '',
-      },
-    },
-  ];
+  let othersApprovedApplicationData = [];
+  othersApplicationData?.result.forEach((d) => {
+    if (d.status.isApproved) othersApprovedApplicationData.push(d);
+  });
+  const approvedOthersClearance = othersApprovedApplicationData.map((d) => {
+    if (d.status.isPending) return true;
+  });
+
   return (
     <>
       {/* due clearance  */}
@@ -171,55 +125,78 @@ const ClearanceApproved = ({
           </div>
         )}
 
-      <div className="overflow-x-auto styled-table">
-        <table className="w-full">
-          <caption className="text-2xl my-2 font-semibold">
-            Dept/Hall/Administrative Clearance Approved
-          </caption>
-          {/* <!-- head --> */}
-          <thead>
-            <tr className="bg-[#009879] text-center text-white">
-              <th className="max-w-[50px]">Serial</th>
-              <th>Applied For</th>
-              <th>Transaction</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* <!-- row 1 --> */}
-            {data.map((d, i) => (
-              <tr key={i} className="last:border-b-[2px] last:border-[#009879]">
-                <th className="max-w-[50px]">{i + 1}</th>
-                <td>{d.appliedFor}</td>
-                <td className="text-sm">
-                  <p>Paid: {d.due.amount}</p>
-                  <p>TrxID: {d.due.transactionID}</p>
-                </td>
-                <td>
-                  <div className="flex items-center justify-center gap-x-1">
-                    <Button
-                      variant="filled"
-                      color="indigo"
-                      size="sm"
-                      className="h-[30px] flex justify-center items-center"
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      variant="filled"
-                      size="sm"
-                      color="red"
-                      className="h-[30px] flex justify-center items-center"
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                </td>
+      {othersApprovedApplicationData.length > 0 && approvedOthersClearance && (
+        <div className="overflow-x-auto styled-table">
+          <table className="w-full">
+            <caption className="text-2xl text-[#009879] my-2 font-semibold">
+              Dept/Hall/Administrative Clearance Application
+            </caption>
+            {/* <!-- head --> */}
+            <thead>
+              <tr className="bg-[#009879] text-center text-white">
+                <th className="max-w-[50px]">Serial</th>
+                <th>Applied For</th>
+                <th>Got</th>
+                <th>Pending</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {/* <!-- row 1 --> */}
+              {othersApprovedApplicationData.map((d, i) => (
+                <tr
+                  key={i}
+                  className="last:border-b-[2px] last:border-[#009879]"
+                >
+                  <th className="max-w-[50px]">{i + 1}</th>
+                  <td>{d.appliedFor}</td>
+
+                  <td className="text-sm flex items-center justify-start">
+                    <p className="inline-flex justify-center items-center gap-x-2">
+                      {d.getClearanceSections.length}{' '}
+                      {d.appliedFor.includes('Hall')
+                        ? ' Halls'
+                        : d.appliedFor.includes('Faculty')
+                        ? ' Depts'
+                        : ' Admin Sectors'}
+                      <Tooltip
+                        content={
+                          d.getClearanceSections.length === 0
+                            ? 'None'
+                            : d.getClearanceSections.map(
+                                (dept, i, arr) =>
+                                  `${dept}${i !== arr.length - 1 ? ', ' : ' '}`
+                              )
+                        }
+                      >
+                        <Button className="bg-transparent p-0 m-0 shadow-none">
+                          <AiOutlineEye
+                            as={Button}
+                            size={22}
+                            color="#109879"
+                            className="font-bold cursor-pointer"
+                          />
+                        </Button>
+                      </Tooltip>
+                    </p>
+                  </td>
+                  <td className="text-sm">
+                    <p>
+                      {d.totalSections}{' '}
+                      {d.appliedFor.includes('Hall')
+                        ? ' Halls'
+                        : d.appliedFor.includes('Faculty')
+                        ? ' Depts'
+                        : ' Admin Sectors'}
+                    </p>
+                  </td>
+                  <td>Congrats</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </>
   );
 };

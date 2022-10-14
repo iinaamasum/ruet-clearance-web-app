@@ -18,7 +18,7 @@ const EquipmentClearanceCard = ({
     ) {
       swal({
         title: 'Already Applied for Equipment Clearance!',
-        text: "You have already applied for Equipment Clearance and the application is pending. So, you can't reapply unless get rejection or delete the previous application.",
+        text: "You have already applied for Equipment Clearance and the application is pending or you just got clearance from the sector. So, you can't reapply unless get rejection or delete the previous application.",
         icon: 'error',
         button: 'Close',
       });

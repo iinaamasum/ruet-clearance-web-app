@@ -18,7 +18,7 @@ const DueClearanceCard = ({
     ) {
       swal({
         title: 'Already Applied for Due Clearance!',
-        text: "You have already applied for Due Clearance and the application is pending. So, you can't reapply unless get rejection or delete the previous application.",
+        text: "You have already applied for Due Clearance and the application is pending or you just got clearance from the sector. So, you can't reapply unless get rejection or delete the previous application.",
         icon: 'error',
         button: 'Close',
       });

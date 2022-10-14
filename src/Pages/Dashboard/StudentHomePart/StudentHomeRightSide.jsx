@@ -181,12 +181,14 @@ const StudentHomeRightSide = () => {
           <ClearanceApproved
             dueApplicationData={dueApplicationData}
             equipmentApplicationData={equipmentApplicationData}
+            othersApplicationData={othersApplicationData}
           />
         </TabPanel>
         <TabPanel className="px-0 py-2" value="rejected">
           <ClearanceRejection
             dueApplicationData={dueApplicationData}
             equipmentApplicationData={equipmentApplicationData}
+            othersApplicationData={othersApplicationData}
           />
         </TabPanel>
       </TabsBody>

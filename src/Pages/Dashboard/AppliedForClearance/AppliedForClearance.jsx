@@ -64,8 +64,6 @@ const AppliedForClearance = ({
   };
 
   const handleDeleteOthersApplication = (deletionId, deleteApplication) => {
-    console.log(deletionId, deleteApplication);
-
     swal({
       title: 'Are you sure?',
       text: `--${deleteApplication}-- will be deleted. Once deleted, you will not be able to recover this application!`,
@@ -102,6 +100,15 @@ const AppliedForClearance = ({
       }
     });
   };
+
+  let othersPendingApplicationData = [];
+  othersApplicationData?.result.forEach((d) => {
+    if (d.status.isPending) othersPendingApplicationData.push(d);
+  });
+
+  const pendingOthersClearance = othersPendingApplicationData.map((d) => {
+    if (d.status.isPending) return true;
+  });
 
   return (
     <>
@@ -257,87 +264,92 @@ const AppliedForClearance = ({
         )}
 
       {/* hall faculty admin */}
-      <div className="overflow-x-auto styled-table">
-        <table className="w-full">
-          <caption className="text-2xl text-[#546e7a] my-2 font-semibold">
-            Dept/Hall/Administrative Clearance Application
-          </caption>
-          {/* <!-- head --> */}
-          <thead>
-            <tr className="bg-[#546e7a] text-center text-white">
-              <th className="max-w-[50px]">Serial</th>
-              <th>Applied For</th>
-              <th>Got</th>
-              <th>Pending</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* <!-- row 1 --> */}
-            {othersApplicationData?.result.map((d, i) => (
-              <tr key={i} className="last:border-b-[2px] last:border-[#546e7a]">
-                <th className="max-w-[50px]">{i + 1}</th>
-                <td>{d.appliedFor}</td>
-
-                <td className="text-sm flex items-center justify-start">
-                  <p className="inline-flex justify-center items-center gap-x-2">
-                    {d.getClearanceSections.length}{' '}
-                    {d.appliedFor.includes('Hall')
-                      ? ' Halls'
-                      : d.appliedFor.includes('Faculty')
-                      ? ' Depts'
-                      : ' Admin Sectors'}
-                    <Tooltip
-                      content={
-                        d.getClearanceSections.length === 0
-                          ? 'None'
-                          : d.getClearanceSections.map(
-                              (dept, i, arr) =>
-                                `${dept}${i !== arr.length - 1 ? ', ' : ' '}`
-                            )
-                      }
-                    >
-                      <Button className="bg-transparent p-0 m-0 shadow-none">
-                        <AiOutlineEye
-                          as={Button}
-                          size={22}
-                          color="#109879"
-                          className="font-bold cursor-pointer"
-                        />
-                      </Button>
-                    </Tooltip>
-                  </p>
-                </td>
-                <td className="text-sm">
-                  <p>
-                    {d.totalSections}{' '}
-                    {d.appliedFor.includes('Hall')
-                      ? ' Halls'
-                      : d.appliedFor.includes('Faculty')
-                      ? ' Depts'
-                      : ' Admin Sectors'}
-                  </p>
-                </td>
-                <td>
-                  <div className="flex items-center justify-center gap-x-1">
-                    <Button
-                      onClick={() =>
-                        handleDeleteOthersApplication(d._id, d.appliedFor)
-                      }
-                      variant="filled"
-                      size="sm"
-                      color="red"
-                      className="h-[30px] flex justify-center items-center"
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                </td>
+      {othersPendingApplicationData.length > 0 && pendingOthersClearance && (
+        <div className="overflow-x-auto styled-table">
+          <table className="w-full">
+            <caption className="text-2xl text-[#546e7a] my-2 font-semibold">
+              Dept/Hall/Administrative Clearance Application
+            </caption>
+            {/* <!-- head --> */}
+            <thead>
+              <tr className="bg-[#546e7a] text-center text-white">
+                <th className="max-w-[50px]">Serial</th>
+                <th>Applied For</th>
+                <th>Got</th>
+                <th>Pending</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {/* <!-- row 1 --> */}
+              {othersPendingApplicationData.map((d, i) => (
+                <tr
+                  key={i}
+                  className="last:border-b-[2px] last:border-[#546e7a]"
+                >
+                  <th className="max-w-[50px]">{i + 1}</th>
+                  <td>{d.appliedFor}</td>
+
+                  <td className="text-sm flex items-center justify-start">
+                    <p className="inline-flex justify-center items-center gap-x-2">
+                      {d.getClearanceSections.length}{' '}
+                      {d.appliedFor.includes('Hall')
+                        ? ' Halls'
+                        : d.appliedFor.includes('Faculty')
+                        ? ' Depts'
+                        : ' Admin Sectors'}
+                      <Tooltip
+                        content={
+                          d.getClearanceSections.length === 0
+                            ? 'None'
+                            : d.getClearanceSections.map(
+                                (dept, i, arr) =>
+                                  `${dept}${i !== arr.length - 1 ? ', ' : ' '}`
+                              )
+                        }
+                      >
+                        <Button className="bg-transparent p-0 m-0 shadow-none">
+                          <AiOutlineEye
+                            as={Button}
+                            size={22}
+                            color="#109879"
+                            className="font-bold cursor-pointer"
+                          />
+                        </Button>
+                      </Tooltip>
+                    </p>
+                  </td>
+                  <td className="text-sm">
+                    <p>
+                      {d.totalSections}{' '}
+                      {d.appliedFor.includes('Hall')
+                        ? ' Halls'
+                        : d.appliedFor.includes('Faculty')
+                        ? ' Depts'
+                        : ' Admin Sectors'}
+                    </p>
+                  </td>
+                  <td>
+                    <div className="flex items-center justify-center gap-x-1">
+                      <Button
+                        onClick={() =>
+                          handleDeleteOthersApplication(d._id, d.appliedFor)
+                        }
+                        variant="filled"
+                        size="sm"
+                        color="red"
+                        className="h-[30px] flex justify-center items-center"
+                      >
+                        Delete
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
       {openEditModal && editModalId && (
         <EditApplicationModal

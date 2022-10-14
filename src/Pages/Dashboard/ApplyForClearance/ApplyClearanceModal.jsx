@@ -103,13 +103,15 @@ const ApplyClearanceModal = ({
           <p>Dear Sir,</p>
 
           <p className="mt-2">
-            With all due respect, I wish to obtain clearance from all university
+            With all due respect, I wish to obtain clearance from all
             {applyFor.includes('Faculty')
               ? ' departments '
               : applyFor.includes('Hall')
               ? ' halls '
               : ' administrative sectors '}
-            as I have paid all of my debts.Please forward my application to the{' '}
+            of the university as I have paid all of my debts and had no
+            returnable equipments. Please forward my application to the
+            respective
             {applyFor.includes('Faculty')
               ? ' Department Heads '
               : applyFor.includes('Hall')
@@ -118,8 +120,9 @@ const ApplyClearanceModal = ({
             in charge of processing it and issue clearance.
           </p>
 
-          <p className="mt-4">Regards, Masum</p>
-          <p>iinaamasum@gmail.com</p>
+          <p className="mt-4 capitalize">Regards, {name}</p>
+          <p>Email: {email}</p>
+          <p>Roll: {roll}</p>
         </DialogBody>
         <DialogFooter>
           <Button
