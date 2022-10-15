@@ -21,10 +21,7 @@ export default function TeacherNavbar() {
   }, []);
 
   const NavLinks = [
-    { id: 1, path: '/teacher-dashboard', name: 'Clearance' },
-    { id: 2, path: '/result', name: 'Result' },
-    { id: 3, path: '/report-error', name: 'Report Error' },
-    { id: 5, path: '/about', name: 'About' },
+    { id: 1, path: '/teacher-dashboard', name: 'Clearance Application' },
   ];
 
   const navList = (
@@ -61,7 +58,7 @@ export default function TeacherNavbar() {
     >
       <div className="flex items-center justify-between text-blue-gray-900 max-w-[1200px] mx-auto">
         <Link
-          to="/"
+          to="/teacher-dashboard"
           className="mr-4 cursor-pointer flex justify-center items-center"
         >
           <img
