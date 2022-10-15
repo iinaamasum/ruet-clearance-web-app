@@ -106,15 +106,23 @@ const AppliedForClearance = ({
     if (d.status.isPending) othersPendingApplicationData.push(d);
   });
 
-  const pendingOthersClearance = othersPendingApplicationData.map((d) => {
-    if (d.status.isPending) return true;
+  let duePendingApplicationData = [];
+  dueApplicationData?.result.forEach((d) => {
+    if (d.status.isPending) duePendingApplicationData.push(d);
   });
+
+  let equipmentPendingApplicationData = [];
+  equipmentApplicationData?.result.forEach((d) => {
+    if (d.status.isPending) equipmentPendingApplicationData.push(d);
+  });
+
+  console.log(othersPendingApplicationData);
 
   return (
     <>
       {/* due clearance */}
-      {dueApplicationData.result?.[0] &&
-        dueApplicationData.result[0].status.isPending && (
+      {duePendingApplicationData?.[0] &&
+        duePendingApplicationData[0].appliedFor.includes('Due') && (
           <div className="overflow-x-auto styled-table">
             <table className="w-full">
               <caption className="text-2xl text-[#546e7a] my-2 font-semibold">
@@ -137,17 +145,17 @@ const AppliedForClearance = ({
                 <tr className="last:border-b-[2px] last:border-[#546e7a]">
                   <th className="max-w-[50px]">1</th>
                   <td>
-                    {dueApplicationData.result[0].dueReason.map((d, i) => (
+                    {duePendingApplicationData[0].dueReason.map((d, i) => (
                       <p key={i} className="font-medium">
                         {d}
                       </p>
                     ))}
                   </td>
                   <td className="text-sm">
-                    {dueApplicationData.result[0].due.amount} TK
+                    {duePendingApplicationData[0].due.amount} TK
                   </td>
                   <td className="text-sm">
-                    {dueApplicationData.result[0].due.transactionID}
+                    {duePendingApplicationData[0].due.transactionID}
                   </td>
                   <td className="text-sm">
                     <p>Pending</p>
@@ -165,7 +173,7 @@ const AppliedForClearance = ({
                       <Button
                         onClick={() => {
                           handleOpenDeleteModal(
-                            dueApplicationData.result[0]._id,
+                            duePendingApplicationData[0]._id,
                             'Due Application'
                           );
                         }}
@@ -186,8 +194,8 @@ const AppliedForClearance = ({
 
       {/* Equipment clearance  */}
 
-      {equipmentApplicationData?.result[0] &&
-        equipmentApplicationData.result[0].status.isPending && (
+      {equipmentPendingApplicationData?.[0] &&
+        equipmentPendingApplicationData[0].appliedFor.includes('Equipment') && (
           <div className="overflow-x-auto styled-table">
             <table className="w-full">
               <caption className="text-2xl text-[#546e7a] my-2 font-semibold">
@@ -264,7 +272,7 @@ const AppliedForClearance = ({
         )}
 
       {/* hall faculty admin */}
-      {othersPendingApplicationData.length > 0 && pendingOthersClearance && (
+      {othersPendingApplicationData.length > 0 && (
         <div className="overflow-x-auto styled-table">
           <table className="w-full">
             <caption className="text-2xl text-[#546e7a] my-2 font-semibold">

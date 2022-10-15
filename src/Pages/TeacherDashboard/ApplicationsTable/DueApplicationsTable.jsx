@@ -8,43 +8,52 @@ const DueApplicationsTable = ({
   refetchFilterApplicationsData,
   applicationType,
 }) => {
-  const handleOpenDeleteModal = (deletionId, deleteApplication) => {
+  const handleApproveApplicationModal = (
+    applicationId,
+    applicationFor,
+    userRoll,
+    userEmail
+  ) => {
     swal({
       title: 'Are you sure?',
-      text: `--${deleteApplication}-- will be deleted. Once deleted, you will not be able to recover this application!`,
+      text: `--${applicationFor}-- will be approved which is applied by ${userEmail} and roll: ${userRoll}.`,
       icon: 'warning',
-      buttons: ['Cancel', 'Delete'],
+      buttons: ['Cancel', 'Approve'],
       dangerMode: true,
-    }).then(async (willDelete) => {
-      if (willDelete) {
-        let delApplyFor;
-        if (deleteApplication.toLowerCase().includes('due')) {
-          delApplyFor = 'due-clearance-apply';
-        } else if (deleteApplication.toLowerCase().includes('equipment')) {
-          delApplyFor = 'equipment-clearance-apply';
-        }
-        if (!delApplyFor) return;
-        const deleteResponse = await axios
-          .delete(
-            `http://localhost:5001/api/v1/student/${delApplyFor}/${deletionId}`
+    }).then(async (willReject) => {
+      if (willReject) {
+        const updateData = {
+          status: {
+            isPending: false,
+            isApproved: true,
+            isRejected: false,
+            rejectionReason: '',
+          },
+        };
+        const approveResponse = await axios
+          .patch(
+            `http://localhost:5001/api/v1/student/due-clearance-apply/${applicationId}`,
+            updateData
           )
           .then((res) => res.data);
-        if (deleteResponse.result) {
-          swal(`Success! --${deleteApplication}-- is successfully deleted.`, {
+
+        if (approveResponse.status === 'success') {
+          swal(`Success! --${applicationFor}-- is successfully approved.`, {
             icon: 'success',
             button: 'Close',
           });
         } else {
           swal(
-            `Can't delete the --${deleteApplication}--. Please check connections.`,
+            `Can't approve the --${applicationFor}--. Please check connections.`,
             {
               icon: 'error',
               button: 'Close',
             }
           );
         }
+        refetchFilterApplicationsData();
       } else {
-        swal('Oww! Your application is just return from destroying process.', {
+        swal('Oww! Your application is just return from approval process.', {
           icon: 'error',
           button: 'Close',
         });
@@ -52,37 +61,52 @@ const DueApplicationsTable = ({
     });
   };
 
-  const handleDeleteOthersApplication = (deletionId, deleteApplication) => {
+  const handleRejectApplicationModal = (
+    applicationId,
+    applicationFor,
+    userRoll,
+    userEmail
+  ) => {
     swal({
       title: 'Are you sure?',
-      text: `--${deleteApplication}-- will be deleted. Once deleted, you will not be able to recover this application!`,
+      text: `--${applicationFor}-- will be rejected which is applied by ${userEmail} and roll: ${userRoll}.`,
       icon: 'warning',
-      buttons: ['Cancel', 'Delete'],
+      buttons: ['Cancel', 'Reject Application'],
       dangerMode: true,
-    }).then(async (willDelete) => {
-      if (willDelete) {
-        const deleteResponse = await axios
-          .delete(
-            `http://localhost:5001/api/v1/student/hall-faculty-admin-clearance-apply/${deletionId}`
+    }).then(async (willUpdate) => {
+      if (willUpdate) {
+        const updateData = {
+          status: {
+            isPending: false,
+            isApproved: false,
+            isRejected: true,
+            rejectionReason: '',
+          },
+        };
+        const rejectionResponse = await axios
+          .patch(
+            `http://localhost:5001/api/v1/student/due-clearance-apply/${applicationId}`,
+            updateData
           )
           .then((res) => res.data);
 
-        if (deleteResponse.result) {
-          swal(`Success! --${deleteApplication}-- is successfully deleted.`, {
+        if (rejectionResponse.status === 'success') {
+          swal(`Success! --${applicationFor}-- is successfully rejected.`, {
             icon: 'success',
             button: 'Close',
           });
         } else {
           swal(
-            `Can't delete the --${deleteApplication}--. Please check connections.`,
+            `Can't reject the --${applicationFor}--. Please check connections.`,
             {
               icon: 'error',
               button: 'Close',
             }
           );
         }
+        refetchFilterApplicationsData();
       } else {
-        swal('Oww! Your application is just return from destroying process.', {
+        swal('Oww! Your application is just return from rejection process.', {
           icon: 'error',
           button: 'Close',
         });
@@ -156,32 +180,36 @@ const DueApplicationsTable = ({
               <td>
                 <div className="flex items-center justify-center gap-x-1">
                   <Button
-                    // onClick={() => {
-                    //   handleOpenDeleteModal(
-                    //     dueApplicationData.result[0]._id,
-                    //     'Due Application'
-                    //   );
-                    // }}
+                    onClick={() => {
+                      handleApproveApplicationModal(
+                        d._id,
+                        d.appliedFor,
+                        d.studentRoll,
+                        d.studentEmail
+                      );
+                    }}
                     variant="filled"
                     size="sm"
                     color="blue"
                     className="h-[30px] flex justify-center items-center"
                   >
-                    Approved
+                    Approve{' '}
                   </Button>
                   <Button
-                    // onClick={() => {
-                    //   handleOpenDeleteModal(
-                    //     dueApplicationData.result[0]._id,
-                    //     'Due Application'
-                    //   );
-                    // }}
+                    onClick={() => {
+                      handleRejectApplicationModal(
+                        d._id,
+                        d.appliedFor,
+                        d.studentRoll,
+                        d.studentEmail
+                      );
+                    }}
                     variant="filled"
                     size="sm"
-                    color="blue"
+                    color="red"
                     className="h-[30px] flex justify-center items-center"
                   >
-                    Action
+                    Reject
                   </Button>
                 </div>
               </td>

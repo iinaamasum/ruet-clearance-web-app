@@ -7,19 +7,26 @@ const ClearanceRejection = ({
   othersApplicationData,
   equipmentApplicationData,
 }) => {
-  let othersRejectedApplicationData = [];
+  let othersRejectionApplicationData = [];
   othersApplicationData?.result.forEach((d) => {
-    if (d.status.isRejected) othersRejectedApplicationData.push(d);
+    if (d.status.isRejected) othersRejectionApplicationData.push(d);
   });
 
-  const rejectedOthersClearance = othersRejectedApplicationData.map((d) => {
-    if (d.status.isRejected) return true;
+  let dueRejectionApplicationData = [];
+  dueApplicationData?.result.forEach((d) => {
+    if (d.status.isRejected) dueRejectionApplicationData.push(d);
   });
+
+  let equipmentRejectionApplicationData = [];
+  equipmentApplicationData?.result.forEach((d) => {
+    if (d.status.isRejected) equipmentRejectionApplicationData.push(d);
+  });
+
   return (
     <>
       {/* due clearance */}
-      {dueApplicationData.result?.[0] &&
-        dueApplicationData.result[0].status.isRejected && (
+      {dueRejectionApplicationData?.[0] &&
+        dueRejectionApplicationData[0].appliedFor.includes('Due') && (
           <div className="overflow-x-auto styled-table">
             <table className="w-full">
               <caption className="text-2xl text-[#ef5350] my-2 font-semibold">
@@ -32,58 +39,28 @@ const ClearanceRejection = ({
                   <th>Due Reason</th>
                   <th>Amount</th>
                   <th>TransactionID</th>
-                  <th>Status</th>
-                  <th>Action</th>
+                  <th>Reason</th>
                 </tr>
               </thead>
               <tbody>
                 {/* <!-- row 1 --> */}
-
-                <tr className="last:border-b-[2px] last:border-[#ef5350]">
-                  <th className="max-w-[50px]">1</th>
-                  <td>
-                    {dueApplicationData.result[0].dueReason.map((d, i) => (
-                      <p key={i} className="font-medium">
-                        {d}
-                      </p>
-                    ))}
-                  </td>
-                  <td className="text-sm">
-                    {dueApplicationData.result[0].due.amount} TK
-                  </td>
-                  <td className="text-sm">
-                    {dueApplicationData.result[0].due.transactionID}
-                  </td>
-                  <td className="text-sm">
-                    <p>Pending</p>
-                  </td>
-                  <td>
-                    {/* <div className="flex items-center justify-center gap-x-1">
-                      <Button
-                        variant="filled"
-                        color="indigo"
-                        size="sm"
-                        className="h-[30px] flex justify-center items-center"
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          handleOpenDeleteModal(
-                            dueApplicationData.result[0]._id,
-                            'Due Application'
-                          );
-                        }}
-                        variant="filled"
-                        size="sm"
-                        color="red"
-                        className="h-[30px] flex justify-center items-center"
-                      >
-                        Delete
-                      </Button>
-                    </div> */}
-                  </td>
-                </tr>
+                {dueApplicationData?.result.map((data, i) => (
+                  <tr className="last:border-b-[2px] last:border-[#ef5350]">
+                    <th className="max-w-[50px]">{i + 1}</th>
+                    <td>
+                      {data.dueReason.map((d, i) => (
+                        <p key={i} className="font-medium">
+                          {d}
+                        </p>
+                      ))}
+                    </td>
+                    <td className="text-sm">{data.due.amount} TK</td>
+                    <td className="text-sm">{data.due.transactionID}</td>
+                    <td className="text-sm">
+                      <p>Wrong Info</p>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -91,8 +68,10 @@ const ClearanceRejection = ({
 
       {/* Equipment clearance  */}
 
-      {equipmentApplicationData?.result[0] &&
-        equipmentApplicationData.result[0].status.isRejected && (
+      {equipmentRejectionApplicationData?.[0] &&
+        equipmentRejectionApplicationData[0].appliedFor.includes(
+          'Equipment'
+        ) && (
           <div className="overflow-x-auto styled-table">
             <table className="w-full">
               <caption className="text-2xl text-[#ef5350] my-2 font-semibold">
@@ -110,45 +89,42 @@ const ClearanceRejection = ({
               </thead>
               <tbody className="text-sm">
                 {/* <!-- row 1 --> */}
-
-                <tr className="last:border-b-[2px] last:border-[#ef5350]">
-                  <th className="max-w-[50px]">{1}</th>
-                  <td>
-                    {equipmentApplicationData.result[0].equipment.equipmentName.map(
-                      (d, i) => (
+                {equipmentApplicationData.result.map((data, i) => (
+                  <tr className="last:border-b-[2px] last:border-[#ef5350]">
+                    <th className="max-w-[50px]">{i + 1}</th>
+                    <td>
+                      {data.equipment.equipmentName.map((d, i) => (
                         <p key={i}>{d}</p>
-                      )
-                    )}
-                  </td>
-                  <td>
-                    {equipmentApplicationData.result[0].equipment.equipmentReturnedTo.map(
-                      (d, i) => (
+                      ))}
+                    </td>
+                    <td>
+                      {data.equipment.equipmentReturnedTo.map((d, i) => (
                         <p key={i}>{d}</p>
-                      )
-                    )}
-                  </td>
+                      ))}
+                    </td>
 
-                  <td>Left Equipments</td>
-                  <td className="flex items-center justify-center">
-                    <Button
-                      onClick={() => {
-                        toast('Under development');
-                      }}
-                      variant="filled"
-                      size="sm"
-                      color="red"
-                      className="h-[30px] flex justify-center items-center"
-                    >
-                      Details
-                    </Button>
-                  </td>
-                </tr>
+                    <td>Left Equipments</td>
+                    <td className="flex items-center justify-center">
+                      <Button
+                        onClick={() => {
+                          toast('Under development');
+                        }}
+                        variant="filled"
+                        size="sm"
+                        color="red"
+                        className="h-[30px] flex justify-center items-center"
+                      >
+                        Details
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
         )}
 
-      {othersRejectedApplicationData.length > 0 && rejectedOthersClearance && (
+      {othersRejectionApplicationData.length > 0 && (
         <div className="overflow-x-auto styled-table">
           <table className="w-full">
             <caption className="text-2xl text-[#ef5350] my-2 font-semibold">
@@ -165,7 +141,7 @@ const ClearanceRejection = ({
             </thead>
             <tbody>
               {/* <!-- row 1 --> */}
-              {othersRejectedApplicationData.map((d, i) => (
+              {othersRejectionApplicationData.map((d, i) => (
                 <tr
                   key={i}
                   className="last:border-b-[2px] last:border-[#ef5350]"
