@@ -38,7 +38,7 @@ const EquipmentClearance = ({
         .get(
           `http://localhost:5001/api/v1/student/profile-info?email=${user.email}`
         )
-        .then((res) => res.data)
+        .then((res) => res.data.allStudentInfo[0])
   );
 
   if (userLoading || isLoading) {
@@ -51,6 +51,9 @@ const EquipmentClearance = ({
         isError.message
     );
   }
+
+  const { name, roll, contact_number, dept, email, faculty, series } =
+    studentInfo;
 
   const onSubmit = async (data) => {
     if (remainEquipment === 'default') {
@@ -96,8 +99,14 @@ const EquipmentClearance = ({
     }
 
     const equipmentClearanceApplication = {
-      studentRoll: studentInfo.allStudentInfo[0].roll,
-      studentEmail: studentInfo.allStudentInfo[0].email,
+      appliedFor: 'Equipment Clearance',
+      studentName: name,
+      studentEmail: email,
+      studentRoll: roll,
+      studentFaculty: faculty,
+      studentDept: dept,
+      studentSeries: series,
+      studentContactInfo: contact_number,
       equipment: {
         remainEquipment: remainEquipment,
         equipmentName: remainEquipmentNames,

@@ -68,11 +68,13 @@ const TeacherProfileInfo = () => {
       dept,
       email: user.email,
     };
+
+    console.log(userInfo);
     try {
       const postTeacherInfo = await axios
         .post('http://localhost:5001/api/v1/teacher/profile-info', userInfo)
         .then((res) => res.data);
-      if (postTeacherInfo.error.keyValue) {
+      if (postTeacherInfo?.error?.keyValue) {
         toast.error(
           JSON.stringify(postTeacherInfo.error.keyValue) +
             ' is already registered.'
@@ -95,11 +97,7 @@ const TeacherProfileInfo = () => {
         <section className="flex justify-center pb-[20px] pt-[100px] md:pt-[115px] px-2">
           <Card className="w-full md:w-[800px] md:px-[32px]">
             <CardBody className="flex flex-col gap-4 w-full md:w-[80%] mx-auto">
-              <Typography
-                variant="h2"
-                color="initial"
-                className="text-center my-2 md:my-4"
-              >
+              <Typography variant="h2" className="text-center my-2 md:my-4">
                 Profile Info
               </Typography>
               <form
@@ -133,7 +131,6 @@ const TeacherProfileInfo = () => {
                   <Select
                     onChange={(val) => {
                       setFaculty(val);
-                      console.log(val);
                     }}
                     size="lg"
                     label="Select Faculty"
@@ -151,17 +148,28 @@ const TeacherProfileInfo = () => {
                   <Select
                     onChange={(val) => {
                       setDept(val);
-                      console.log(val);
                     }}
                     size="lg"
                     label="Select Dept"
                   >
                     {faculty === 'Electrical & Computer Engineering' ? (
-                      allDept.ECE.map((d) => <Option value={d}>{d}</Option>)
+                      allDept.ECE.map((d) => (
+                        <Option key={d} value={d}>
+                          {d}
+                        </Option>
+                      ))
                     ) : faculty === 'Mechanical Engineering' ? (
-                      allDept.ME.map((d) => <Option value={d}>{d}</Option>)
+                      allDept.ME.map((d) => (
+                        <Option key={d} value={d}>
+                          {d}
+                        </Option>
+                      ))
                     ) : faculty === 'Civil Engineering' ? (
-                      allDept.CE.map((d) => <Option value={d}>{d}</Option>)
+                      allDept.CE.map((d) => (
+                        <Option key={d} value={d}>
+                          {d}
+                        </Option>
+                      ))
                     ) : (
                       <Option value={null}>
                         Please select the faculty first

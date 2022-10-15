@@ -6,7 +6,7 @@ import StudentHomeRightSide from './StudentHomePart/StudentHomeRightSide';
 
 const StudentHome = () => {
   return (
-    <section className="overflow-hidden">
+    <section>
       <NavBar />
       <MotionDiv>
         <div className="flex justify-center gap-x-5 max-w-[1200px] mx-auto relative">

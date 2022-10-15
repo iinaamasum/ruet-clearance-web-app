@@ -10,7 +10,7 @@ import { Link, NavLink } from 'react-router-dom';
 import logo from '../../assets/logo/logo.png';
 import auth from '../../firebase.config';
 
-export default function NavBar() {
+export default function TeacherNavbar() {
   const [openNav, setOpenNav] = useState(false);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function NavBar() {
   }, []);
 
   const NavLinks = [
-    { id: 1, path: '/student-dashboard', name: 'Clearance' },
+    { id: 1, path: '/teacher-dashboard', name: 'Clearance' },
     { id: 2, path: '/result', name: 'Result' },
     { id: 3, path: '/report-error', name: 'Report Error' },
     { id: 5, path: '/about', name: 'About' },

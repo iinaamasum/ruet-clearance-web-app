@@ -38,7 +38,7 @@ const DueClearance = ({
         .get(
           `http://localhost:5001/api/v1/student/profile-info?email=${user.email}`
         )
-        .then((res) => res.data)
+        .then((res) => res.data.allStudentInfo[0])
   );
 
   if (userLoading || isLoading) {
@@ -51,6 +51,9 @@ const DueClearance = ({
         isError.message
     );
   }
+
+  const { name, roll, contact_number, dept, email, faculty, series } =
+    studentInfo;
 
   const onSubmit = async (data) => {
     if (remainDue === 'default') {
@@ -90,8 +93,14 @@ const DueClearance = ({
     }
 
     const dueClearanceApplication = {
-      studentRoll: studentInfo.allStudentInfo[0].roll,
-      studentEmail: studentInfo.allStudentInfo[0].email,
+      appliedFor: 'Due Clearance',
+      studentName: name,
+      studentEmail: email,
+      studentRoll: roll,
+      studentFaculty: faculty,
+      studentDept: dept,
+      studentSeries: series,
+      studentContactInfo: contact_number,
       dueReason: [...allDueReason],
       due: {
         remainDue: remainDue,

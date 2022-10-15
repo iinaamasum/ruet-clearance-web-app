@@ -10,6 +10,7 @@ import TeacherRegister from './Pages/Auth/TeacherRegister.jsx';
 import StudentHome from './Pages/Dashboard/StudentHome.jsx';
 import StudentProfileInfo from './Pages/ProfileInfo/StudentProfileInfo.jsx';
 import TeacherProfileInfo from './Pages/ProfileInfo/TeacherProfileInfo.jsx';
+import TeacherDashboard from './Pages/TeacherDashboard/TeacherDashboard.jsx';
 
 const AllRoutes = () => {
   const location = useLocation();
@@ -41,6 +42,14 @@ const AllRoutes = () => {
           element={
             <RequireAuthentication>
               <StudentHome />
+            </RequireAuthentication>
+          }
+        />
+        <Route
+          path="/teacher-dashboard"
+          element={
+            <RequireAuthentication>
+              <TeacherDashboard />
             </RequireAuthentication>
           }
         />
