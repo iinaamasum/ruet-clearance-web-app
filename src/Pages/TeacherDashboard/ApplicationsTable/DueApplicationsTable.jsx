@@ -167,6 +167,20 @@ const DueApplicationsTable = ({
                     color="blue"
                     className="h-[30px] flex justify-center items-center"
                   >
+                    Approved
+                  </Button>
+                  <Button
+                    // onClick={() => {
+                    //   handleOpenDeleteModal(
+                    //     dueApplicationData.result[0]._id,
+                    //     'Due Application'
+                    //   );
+                    // }}
+                    variant="filled"
+                    size="sm"
+                    color="blue"
+                    className="h-[30px] flex justify-center items-center"
+                  >
                     Action
                   </Button>
                 </div>

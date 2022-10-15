@@ -80,7 +80,7 @@ const TeacherDashboard = () => {
       <TeacherNavbar />
       <section>
         <MotionDiv>
-          <div className="lg:flex justify-center w-full max-w-[1500px] mx-auto gap-x-5">
+          <div className="lg:flex justify-center w-full max-w-[1500px] mx-auto gap-x-5 px-1 md:px-4">
             <div
               style={{
                 boxShadow: 'rgb(228 232 247 / 60%) 5px 0px 80px',

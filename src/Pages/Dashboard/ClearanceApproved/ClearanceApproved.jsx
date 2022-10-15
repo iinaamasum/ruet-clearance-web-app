@@ -144,7 +144,7 @@ const ClearanceApproved = ({
 
                   <td className="text-sm">
                     <p className="inline-flex justify-center items-center gap-x-2">
-                      {d.getClearanceSections.length}{' '}
+                      {d.totalSections.length}{' '}
                       {d.appliedFor.includes('Hall')
                         ? ' Halls'
                         : d.appliedFor.includes('Faculty')
