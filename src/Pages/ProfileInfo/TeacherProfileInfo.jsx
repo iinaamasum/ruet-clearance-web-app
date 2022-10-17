@@ -40,7 +40,7 @@ const TeacherProfileInfo = () => {
       async function userFetch() {
         const userFound = await axios
           .get(
-            `http://localhost:5001/api/v1/teacher/profile-info?email=${user.email}`
+            `https://ruet-clearance-system-server.vercel.app/api/v1/teacher/profile-info?email=${user.email}`
           )
           .then((res) => res.data);
 
@@ -72,7 +72,10 @@ const TeacherProfileInfo = () => {
     console.log(userInfo);
     try {
       const postTeacherInfo = await axios
-        .post('http://localhost:5001/api/v1/teacher/profile-info', userInfo)
+        .post(
+          'https://ruet-clearance-system-server.vercel.app/api/v1/teacher/profile-info',
+          userInfo
+        )
         .then((res) => res.data);
       if (postTeacherInfo?.error?.keyValue) {
         toast.error(

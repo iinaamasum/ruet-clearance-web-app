@@ -27,7 +27,7 @@ const ApplyClearanceModal = ({
   } = useQuery(['studentInfoDetails', user], async () => {
     return await axios
       .get(
-        `http://localhost:5001/api/v1/student/profile-info?email=${user.email}`
+        `https://ruet-clearance-system-server.vercel.app/api/v1/student/profile-info?email=${user.email}`
       )
       .then((res) => res.data.allStudentInfo[0]);
   });
@@ -70,7 +70,7 @@ const ApplyClearanceModal = ({
     try {
       const postRes = await axios
         .post(
-          `http://localhost:5001/api/v1/student/hall-faculty-admin-clearance-apply`,
+          `https://ruet-clearance-system-server.vercel.app/api/v1/student/hall-faculty-admin-clearance-apply`,
           postDoc
         )
         .then((res) => res.data);

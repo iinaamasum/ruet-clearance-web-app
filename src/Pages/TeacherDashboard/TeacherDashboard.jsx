@@ -32,7 +32,7 @@ const TeacherDashboard = () => {
     async () => {
       return await axios
         .get(
-          `http://localhost:5001/api/v1/student/${searchFilter.apiMiddle}?studentSeries=${searchFilter.series}&studentDept=${searchFilter.dept}`
+          `https://ruet-clearance-system-server.vercel.app/api/v1/student/${searchFilter.apiMiddle}?studentSeries=${searchFilter.series}&studentDept=${searchFilter.dept}`
         )
         .then((res) => res.data);
     },

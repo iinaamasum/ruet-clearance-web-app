@@ -36,7 +36,7 @@ const DueClearance = ({
     async () =>
       await axios
         .get(
-          `http://localhost:5001/api/v1/student/profile-info?email=${user.email}`
+          `https://ruet-clearance-system-server.vercel.app/api/v1/student/profile-info?email=${user.email}`
         )
         .then((res) => res.data.allStudentInfo[0])
   );
@@ -118,7 +118,7 @@ const DueClearance = ({
     try {
       const dueApplyRes = await axios
         .post(
-          'http://localhost:5001/api/v1/student/due-clearance-apply',
+          'https://ruet-clearance-system-server.vercel.app/api/v1/student/due-clearance-apply',
           dueClearanceApplication
         )
         .then((res) => res.data);

@@ -35,7 +35,7 @@ const AppliedForClearance = ({
         if (!delApplyFor) return;
         const deleteResponse = await axios
           .delete(
-            `http://localhost:5001/api/v1/student/${delApplyFor}/${deletionId}`
+            `https://ruet-clearance-system-server.vercel.app/api/v1/student/${delApplyFor}/${deletionId}`
           )
           .then((res) => res.data);
         dueApplicationRefetch();
@@ -74,7 +74,7 @@ const AppliedForClearance = ({
       if (willDelete) {
         const deleteResponse = await axios
           .delete(
-            `http://localhost:5001/api/v1/student/hall-faculty-admin-clearance-apply/${deletionId}`
+            `https://ruet-clearance-system-server.vercel.app/api/v1/student/hall-faculty-admin-clearance-apply/${deletionId}`
           )
           .then((res) => res.data);
         othersApplicationRefetch();

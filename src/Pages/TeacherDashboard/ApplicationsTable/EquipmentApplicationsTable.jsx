@@ -32,7 +32,7 @@ const EquipmentApplicationsTable = ({
         };
         const approveResponse = await axios
           .patch(
-            `http://localhost:5001/api/v1/student/equipment-clearance-apply/${applicationId}`,
+            `https://ruet-clearance-system-server.vercel.app/api/v1/student/equipment-clearance-apply/${applicationId}`,
             updateData
           )
           .then((res) => res.data);
@@ -85,7 +85,7 @@ const EquipmentApplicationsTable = ({
         };
         const rejectionResponse = await axios
           .patch(
-            `http://localhost:5001/api/v1/student/equipment-clearance-apply/${applicationId}`,
+            `https://ruet-clearance-system-server.vercel.app/api/v1/student/equipment-clearance-apply/${applicationId}`,
             updateData
           )
           .then((res) => res.data);

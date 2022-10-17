@@ -41,7 +41,7 @@ const StudentProfileInfo = () => {
       async function userFetch() {
         const userFound = await axios
           .get(
-            `http://localhost:5001/api/v1/student/profile-info?email=${user.email}`
+            `https://ruet-clearance-system-server.vercel.app/api/v1/student/profile-info?email=${user.email}`
           )
           .then((res) => res.data);
 
@@ -71,7 +71,10 @@ const StudentProfileInfo = () => {
     };
     try {
       const postStudentInfo = await axios
-        .post('http://localhost:5001/api/v1/student/profile-info', userInfo)
+        .post(
+          'https://ruet-clearance-system-server.vercel.app/api/v1/student/profile-info',
+          userInfo
+        )
         .then((res) => res.data);
       setUserExists(postStudentInfo);
     } catch (error) {

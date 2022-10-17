@@ -18,7 +18,7 @@ const StudentHomeLeftSide = () => {
   } = useQuery(['studentInfoDetails', user], async () => {
     return await axios
       .get(
-        `http://localhost:5001/api/v1/student/profile-info?email=${user.email}`
+        `https://ruet-clearance-system-server.vercel.app/api/v1/student/profile-info?email=${user.email}`
       )
       .then((res) => res.data.allStudentInfo[0]);
   });
